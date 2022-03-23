@@ -1,1 +1,1 @@
-# easy-res-v2
+easy-res-v2
