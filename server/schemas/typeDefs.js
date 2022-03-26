@@ -31,6 +31,17 @@ type Book {
     email: String!
   }
 
+  input RestaurantInput {
+    occupancy: Int!
+    business_name: String!
+    business_address: String!
+    business_phone: String!
+    business_hours_open: String!
+    business_hours_close: String!
+    business_website: String!
+    business_image: String!
+  }
+
   type User {
     _id: ID
     first_name: String
@@ -40,14 +51,27 @@ type Book {
     email: String
   }
 
+   type Restaurant {
+    _id: ID
+    occupancy: Int
+    business_name: String
+    business_address: String
+    business_phone: String
+    business_hours_open: String
+    business_hours_close: String
+    business_website: String
+    business_image: String
+  }
+
   type Query {
-    me(userId: ID!): User
+    getUser(userId: ID!): User
+    getRestaurant(restaurantId: ID!): Restaurant
   }
 
   type Mutation {  
     login(email: String!, password: String!): Auth
     createUser(input: UserInput): Auth
-    saveBook(userId: ID!, input: BookInput): User
+    createRestaurant(input: RestaurantInput): Restaurant
     deleteBook(userId: ID!, bookId: String!): User
   }
 

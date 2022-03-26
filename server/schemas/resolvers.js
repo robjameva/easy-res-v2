@@ -1,11 +1,15 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
+const { User, Restaurant } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (parent, { userId }) => {
+        getUser: async (parent, { userId }) => {
             return User.findOne({ _id: userId })
+                .select('-__v')
+        },
+        getRestaurant: async (parent, { restaurantId }) => {
+            return Restaurant.findOne({ _id: restaurantId })
                 .select('-__v')
         },
 
@@ -35,26 +39,11 @@ const resolvers = {
 
             return { token, user };
         },
-        saveBook: async (parent, { userId, input }) => {
+        createRestaurant: async (parent, { input }) => {
 
-            const updatedUser = await User.findOneAndUpdate(
-                { _id: userId },
-                {
-                    $addToSet: {
-                        savedBooks: {
-                            bookId: input.bookId,
-                            description: input.description,
-                            title: input.title,
-                            authors: input.authors,
-                            image: input.image,
-                            link: input.link
-                        }
-                    }
-                },
-                { new: true, runValidators: true }
-            );
+            const restaurant = await Restaurant.create(input);
 
-            return updatedUser;
+            return restaurant;
         },
         deleteBook: async (parent, args) => {
 
