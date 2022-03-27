@@ -11,10 +11,12 @@ const resolvers = {
         getRestaurant: async (parent, { restaurantId }) => {
             return Restaurant.findOne({ _id: restaurantId })
                 .select('-__v')
+                .populate('reservations.user')
         },
         getAllRestaurants: async () => {
             return Restaurant.find({})
                 .select('-__v')
+                .populate('reservations.user')
         },
 
     },
