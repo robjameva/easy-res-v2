@@ -12,6 +12,10 @@ const resolvers = {
             return Restaurant.findOne({ _id: restaurantId })
                 .select('-__v')
         },
+        getAllRestaurants: async () => {
+            return Restaurant.find({})
+                .select('-__v')
+        },
 
     },
     Mutation: {
@@ -45,16 +49,24 @@ const resolvers = {
 
             return restaurant;
         },
-        deleteBook: async (parent, args) => {
-
-            const updatedUser = await User.findOneAndUpdate(
-                { _id: args.userId },
-                { $pull: { savedBooks: { bookId: args.bookId, } } },
+        createReservation: async (parent, { input }) => {
+            const reservation = await Restaurant.findOneAndUpdate(
+                { _id: input.restaurant },
+                {
+                    $addToSet: {
+                        reservations: {
+                            party_size: input.party_size,
+                            time_slot: input.time_slot,
+                            user: input.user,
+                            restaurant: input.restaurant
+                        }
+                    }
+                },
                 { new: true, runValidators: true }
             );
 
-            return updatedUser;
-        }
+            return reservation.reservations[reservation.reservations.length - 1];
+        },
     }
 };
 

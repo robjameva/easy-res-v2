@@ -1,5 +1,26 @@
 const { Schema, model } = require('mongoose');
 
+const reservationSchema = new Schema(
+    {
+        party_size: {
+            type: Number,
+            required: true
+        },
+        time_slot: {
+            type: Number,
+            required: true
+        },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        restaurant: {
+            type: Schema.Types.ObjectId,
+            ref: 'Restaurant'
+        },
+    }
+)
+
 const restaurantSchema = new Schema(
     {
         occupancy: {
@@ -37,7 +58,7 @@ const restaurantSchema = new Schema(
             type: String,
             required: true,
         },
-
+        reservations: [reservationSchema]
     }
 );
 
