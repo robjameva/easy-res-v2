@@ -3,7 +3,8 @@ import React from "react";
 // import { Route, BrowserRouter, Routes } from "react-router-dom";
 // import Dashboard  from "";
 // import Login from "";
-// import Signup from "";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn"
 import Home from "../src/components/Home";
 
 // export default function App() {
@@ -24,7 +25,8 @@ import Home from "../src/components/Home";
 export default function App() {
   return(
     <div>
-      <Home/>
+      {/* <Home/> */}
+      <SignUp />
     </div>
   )
 }
