@@ -95,3 +95,9 @@
   text-transform: capitalize;
   transition: 200ms;
 }
+
+.singleImg {
+  height: 60%;
+  width: 60%;
+  border: 3px solid black
+}
