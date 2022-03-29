@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,7 +13,6 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 
 function Copyright(props) {
   return (
@@ -41,8 +41,9 @@ export default function SignInSide() {
 
   return (
     <> 
+    <SearchAppBar />
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '85vh' }}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item

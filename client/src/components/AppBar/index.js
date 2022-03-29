@@ -21,28 +21,23 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from '../../assets/images/logo.png'
-import  {Link} from "react-router-dom";
 
 const listItems = [
   {
     listIcon: <Home />,
-    listText: "Home",
-    link: '/'
+    listText: "Home"
   },
   {
     listIcon: <DashboardIcon/>,
-    listText: "Dashboard",
-    link: '/single'
+    listText: "Dashboard"
   },
   {
     listIcon: <PersonIcon />,
-    listText: "Owned Restaurants",
-    link: '/owned'
+    listText: "Owned Restaurants"
   },
   {
     listIcon: <EmailIcon />,
-    listText: "Contact Us",
-    link: '/contact'
+    listText: "Contact Us"
   }
 ];
 
@@ -105,14 +100,12 @@ export default function SearchAppBar() {
       <Divider />
       <List>
         {listItems.map((listItem, index) => (
-          <Link key={index} to={listItem.link} style={{textDecoration: 'none'}}>
           <ListItem style={{color:'white'}} button key={index}>
             <ListItemIcon style={{color:'white'}}>
               {listItem.listIcon}
             </ListItemIcon>
             <ListItemText primary={listItem.listText} />
           </ListItem>
-          </Link>
         ))}
       </List>
     </Box>
@@ -146,12 +139,8 @@ export default function SearchAppBar() {
               {SideList()}
             </Drawer>
           <Stack direction="row" spacing={2}>
-          <Link to="/sign-in" style={{textDecoration: 'none'}}>
           <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign In</Button>
-          </Link>
-          <Link to="/sign-up" style={{textDecoration: 'none'}}>
           <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>
-          </Link>
           </Stack>
           
           <Search sx={{ borderColor: '#14006b' }}>
