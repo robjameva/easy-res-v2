@@ -76,6 +76,46 @@ export default function SignInSide() {
               Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="first_name"
+                label="First Name"
+                name="firstName"
+                autoComplete="firstName"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="last_name"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lastName"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="phone_number"
+                label="Phone Number"
+                name="phoneNumber"
+                autoComplete="phoneNumber"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+              />
               <TextField
                 margin="normal"
                 required
@@ -96,10 +136,17 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="confirm_password"
+                label="Confirm Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
               />
+              
               <Button
                 type="submit"
                 fullWidth
@@ -112,8 +159,8 @@ export default function SignInSide() {
                 <Grid item xs>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link href="/sign-in" variant="body2">
+                    {"Already have an account? Sign In"}
                   </Link>
                 </Grid>
               </Grid>

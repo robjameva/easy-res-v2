@@ -23,6 +23,7 @@ input UserInput {
   phone_number: String!
   username: String!
   password: String!
+  confirm_password: String!
   email: String!
 }
 
