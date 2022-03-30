@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import Dashboard  from '';
 import SignUp from "./components/SignUp";
-import SignIn from "./components/SignIn"
+import Login from "./components/Login"
 import Home from "../src/components/Home";
 // import SingleView from "./components/SingleView";
 import Footer from "./components/Footer";
@@ -38,7 +38,7 @@ export default function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/sign-in" component={SignIn} />
+              <Route exact path="/login" component={Login} />
               <Route exact path="/sign-up" component={SignUp} />
               <Route exact path="/single" component={SingleView} />
               {/* <Route exact path="" component={SingleView} /> */}

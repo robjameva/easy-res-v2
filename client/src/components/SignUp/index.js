@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignInSide() {
+export default function LoginSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -154,7 +154,7 @@ export default function SignInSide() {
                 <Grid item xs>
                 </Grid>
                 <Grid item>
-                  <Link to="/sign-in" variant="body2">
+                  <Link to="/login" variant="body2">
                     {"Already have an account? Sign In"}
                   </Link>
                 </Grid>

@@ -146,8 +146,8 @@ export default function SearchAppBar() {
               {SideList()}
             </Drawer>
           <Stack direction="row" spacing={2}>
-          <Link to="/sign-in" style={{textDecoration: 'none'}}>
-          <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign In</Button>
+          <Link to="/login" style={{textDecoration: 'none'}}>
+          <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Login</Button>
           </Link>
           <Link to="/sign-up" style={{textDecoration: 'none'}}>
           <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>
