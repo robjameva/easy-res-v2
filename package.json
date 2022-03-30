@@ -4,7 +4,8 @@
   "description": "easy-res-v2",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/robjameva/easy-res-v2/issues"
   },
-  "homepage": "https://github.com/robjameva/easy-res-v2#readme"
+  "homepage": "https://github.com/robjameva/easy-res-v2#readme",
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.10"
+  }
 }

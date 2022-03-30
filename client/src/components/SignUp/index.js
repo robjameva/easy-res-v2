@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,6 +13,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../utils/mutations';
 
 function Copyright(props) {
   return (
@@ -30,6 +32,12 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+  const [userFormData, setUserFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
