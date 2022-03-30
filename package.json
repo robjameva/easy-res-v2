@@ -18,13 +18,6 @@
     "url": "https://github.com/robjameva/easy-res-v2/issues"
   },
   "homepage": "https://github.com/robjameva/easy-res-v2#readme",
-<<<<<<< HEAD
-  "devDependencies": {
-    "concurrently": "^7.0.0"
-  },
-  "dependencies": {
-    "@apollo/client": "^3.5.10"
-=======
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@date-io/date-fns": "^2.13.1",
@@ -35,6 +28,5 @@
   },
   "devDependencies": {
     "concurrently": "^7.0.0"
->>>>>>> 8e3dc4f10ecbea5e56d6593ba1450b2c6e58f56d
   }
 }
