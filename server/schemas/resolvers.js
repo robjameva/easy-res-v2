@@ -26,7 +26,6 @@ const resolvers = {
     },
     Mutation: {
         createUser: async (parent, { input }) => {
-            console.log(input)
             const user = await User.create(input);
             const token = signToken(user);
 
@@ -55,7 +54,6 @@ const resolvers = {
             return restaurant;
         },
         createReservation: async (parent, { input }) => {
-            console.log(input)
             const reservation = await Reservation.create(input);
 
             return reservation;
@@ -67,8 +65,40 @@ const resolvers = {
                 { new: true, runValidators: true }
             );
 
-            console.log(input)
             return updatedReservation
+        },
+        updateRestaurant: async (parent, { input }) => {
+            const updatedRestaurant = await Restaurant.findOneAndUpdate(
+                { _id: input._id },
+                input,
+                { new: true, runValidators: true }
+            );
+
+            return updatedRestaurant
+        },
+        updateUser: async (parent, { input }) => {
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: input._id },
+                input,
+                { new: true, runValidators: true }
+            );
+
+            return updatedUser;
+        },
+        deleteUser: async (parent, { _id }) => {
+            const user = await User.findOneAndDelete({ _id })
+
+            return user;
+        },
+        deleteReservation: async (parent, { _id }) => {
+            const reservation = await Reservation.findOneAndDelete({ _id })
+
+            return reservation;
+        },
+        deleteRestaurant: async (parent, { _id }) => {
+            const restaurant = await Restaurant.findOneAndDelete({ _id })
+
+            return restaurant;
         },
     }
 };
