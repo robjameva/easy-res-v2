@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Restaurant } = require('../models');
+const { User, Restaurant, Reservation } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -18,11 +18,14 @@ const resolvers = {
                 .select('-__v')
                 .populate('reservations.user')
         },
+        getReservation: async (parent, { reservationID }) => {
+            return Reservation.findOne({ _id: reservationID })
+                .select('-__v')
+        },
 
     },
     Mutation: {
         createUser: async (parent, { input }) => {
-            console.log(input)
             const user = await User.create(input);
             const token = signToken(user);
 
@@ -46,28 +49,56 @@ const resolvers = {
             return { token, user };
         },
         createRestaurant: async (parent, { input }) => {
-
             const restaurant = await Restaurant.create(input);
 
             return restaurant;
         },
         createReservation: async (parent, { input }) => {
-            const reservation = await Restaurant.findOneAndUpdate(
-                { _id: input.restaurant },
-                {
-                    $addToSet: {
-                        reservations: {
-                            party_size: input.party_size,
-                            time_slot: input.time_slot,
-                            user: input.user,
-                            restaurant: input.restaurant
-                        }
-                    }
-                },
+            const reservation = await Reservation.create(input);
+
+            return reservation;
+        },
+        updateReservation: async (parent, { input }) => {
+            const updatedReservation = await Reservation.findOneAndUpdate(
+                { _id: input.reservationID },
+                input,
                 { new: true, runValidators: true }
             );
 
-            return reservation.reservations[reservation.reservations.length - 1];
+            return updatedReservation
+        },
+        updateRestaurant: async (parent, { input }) => {
+            const updatedRestaurant = await Restaurant.findOneAndUpdate(
+                { _id: input._id },
+                input,
+                { new: true, runValidators: true }
+            );
+
+            return updatedRestaurant
+        },
+        updateUser: async (parent, { input }) => {
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: input._id },
+                input,
+                { new: true, runValidators: true }
+            );
+
+            return updatedUser;
+        },
+        deleteUser: async (parent, { _id }) => {
+            const user = await User.findOneAndDelete({ _id })
+
+            return user;
+        },
+        deleteReservation: async (parent, { _id }) => {
+            const reservation = await Reservation.findOneAndDelete({ _id })
+
+            return reservation;
+        },
+        deleteRestaurant: async (parent, { _id }) => {
+            const restaurant = await Restaurant.findOneAndDelete({ _id })
+
+            return restaurant;
         },
     }
 };

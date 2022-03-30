@@ -17,5 +17,16 @@
   "bugs": {
     "url": "https://github.com/robjameva/easy-res-v2/issues"
   },
-  "homepage": "https://github.com/robjameva/easy-res-v2#readme"
+  "homepage": "https://github.com/robjameva/easy-res-v2#readme",
+  "dependencies": {
+    "@apollo/client": "^3.5.10",
+    "@date-io/date-fns": "^2.13.1",
+    "apollo-link-context": "^1.0.20",
+    "date-fns": "^2.28.0",
+    "graphql": "^15.8.0",
+    "jwt-decode": "^3.1.2"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
 }
