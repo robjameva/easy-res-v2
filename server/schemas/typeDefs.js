@@ -5,18 +5,28 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
 
 type Reservation {
+  _id: ID!
   party_size: Int
   time_slot: Int
   user: User
   restaurant: Restaurant
 }
 
-input ReservationInput {
+input ReservationCreateInput {
   party_size: Int!
   time_slot: Int!
   user: ID!
   restaurant: ID!
 }
+
+input ReservationUpdateInput {
+  reservationID: ID!
+  party_size: Int
+  time_slot: Int
+  user: ID
+  restaurant: ID
+}
+
 input UserInput {
   first_name: String!
   last_name: String!
@@ -56,20 +66,21 @@ type Restaurant {
   business_hours_close: String
   business_website: String
   business_image: String
-  reservations: [Reservation]
 }
 
 type Query {
   getUser(userId: ID!): User
   getRestaurant(restaurantId: ID!): Restaurant
   getAllRestaurants: [Restaurant]
+  getReservation(reservationID: ID!): Reservation
 }
 
 type Mutation {  
   login(email: String!, password: String!): Auth
   createUser(input: UserInput): Auth
   createRestaurant(input: RestaurantInput): Restaurant
-  createReservation(input: ReservationInput): Reservation
+  createReservation(input: ReservationCreateInput): Reservation
+  updateReservation(input: ReservationUpdateInput): Reservation
 }
 
 type Auth {

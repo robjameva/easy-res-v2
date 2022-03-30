@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Restaurant } = require('../models');
+const { User, Restaurant, Reservation } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -17,6 +17,10 @@ const resolvers = {
             return Restaurant.find({})
                 .select('-__v')
                 .populate('reservations.user')
+        },
+        getReservation: async (parent, { reservationID }) => {
+            return Reservation.findOne({ _id: reservationID })
+                .select('-__v')
         },
 
     },
@@ -46,28 +50,25 @@ const resolvers = {
             return { token, user };
         },
         createRestaurant: async (parent, { input }) => {
-
             const restaurant = await Restaurant.create(input);
 
             return restaurant;
         },
         createReservation: async (parent, { input }) => {
-            const reservation = await Restaurant.findOneAndUpdate(
-                { _id: input.restaurant },
-                {
-                    $addToSet: {
-                        reservations: {
-                            party_size: input.party_size,
-                            time_slot: input.time_slot,
-                            user: input.user,
-                            restaurant: input.restaurant
-                        }
-                    }
-                },
+            console.log(input)
+            const reservation = await Reservation.create(input);
+
+            return reservation;
+        },
+        updateReservation: async (parent, { input }) => {
+            const updatedReservation = await Reservation.findOneAndUpdate(
+                { _id: input.reservationID },
+                input,
                 { new: true, runValidators: true }
             );
 
-            return reservation.reservations[reservation.reservations.length - 1];
+            console.log(input)
+            return updatedReservation
         },
     }
 };
