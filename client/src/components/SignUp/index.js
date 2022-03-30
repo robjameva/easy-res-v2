@@ -190,9 +190,10 @@ export default function SignInSide() {
                   <Link to="/sign-in" variant="body2">
                     {"Already have an account? Sign In"}
                   </Link>
-                  {/* <Link to="" variant="body2">
+                  <br></br>
+                  <Link to="" variant="body2">
                     {"Want to put your restaurant on our site? Sign up here"}
-                  </Link> */}
+                  </Link>
                 </Grid>
               </Grid>
             </Box>
