@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,7 +14,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../utils/mutations';
+import { CREATE_USER } from '../../utils/mutations';
+//import Auth from '../../utils/auth';
 
 function Copyright(props) {
   return (
@@ -34,16 +35,40 @@ const theme = createTheme();
 export default function SignInSide() {
   const [userFormData, setUserFormData] = useState({
     username: '',
+    firstName: '',
+    last_name: '',
+    phone_number: '',
     email: '',
     password: '',
   });
 
-  const handleSubmit = (event) => {
+  const [createUser] = useMutation(CREATE_USER);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+    });
+
+    try {
+      const { data } = await createUser({
+        variables: { ...userFormData },
+      });
+      console.log(data);
+      //Auth.login(data.createUser.token);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setUserFormData({
+      username: '',
+      firstName: '',
+      last_name: '',
+      phone_number: '',
+      email: '',
+      password: '',
     });
   };
 
