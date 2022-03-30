@@ -6,6 +6,7 @@ import React from "react";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn"
 import Home from "../src/components/Home";
+import UserDashboard from "./components/UserDashboard";
 
 // export default function App() {
 //   return (
@@ -26,7 +27,8 @@ export default function App() {
   return(
     <div>
       {/* <Home/> */}
-      <SignUp />
+      {/* <SignUp /> */}
+      <UserDashboard />
     </div>
   )
 }
