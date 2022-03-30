@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignInSide() {
+export default function LoginSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -50,7 +50,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://source.unsplash.com/random/?food-drink)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -154,7 +154,7 @@ export default function SignInSide() {
                 <Grid item xs>
                 </Grid>
                 <Grid item>
-                  <Link to="/sign-in" variant="body2">
+                  <Link to="/login" variant="body2">
                     {"Already have an account? Sign In"}
                   </Link>
                 </Grid>
