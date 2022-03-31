@@ -22,6 +22,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from '../../assets/images/logo.png'
 import {Link} from "react-router-dom";
+import Auth from '../../utils/auth';
 
 const listItems = [
   {
@@ -98,6 +99,11 @@ export default function SearchAppBar() {
     setOpen(!open);
   };
 
+  const logout = event => {
+    event.preventDefault();
+    Auth.logout();
+  };
+
   const SideList = () => (
     <Box sx={{width: 250,
         background: "#2f3136",
@@ -146,12 +152,26 @@ export default function SearchAppBar() {
               {SideList()}
             </Drawer>
           <Stack direction="row" spacing={2}>
-          <Link to="/login" style={{textDecoration: 'none'}}>
-          <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Login</Button>
-          </Link>
-          <Link to="/sign-up" style={{textDecoration: 'none'}}>
-          <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>
-          </Link>
+          {Auth.loggedIn() ? (
+            <>
+            {/* link to profile when made */}
+            <Link to="/">
+            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Profile</Button>
+            </Link>
+            <a href="/" onClick={logout}>
+            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Logout</Button>
+            </a>
+            </>
+          ) : (
+            <>
+            <Link to="/log-in" style={{textDecoration: 'none'}}>
+            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Log In</Button>
+            </Link>
+            <Link to="/sign-up" style={{textDecoration: 'none'}}>
+            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>
+            </Link>
+            </>
+          )}
           </Stack>
           
           <Search sx={{ borderColor: '#14006b' }}>
