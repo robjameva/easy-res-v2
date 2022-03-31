@@ -88,13 +88,14 @@ const typeDefs = gql`
 		business_image: String
 	}
 
-	type Query {
-		getUser(userId: ID!): User
-		getRestaurant(restaurantId: ID!): Restaurant
-		getAllRestaurants: [Restaurant]
-		getReservation(reservationID: ID!): Reservation
-	}
 
+  type Query {
+  getUser(userId: ID!): User
+  getRestaurant(restaurantId: ID!): Restaurant
+  getAllRestaurants: [Restaurant]
+  getReservationsByUser(userID: ID!): [Reservation]
+  }
+  
 	type Mutation {
 		login(email: String!, password: String!): Auth
 		createUser(input: UserInput): Auth
