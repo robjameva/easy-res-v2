@@ -2,15 +2,9 @@ import React from 'react';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import Dashboard  from '';
-<<<<<<< HEAD
 import SignUp from "./components/SignUp";
 import Login from "./components/Login"
 import Home from "../src/components/Home";
-=======
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
-import Home from '../src/components/Home';
->>>>>>> feature/use-query-hooks
 // import SingleView from "./components/SingleView";
 import Footer from './components/Footer';
 import SearchAppBar from './components/AppBar';
@@ -42,37 +36,6 @@ const client = new ApolloClient({
 });
 
 export default function App() {
-<<<<<<< HEAD
-  return (
-    // <ApolloProvider client={client}>
-      <Router>
-        <SearchAppBar/>
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/sign-up" component={SignUp} />
-              <Route exact path="/single" component={SingleView} />
-              {/* <Route exact path="" component={SingleView} /> */}
-            </Switch>
-          </div>
-          <Footer />
-      </Router>
-    // </ApolloProvider>
-  );
-}
-
-// export default function App() {
-//   return(
-//     <div>
-//       {/* <Home/> */}
-//       <SingleView/>
-//       {/* <SignUp /> */}
-//     </div>
-//   )
-// }
-
-=======
 	return (
 		<ApolloProvider client={client}>
 			<Router>
@@ -80,7 +43,7 @@ export default function App() {
 				<div className="container">
 					<Switch>
 						<Route exact path="/" component={Home} />
-						<Route exact path="/sign-in" component={SignIn} />
+						<Route exact path="/login" component={Login} />
 						<Route exact path="/sign-up" component={SignUp} />
 						<Route exact path="/single" component={SingleView} />
 						{/* <Route exact path="" component={SingleView} /> */}
@@ -91,4 +54,3 @@ export default function App() {
 		</ApolloProvider>
 	);
 }
->>>>>>> feature/use-query-hooks
