@@ -93,7 +93,7 @@ type Query {
   getUser(userId: ID!): User
   getRestaurant(restaurantId: ID!): Restaurant
   getAllRestaurants: [Restaurant]
-  getReservation(reservationID: ID!): Reservation
+  getReservationsByUser(userID: ID!): [Reservation]
 }
 
 type Mutation {  
