@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -24,9 +24,12 @@ const {loading, error, data} = useQuery(QUERY_RESERVATION_BY_USER, {
         variables: {userId: "624513b97cef160e8407c3a1"}
       });
 
-const reservationData = data?.getReservationsByUser || [];
+    useEffect(() => {
 
-console.log(reservationData);
+        const reservationData = data?.getReservationsByUser || [];
+        console.log(reservationData);
+    },[data]);
+
   return (
     <>
       <p>Hello World</p>
