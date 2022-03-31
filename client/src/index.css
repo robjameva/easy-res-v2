@@ -5,10 +5,11 @@
 
 .hero, .hero h1 {
   background-image: url("./assets/testImg/hero.jpeg");
-  height: 250px;
+  height: 200px;
   width: 100%;
   background-size: cover;
   background-position: 80%;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   margin-bottom: 0px;
   padding-bottom: 0px;
@@ -58,6 +59,18 @@
   transition: 300ms;
   cursor: pointer;
 }
+
+.singleBanner {
+  width: 100%;
+  height: 5%;
+  background-color: black;
+  color: whitesmoke;
+  text-align: center;
+  padding: 1%;
+  margin: 0;
+  font-size: 100%;
+}
+
 .Banner .Media .MediaCaption:hover {
   opacity: 0.8;
 }
@@ -105,8 +118,10 @@
 
 .singleImg {
   height: 60%;
-  width: 60%;
-  border: 3px solid black
+  width: 90%;
+  margin-top: 2%;
+  box-shadow: 0px 0px 10px 10px rgba(92, 93, 94, .3);
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 700px) {

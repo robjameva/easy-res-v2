@@ -15,111 +15,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-
-function Banner(props) {
-  if (props.newProp) console.log(props.newProp);
-  const contentPosition = props.contentPosition
-    ? props.contentPosition
-    : "left";
-  const totalItems = props.length ? props.length : 3;
-  const mediaLength = totalItems - 1;
-
-  let items = [];
-  const content = (
-    <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key="content">
-     <Card sx={{ height: '100%'}}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            ER
-          </Avatar>
-        }
-        title={props.item.Name}
-        subheader="Upscale Restaurant"
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={props.item.Image}
-        alt="Paella dish"
-      />
-       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {props.item.Address}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.item.Description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="call">
-          <PhoneIcon />
-        </IconButton>
-      </CardActions>
-         
-    </Card>
-    </Grid>
-  );
-
-  for (let i = 0; i < mediaLength; i++) {
-    const item = props.item.Items[i];
-
-    const media = (
-      <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key={item.Name}>
-        <Card sx={{ height: '100%'}}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            ER
-          </Avatar>
-        }
-        title={item.Name}
-        subheader="Casual Dining"
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={item.Image}
-        alt="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {item.Address}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {item.Description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="call">
-          <PhoneIcon />
-        </IconButton>
-      </CardActions>
-         
-    </Card>
-      </Grid>
-    );
-
-    items.push(media);
-  }
-
-     items.unshift(content);
- 
-  return (
-    <Card raised className="Banner">
-      <Grid container spacing={0} className="BannerGrid">
-        {items}
-      </Grid>
-    </Card>
-  );
-}
-
 const items = [
   {
     Name: "Restaurant 1",
@@ -127,22 +22,20 @@ const items = [
     Description: 'This is a great place to eat!',
     Address: '135 Test St. Tampa Fl',
     Initials: 'R1',
-    Items: [
-      {
-        Name: "Restaurant 2",
-        Image: require('../../assets/testImg/2.jpg'),
-        Description: 'This is a great place to eat!',
-        Address: '135 Test St. Tampa Fl',
-        Initials: 'R2',
-      },
-      {
-        Name: "Restaurant 3",
-      Image: require('../../assets/testImg/3.webp'),
-      Description: 'This is a great place to eat!',
-        Address: '135 Test St. Tampa Fl',
-        Initials: 'R3',
-      }
-    ]
+  },
+  {
+    Name: "Restaurant 2",
+    Image: require('../../assets/testImg/2.jpg'),
+    Description: 'This is a great place to eat!',
+    Address: '135 Test St. Tampa Fl',
+    Initials: 'R2',
+  },
+  {
+    Name: "Restaurant 3",
+    Image: require('../../assets/testImg/3.webp'),
+    Description: 'This is a great place to eat!',
+    Address: '135 Test St. Tampa Fl',
+    Initials: 'R3',
   },
   {
     Name: "Restaurant 4",
@@ -150,27 +43,72 @@ const items = [
     Description: 'This is a great place to eat!',
     Address: '135 Test St. Tampa Fl',
     Initials: 'R4',
-    Items: [
-      {
-        Name: "Restaurant 5",
-      Image: require('../../assets/testImg/5.jpg'),
-      Description: 'This is a great place to eat!',
-      Address: '135 Test St. Tampa Fl',
-      Initials: 'R5',
-      },
-      {
-        Name: "Restaurant 6",
-      Image: require('../../assets/testImg/6.webp'),
-      Description: 'This is a great place to eat!',
-      Address: '135 Test St. Tampa Fl',
-      Initials: 'R6',
-      }
-    ]
+  },
+  {
+    Name: "Restaurant 5",
+    Image: require('../../assets/testImg/5.jpg'),
+    Description: 'This is a great place to eat!',
+    Address: '135 Test St. Tampa Fl',
+    Initials: 'R5',
+  },
+  {
+    Name: "Restaurant 6",
+    Image: require('../../assets/testImg/6.webp'),
+    Description: 'This is a great place to eat!',
+    Address: '135 Test St. Tampa Fl',
+    Initials: 'R6',
   }
 ];
 
 
-class BannerExample extends React.Component {
+function Banner(props) {
+  if (props.newProp) console.log(props.newProp);
+  return (
+    <Card raised className="Banner">
+      <Grid container spacing={0} className="BannerGrid">
+      <Grid item xs={12 / 1} sm={12 / 2} md={12 / 3} lg={12 / 3} xl={12 / 4}>
+      <Card sx={{ height: '100%' }}>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+              ER
+            </Avatar>
+          }
+          title={items.Name}
+          subheader="Upscale Restaurant"
+        />
+        <CardMedia
+          component="img"
+          height="194"
+          image={items.Image}
+          alt="Paella dish"
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {items.Address}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {items.Description}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="call">
+            <PhoneIcon />
+          </IconButton>
+        </CardActions>
+
+      </Card>
+      </Grid>
+      </Grid>
+    </Card>
+  );
+}
+
+
+class BannerClass extends React.Component {
   constructor(props) {
     super(props);
 
@@ -231,45 +169,73 @@ class BannerExample extends React.Component {
 
   render() {
     return (
-      <div style={{ paddingTop:"35px", marginTop: "0px", color: "#494949" }}>
+      <div style={{ paddingTop: "35px", marginTop: "0px", color: "#494949" }}>
 
-        <Carousel style={{display: 'flex', justify_content: 'center'}}
+        <Carousel style={{ display: 'flex', justify_content: 'center' }}
           className="Example"
           autoPlay={this.state.autoPlay}
           animation={this.state.animation}
           indicators={this.state.indicators}
-          timeout={this.state.timeout}
+          timeout={3000}
           cycleNavigation={this.state.cycleNavigation}
           navButtonsAlwaysVisible={this.state.navButtonsAlwaysVisible}
           navButtonsAlwaysInvisible={this.state.navButtonsAlwaysInvisible}
-          next={(now, previous) =>
-            console.log(
-              `Next User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
-          prev={(now, previous) =>
-            console.log(
-              `Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
-          onChange={(now, previous) =>
-            console.log(
-              `OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
         >
+           <Card raised className="Banner">
+      <Grid container spacing={0} className="BannerGrid">
           {items.map((item, index) => {
+            console.log(index)
             return (
               <Banner
                 item={item}
                 key={index}
               />
+      //         <Grid item xs={12 / 1} sm={12 / 2} md={12 / 3} lg={12 / 3} xl={12 / 4} key={index}>
+      // <Card sx={{ height: '100%' }}>
+      //   <CardHeader
+      //     avatar={
+      //       <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+      //         ER
+      //       </Avatar>
+      //     }
+      //     title={item.Name}
+      //     subheader="Upscale Restaurant"
+      //   />
+      //   <CardMedia
+      //     component="img"
+      //     height="194"
+      //     image={item.Image}
+      //     alt="Paella dish"
+      //   />
+      //   <CardContent>
+      //     <Typography variant="body2" color="text.secondary">
+      //       {item.Address}
+      //     </Typography>
+      //     <Typography variant="body2" color="text.secondary">
+      //       {item.Description}
+      //     </Typography>
+      //   </CardContent>
+      //   <CardActions disableSpacing>
+      //     <IconButton aria-label="add to favorites">
+      //       <FavoriteIcon />
+      //     </IconButton>
+      //     <IconButton aria-label="call">
+      //       <PhoneIcon />
+      //     </IconButton>
+      //   </CardActions>
+
+      // </Card>
+      // </Grid>
+  
             );
           })}
+           
+            </Grid>
+    </Card>
         </Carousel>
       </div>
     );
   }
 }
 
-export default BannerExample;
+export default BannerClass;
