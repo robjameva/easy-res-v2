@@ -67,22 +67,10 @@ export default function SignUpSide() {
 		// });
 
 		try {
-			console.log('inside try');
-			console.log(userFormData);
-
 			const { data } = await createUser({
-				variables: {
-					first_name: 'nick',
-					last_name: 'o',
-					phone_number: '12234567890',
-					username: 'nicko',
-					password: '12345',
-					email: 'nick@gmail.com',
-				},
+				variables: { input: { ...userFormData } }
 			});
 
-			console.log(error);
-			console.log(data);
 			Auth.login(data.createUser.token);
 		} catch (err) {
 			console.error(err);

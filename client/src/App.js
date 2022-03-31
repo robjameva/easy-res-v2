@@ -54,13 +54,3 @@ export default function App() {
 		</ApolloProvider>
 	);
 }
-
-// export default function App() {
-//   return(
-//     <div>
-//       {/* <Home/> */}
-//       <SingleView/>
-//       {/* <SignUp /> */}
-//     </div>
-//   )
-// }
