@@ -12,3 +12,19 @@ export const QUERY_ME = gql`
 		}
 	}
 `;
+
+export const QUERY_RESERVATION_BY_USER = gql`
+	query GetReservationsByUser($userId: ID!) {
+		getReservationsByUser(userID: $userId) {
+		_id
+		party_size
+		time_slot
+		user {
+			_id
+		}
+		restaurant {
+			_id
+		}
+		}
+	}
+`;

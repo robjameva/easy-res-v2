@@ -1,10 +1,10 @@
 import React from 'react';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import Dashboard  from '';
 import SignUp from "./components/SignUp";
 import Login from "./components/Login"
 import Home from "../src/components/Home";
+import UserDashboard from './components/UserDashboard';
 // import SingleView from "./components/SingleView";
 import Footer from './components/Footer';
 import SearchAppBar from './components/AppBar';
@@ -46,6 +46,8 @@ export default function App() {
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/sign-up" component={SignUp} />
 						<Route exact path="/single" component={SingleView} />
+						<Route exact path="/user-dashboard" component={UserDashboard} />
+
 						{/* <Route exact path="" component={SingleView} /> */}
 					</Switch>
 				</div>
