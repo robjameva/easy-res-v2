@@ -41,7 +41,6 @@ export default function LoginSide() {
 
   return (
     <> 
-    <SearchAppBar />
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
