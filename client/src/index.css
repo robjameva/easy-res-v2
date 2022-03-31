@@ -27,6 +27,7 @@
 .Banner {
   height: 400px;
   position: relative;
+  align-items: center;
 }
 .Banner .Media {
   background-color: white;
