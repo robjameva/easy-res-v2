@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../../utils/mutations';
+import { LOGIN_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 function Copyright(props) {
@@ -26,7 +25,7 @@ function Copyright(props) {
 			{...props}
 		>
 			{'Copyright © '}
-			<Link color="inherit" href="https://mui.com/">
+			<Link color="inherit" to="https://mui.com/">
 				Easy Res
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -37,17 +36,10 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUpSide() {
-	const [userFormData, setUserFormData] = useState({
-		username: '',
-		first_name: '',
-		last_name: '',
-		phone_number: '',
-		email: '',
-		password: '',
-	});
-
-	const [createUser, { error }] = useMutation(CREATE_USER);
+export default function SignInSide() {
+	const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+	const [validated] = useState(false);
+	const [login] = useMutation(LOGIN_USER);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -56,31 +48,30 @@ export default function SignUpSide() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		// const data = new FormData(event.currentTarget);
-		// console.log({
-		// 	username: data.get('username'),
-		// 	first_name: data.get('first_name'),
-		// 	last_name: data.get('last_name'),
-		// 	phone_number: data.get('phone_number'),
-		// 	email: data.get('email'),
-		// 	password: data.get('password'),
-		// });
 
-		try {
-			const { data } = await createUser({
-				variables: { input: { ...userFormData } }
-			});
-
-			Auth.login(data.createUser.token);
-		} catch (err) {
-			console.error(err);
+		const data = new FormData(event.currentTarget);
+		console.log({
+			email: data.get('email'),
+			password: data.get('password'),
+		});
+		if (data.checkValidity() === false) {
+			event.preventDefault();
+			event.stopPropagation();
 		}
 
+		try {
+			const { data } = await login({
+				variables: { ...userFormData },
+			});
+			console.log(data);
+
+			Auth.login(data.login.token);
+		} catch (e) {
+			console.error(e);
+		}
+
+		// clear form values
 		setUserFormData({
-			username: '',
-			first_name: '',
-			last_name: '',
-			phone_number: '',
 			email: '',
 			password: '',
 		});
@@ -89,7 +80,7 @@ export default function SignUpSide() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<Grid container component="main" sx={{ height: '100vh' }}>
+				<Grid container component="main" sx={{ height: '85vh' }}>
 					<CssBaseline />
 					<Grid
 						item
@@ -129,59 +120,15 @@ export default function SignUpSide() {
 								<LockOutlinedIcon />
 							</Avatar>
 							<Typography component="h1" variant="h5">
-								Sign Up
+								Sign in
 							</Typography>
 							<Box
 								component="form"
 								noValidate
+								validated={validated}
 								onSubmit={handleSubmit}
 								sx={{ mt: 1 }}
 							>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									id="first_name"
-									label="First Name"
-									name="first_name"
-									onChange={handleInputChange}
-									value={userFormData.first_name}
-									autoComplete="firstName"
-									autoFocus
-								/>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									id="last_name"
-									label="Last Name"
-									name="last_name"
-									onChange={handleInputChange}
-									value={userFormData.last_name}
-									autoComplete="lastName"
-								/>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									id="phone_number"
-									label="Phone Number"
-									name="phone_number"
-									onChange={handleInputChange}
-									value={userFormData.phone_number}
-									autoComplete="phoneNumber"
-								/>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									id="username"
-									label="Username"
-									name="username"
-									onChange={handleInputChange}
-									value={userFormData.username}
-									autoComplete="username"
-								/>
 								<TextField
 									margin="normal"
 									required
@@ -192,6 +139,7 @@ export default function SignUpSide() {
 									onChange={handleInputChange}
 									value={userFormData.email}
 									autoComplete="email"
+									autoFocus
 								/>
 								<TextField
 									margin="normal"
@@ -205,37 +153,27 @@ export default function SignUpSide() {
 									id="password"
 									autoComplete="current-password"
 								/>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									name="confirm_password"
-									label="Confirm Password"
-									type="password"
-									id="confirm_password"
-									autoComplete="current-password"
+								<FormControlLabel
+									control={<Checkbox value="remember" color="primary" />}
+									label="Remember me"
 								/>
-
 								<Button
 									type="submit"
 									fullWidth
 									variant="contained"
 									sx={{ mt: 3, mb: 2 }}
 								>
-									Sign Up
+									Sign In
 								</Button>
 								<Grid container>
 									<Grid item xs></Grid>
 									<Grid item>
-										<Link to="/sign-in" variant="body2">
-											{'Already have an account? Sign In'}
-										</Link>
-										<br></br>
-										<Link to="" variant="body2">
-											{'Want to put your restaurant on our site? Sign up here'}
+										<Link to="#" variant="body2">
+											{"Don't have an account? Sign Up"}
 										</Link>
 									</Grid>
 								</Grid>
+								<Copyright sx={{ mt: 5 }} />
 							</Box>
 						</Box>
 					</Grid>
