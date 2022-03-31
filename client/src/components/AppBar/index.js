@@ -133,7 +133,7 @@ export default function SearchAppBar() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            sx={{ mr: 0 }}
           >
             <MenuIcon
              style={{ color: '#14006b' }} />
@@ -164,11 +164,11 @@ export default function SearchAppBar() {
             </>
           ) : (
             <>
-            <Link to="/sign-in" style={{textDecoration: 'none'}}>
-            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Log In</Button>
+            <Link to="/log-in" style={{textDecoration: 'none'}}>
+            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Log In</Button>
             </Link>
             <Link to="/sign-up" style={{textDecoration: 'none'}}>
-            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>
+            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>
             </Link>
             </>
           )}
