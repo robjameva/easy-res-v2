@@ -54,10 +54,6 @@ export default function SignInSide() {
 			email: data.get('email'),
 			password: data.get('password'),
 		});
-		if (data.checkValidity() === false) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
 
 		try {
 			const { data } = await login({

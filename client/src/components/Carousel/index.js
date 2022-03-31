@@ -245,17 +245,17 @@ class BannerExample extends React.Component {
           navButtonsAlwaysInvisible={this.state.navButtonsAlwaysInvisible}
           next={(now, previous) =>
             console.log(
-              `Next User Callback: Now displaying child${now}. Previously displayed child${previous}`
+            //   `Next User Callback: Now displaying child${now}. Previously displayed child${previous}`
             )
           }
           prev={(now, previous) =>
             console.log(
-              `Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`
+            //   `Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`
             )
           }
           onChange={(now, previous) =>
             console.log(
-              `OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`
+            //   `OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`
             )
           }
         >
