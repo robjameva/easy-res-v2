@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import autoBind from 'react-autobind';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -14,8 +14,20 @@ import EmailIcon from '@mui/icons-material/Email';
 import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Carousel from 'react-material-ui-carousel'
+import { useQuery } from "@apollo/client";
+import { GET_ALL_RESTAURANTS } from '../../utils/queries'
+import { Link } from 'react-router-dom';
 
 function Carouseld(props) {
+
+  const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
+
+
+  const restaurantData = data?.getAllRestaurants || [];
+  console.log(restaurantData)
+
+
+
   const items = [
     {
       Name: "Restaurant 1",
@@ -61,54 +73,58 @@ function Carouseld(props) {
     }
   ];
 
+  if (loading.length) <h1>Loading</h1>
+
   return (
     <Grid>
-    <Carousel>
-      {
-        items.map((item, i) => <Item key={i} item={item} />)
-      }
-    </Carousel>
+      <Carousel>
+        {
+          restaurantData.map((RestaurantData, i) => <Item key={i} RestaurantData={RestaurantData} />)
+        }
+      </Carousel>
     </Grid>
   )
 }
 
-function Item(props) {
+function Item({ RestaurantData }) {
   return (
     <Grid item>
-      <Card className='card' sx={{ height: '100%' }}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              ER
-            </Avatar>
-          }
-          title={props.item.Name}
-          subheader="Upscale Restaurant"
-        />
-        <CardMedia
+      <Link to={`/${RestaurantData._id}`}>
+        <Card className='card' sx={{ height: '100%' }}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                ER
+              </Avatar>
+            }
+            title={RestaurantData.business_name}
+            subheader="Upscale Restaurant"
+          />
+          {/* <CardMedia
           component="img"
           height="194"
-          image={props.item.Image}
+          image={RestaurantData.Image}
           alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {props.item.Address}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {props.item.Description}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="call">
-            <PhoneIcon />
-          </IconButton>
-        </CardActions>
+        /> */}
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {RestaurantData.business_address}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {RestaurantData.business_website}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="call">
+              <PhoneIcon />
+            </IconButton>
+          </CardActions>
 
-      </Card>
+        </Card>
+      </Link>
     </Grid>
   )
 }

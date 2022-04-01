@@ -1,14 +1,13 @@
 import React from 'react';
-import SearchAppBar from '../AppBar';
 import Hero from '../Hero';
+import Carouseld from '../Carousel';
 
 
 function Home() {
     return (
         <section className='home'>
-            <SearchAppBar/>
-            <Hero/>
-            {/* <Carouseld/> */}
+            <Hero />
+            <Carouseld />
         </section>
     );
 }
