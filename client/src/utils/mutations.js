@@ -31,3 +31,45 @@ export const LOGIN_USER = gql`
 		}
 	}
 `;
+
+export const CREATE_RESTAURANT = gql`
+	mutation Mutation($input: RestaurantInput) {
+		createRestaurant(input: $input) {
+			restaurant {
+				_id
+				occupancy
+				business_name
+				business_address
+				business_phone
+				business_hours_open
+				business_hours_close
+				business_website
+				business_image
+			}
+		}
+	}
+`;
+
+export const DELETE_RESERVATION = gql`
+	mutation Mutation($id: ID!) {
+		deleteReservation(_id: $id) {
+			_id
+			party_size
+			time_slot
+			user {
+				_id
+			}
+			restaurant {
+				_id
+				occupancy
+				business_name
+				business_address
+				business_phone
+				business_hours_open
+				business_hours_close
+				business_website
+				business_image
+			}
+		}
+	}
+`;
