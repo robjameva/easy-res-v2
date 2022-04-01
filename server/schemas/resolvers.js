@@ -18,8 +18,8 @@ const resolvers = {
                 .select('-__v')
                 .populate('reservations.user')
         },
-        getReservation: async (parent, { reservationID }) => {
-            return Reservation.findOne({ _id: reservationID })
+        getReservationsByUser: async (parent, { userID }) => {
+            return Reservation.find({ user: { _id: userID } })
                 .select('-__v')
         },
 

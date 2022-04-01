@@ -26,7 +26,7 @@ function Banner(props) {
 
   let items = [];
   const content = (
-    <Grid item xs={12 / totalItems} key="content">
+    <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key="content">
      <Card sx={{ height: '100%'}}>
       <CardHeader
         avatar={
@@ -68,7 +68,7 @@ function Banner(props) {
     const item = props.item.Items[i];
 
     const media = (
-      <Grid item xs={12 / totalItems} key={item.Name}>
+      <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key={item.Name}>
         <Card sx={{ height: '100%'}}>
       <CardHeader
         avatar={
@@ -232,9 +232,8 @@ class BannerExample extends React.Component {
   render() {
     return (
       <div style={{ paddingTop:"35px", marginTop: "0px", color: "#494949" }}>
-        <h2></h2>
 
-        <Carousel
+        <Carousel style={{display: 'flex', justify_content: 'center'}}
           className="Example"
           autoPlay={this.state.autoPlay}
           animation={this.state.animation}
@@ -245,17 +244,17 @@ class BannerExample extends React.Component {
           navButtonsAlwaysInvisible={this.state.navButtonsAlwaysInvisible}
           next={(now, previous) =>
             console.log(
-              `Next User Callback: Now displaying child${now}. Previously displayed child${previous}`
+            //   `Next User Callback: Now displaying child${now}. Previously displayed child${previous}`
             )
           }
           prev={(now, previous) =>
             console.log(
-              `Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`
+            //   `Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`
             )
           }
           onChange={(now, previous) =>
             console.log(
-              `OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`
+            //   `OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`
             )
           }
         >
@@ -264,7 +263,6 @@ class BannerExample extends React.Component {
               <Banner
                 item={item}
                 key={index}
-                contentPosition={item.contentPosition}
               />
             );
           })}
