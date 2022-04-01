@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import autoBind from 'react-autobind';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -13,10 +13,19 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Carousel from 'react-material-ui-carousel'
+import Carousel from 'react-material-ui-carousel';
 
-function Carouseld(props) {
-  const items = [
+
+function CarouselArr(props) {
+  const [carouselNumber, setCarouselNumber] = useState(4);
+
+  window.addEventListener("resize", () => {
+        if (window.innerWidth >= 900 && window.innerWidth <= 1535) {
+                setCarouselNumber(3)
+        } 
+  })
+
+  const data = [
     {
       Name: "Restaurant 1",
       Image: require('../../assets/testImg/1.jpg'),
@@ -58,23 +67,68 @@ function Carouseld(props) {
       Description: 'This is a great place to eat!',
       Address: '135 Test St. Tampa Fl',
       Initials: 'R6',
+    },
+    {
+      Name: "Restaurant 7",
+      Image: require('../../assets/testImg/5.jpg'),
+      Description: 'This is a great place to eat!',
+      Address: '135 Test St. Tampa Fl',
+      Initials: 'R5',
+    },
+    {
+      Name: "Restaurant 8",
+      Image: require('../../assets/testImg/6.webp'),
+      Description: 'This is a great place to eat!',
+      Address: '135 Test St. Tampa Fl',
+      Initials: 'R6',
     }
   ];
 
+  function render () {
+  const sliderItems = data.length > carouselNumber ? carouselNumber : data.length;
+  const items = [];
+  
+  for (let i = 0; i < data.length; i += sliderItems) {
+    if (i % sliderItems === 0) {
+      items.push(
+        <Card raised className="Banner" key={i.toString()}>
+          <Grid container spacing={0} className="BannerGrid">
+            {data.slice(i, i + sliderItems).map((item, i) => {
+              return <Item key={i} item={item} />;
+            })}
+          </Grid>
+        </Card>
+      );
+    }
+  }
+
   return (
-    <Grid>
     <Carousel>
-      {
-        items.map((item, i) => <Item key={i} item={item} />)
-      }
-    </Carousel>
-    </Grid>
+        {items}
+      </Carousel>
   )
-}
+  }
+  return (
+    <>
+      {render()}
+    </>
+  );
+};
+
+//   return (
+//     <Grid>
+//     <Carousel>
+//       {
+//         items.map((item, i) => <Item key={i} item={item} />)
+//       }
+//     </Carousel>
+//     </Grid>
+//   )
+// }
 
 function Item(props) {
   return (
-    <Grid item>
+    <Grid item xs={12 / 1} sm={12 / 2} md={12 / 3} xl={12 / 4}>
       <Card className='card' sx={{ height: '100%' }}>
         <CardHeader
           avatar={
@@ -113,5 +167,5 @@ function Item(props) {
   )
 }
 
-export default Carouseld;
+export default CarouselArr;
 
