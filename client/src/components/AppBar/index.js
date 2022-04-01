@@ -23,6 +23,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import logo from '../../assets/images/logo.png'
 import {Link} from "react-router-dom";
 import Auth from '../../utils/auth';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import AddIcon from '@mui/icons-material/Add';
 
 const listItems = [
   {
@@ -34,12 +36,24 @@ const listItems = [
     listText: "Dashboard"
   },
   {
-    listIcon: <PersonIcon />,
-    listText: "Owned Restaurants"
+    listIcon: <RestaurantIcon />,
+    listText: "Owned Restaurants",
+    link: '/owned'
   },
   {
     listIcon: <EmailIcon />,
-    listText: "Contact Us"
+    listText: "Contact Us",
+    link: '/contact'
+  },
+  {
+    listIcon: <PersonIcon />,
+    listText: "Login",
+    link: '/log-in'
+  },
+  {
+    listIcon: <AddIcon />,
+    listText: "Sign Up",
+    link: '/sign-up'
   }
 ];
 
@@ -159,7 +173,7 @@ export default function SearchAppBar() {
           ) : (
             <>
             <Link to="/login" style={{textDecoration: 'none'}}>
-            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Log In</Button>
+            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Login</Button>
             </Link>
             <Link to="/sign-up" style={{textDecoration: 'none'}}>
             <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>

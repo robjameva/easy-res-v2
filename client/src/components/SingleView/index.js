@@ -4,10 +4,8 @@ import Footer from "../Footer";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import { red } from '@mui/material/colors';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import image from '../../assets/testImg/1.jpg';
 import DatePicker from "../DatePicker";
@@ -41,6 +39,11 @@ export default function SingleView() {
   return (
     <> 
     <ThemeProvider theme={theme}>
+      <Grid item xs={12} sm={12}>
+      <div className='singleBanner'>
+        <h1>Making Reservations Easy!</h1>
+      </div>
+      </Grid>
       <Grid container component="main" sx={{ height: '85vh' }}>
         <CssBaseline />
         <Grid
@@ -48,18 +51,22 @@ export default function SingleView() {
           xs={false}
           sm={4}
           md={7}
-        //   sx={{
-        //     backgroundImage: `url(${image})`,
-        //     backgroundRepeat: 'no-repeat',
-        //     backgroundColor: (t) =>
-        //       t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-        //     backgroundSize: 'cover',
-        //     backgroundPosition: 'center',
-        //   }}
+          style={{display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexWrap: 'wrap'}}
         >
             <img className='singleImg' src={image}></img>
+            <Grid item xs={12} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <IconButton aria-label="add to favorites">
+            <FavoriteIcon style={{height: '50px', width: '50px'}}/>
+          </IconButton>
+          <IconButton aria-label="call">
+            <PhoneIcon style={{height: '50px', width: '50px'}}/>
+          </IconButton>
+          <IconButton>
+            <EmailIcon style={{height: '50px', width: '50px'}}/>
+          </IconButton>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
