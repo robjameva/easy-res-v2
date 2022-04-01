@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import Carousel from "react-material-ui-carousel";
 import autoBind from 'react-autobind';
 import Grid from '@mui/material/Grid';
@@ -14,9 +14,14 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_ALL_RESTAURANTS } from '../../utils/queries';
+
 
 
 function Banner(props) {
+  let [dbRestaurantData, setRestaurants] = useState([]);
+
   if (props.newProp) console.log(props.newProp);
   const contentPosition = props.contentPosition
     ? props.contentPosition
@@ -24,7 +29,17 @@ function Banner(props) {
   const totalItems = props.length ? props.length : 3;
   const mediaLength = totalItems - 1;
 
-  let items = [];
+  const {loading, error, data} = useQuery(GET_ALL_RESTAURANTS);
+
+    useEffect(() => {
+
+        const restaurantData = data?.getAllRestaurants || [];
+        console.log(restaurantData);
+        setRestaurants(...restaurantData);
+        console.log(dbRestaurantData);
+
+    },[loading]);
+
   const content = (
     <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key="content">
      <Card sx={{ height: '100%'}}>
@@ -105,16 +120,12 @@ function Banner(props) {
     </Card>
       </Grid>
     );
-
-    items.push(media);
   }
-
-     items.unshift(content);
  
   return (
     <Card raised className="Banner">
       <Grid container spacing={0} className="BannerGrid">
-        {items}
+        {'restaurants'}
       </Grid>
     </Card>
   );

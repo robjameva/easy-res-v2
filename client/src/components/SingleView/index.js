@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import SearchAppBar from "../AppBar";
 import Footer from "../Footer";
 import Grid from '@mui/material/Grid';
@@ -16,11 +16,28 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { requirePropFactory } from "@mui/material";
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_RESTAURANT_BY_ID } from '../../utils/queries';
 
 const theme = createTheme();
 
 export default function SingleView() {
-  
+  let [dbRestaurantData, setRestaurant] = useState([]);
+
+  const {loading, error, data} = useQuery(GET_RESTAURANT_BY_ID, {
+    variables: {restaurantId: "624646dccba6002fc89d7ca4"}
+  });
+
+    useEffect(() => {
+
+        const restaurantData = data?.getRestaurant || [];
+        console.log(restaurantData);
+        setRestaurant(...restaurantData);
+        console.log(dbRestaurantData);
+
+    },[loading]);
+
+
   return (
     <> 
     <ThemeProvider theme={theme}>
