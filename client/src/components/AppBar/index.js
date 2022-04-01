@@ -164,7 +164,7 @@ export default function SearchAppBar() {
             </>
           ) : (
             <>
-            <Link to="/log-in" style={{textDecoration: 'none'}}>
+            <Link to="/login" style={{textDecoration: 'none'}}>
             <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Log In</Button>
             </Link>
             <Link to="/sign-up" style={{textDecoration: 'none'}}>
