@@ -54,10 +54,6 @@ export default function SignInSide() {
 			email: data.get('email'),
 			password: data.get('password'),
 		});
-		if (data.checkValidity() === false) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
 
 		try {
 			const { data } = await login({
@@ -120,7 +116,7 @@ export default function SignInSide() {
 								<LockOutlinedIcon />
 							</Avatar>
 							<Typography component="h1" variant="h5">
-								Sign in
+								Log in
 							</Typography>
 							<Box
 								component="form"
