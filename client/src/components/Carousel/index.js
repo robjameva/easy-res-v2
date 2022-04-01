@@ -26,8 +26,6 @@ function Carouseld(props) {
   const restaurantData = data?.getAllRestaurants || [];
   console.log(restaurantData)
 
-
-
   const items = [
     {
       Name: "Restaurant 1",

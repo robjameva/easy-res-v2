@@ -12,13 +12,21 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
+import { useQuery } from "@apollo/client";
+import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
 
 const theme = createTheme();
 
 export default function SingleView() {
 
-  const { id: restaurantID } = useParams();
-  //call use query to get res data
+  const { restaurantId } = useParams();
+
+  const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
+    variables: { restaurantId }
+  });
+
+  const restaurantData = data?.getRestaurant || [];
+  console.log(restaurantData)
 
   return (
     <>
@@ -62,9 +70,9 @@ export default function SingleView() {
             >
               <Box component="form" noValidate sx={{ mt: 1 }}>
                 <Typography variant='h2'>
-                  Restaurant 1
+                  {restaurantData.business_name}
                 </Typography>
-                <Typography variant='h4'>Casual Dining</Typography>
+                <Typography variant='h4'>{restaurantData.business_website}</Typography>
                 <DatePicker />
                 <Grid container>
                   <Grid item xs>

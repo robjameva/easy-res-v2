@@ -45,7 +45,7 @@ export default function App() {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/sign-up" component={SignUp} />
-						<Route exact path="/:restaurantID" component={SingleView} />
+						<Route exact path="/:restaurantId" component={SingleView} />
 						<Route exact path="/user-dashboard" component={UserDashboard} />
 
 						{/* <Route exact path="" component={SingleView} /> */}
