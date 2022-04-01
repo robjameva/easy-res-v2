@@ -28,3 +28,19 @@ export const QUERY_RESERVATION_BY_USER = gql`
 		}
 	}
 `;
+
+export const GET_ALL_RESTAURANTS = gql`
+query GetAllRestaurants {
+	getAllRestaurants {
+	  _id
+	  occupancy
+	  business_name
+	  business_address
+	  business_phone
+	  business_hours_open
+	  business_hours_close
+	  business_website
+	  business_image
+	}
+  }
+`;
