@@ -1,5 +1,4 @@
 import React from 'react';
-import Carousel from '../Carousel';
 import SearchAppBar from '../AppBar';
 import Hero from '../Hero';
 
@@ -9,7 +8,7 @@ function Home() {
         <section className='home'>
             <SearchAppBar/>
             <Hero/>
-            <Carousel/>
+            {/* <Carouseld/> */}
         </section>
     );
 }
