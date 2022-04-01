@@ -155,8 +155,8 @@ export default function SearchAppBar() {
           {Auth.loggedIn() ? (
             <>
             {/* link to profile when made */}
-            <Link to="/">
-            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Profile</Button>
+            <Link to="/user-dashboard">  
+            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Dashboard</Button>
             </Link>
             <a href="/" onClick={logout}>
             <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Logout</Button>
