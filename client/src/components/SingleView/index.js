@@ -4,6 +4,10 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import image from '../../assets/testImg/1.jpg';
 import DatePicker from "../DatePicker";
@@ -27,6 +31,16 @@ export default function SingleView() {
 
   const restaurantData = data?.getRestaurant || [];
   console.log(restaurantData)
+
+  const [timeSlot, setTimeSlot] = React.useState('');
+
+  const handleChange = (event) => {
+    setTimeSlot(event.target.value);
+  };
+
+  if (loading) {
+    return <h1>Loading</h1>
+  }
 
   return (
     <>
@@ -70,10 +84,26 @@ export default function SingleView() {
             >
               <Box component="form" noValidate sx={{ mt: 1 }}>
                 <Typography variant='h2'>
-                  {restaurantData.business_name}
+                  {restaurantData.restaurant.business_name}
                 </Typography>
-                <Typography variant='h4'>{restaurantData.business_website}</Typography>
-                <DatePicker />
+                <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
+                <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
+                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
+                {/* <DatePicker /> */}
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Time</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={timeSlot}
+                    label="timeSlot"
+                    onChange={handleChange}
+                  >
+                    {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
+
+
+                  </Select>
+                </FormControl>
                 <Grid container>
                   <Grid item xs>
                   </Grid>

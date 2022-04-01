@@ -9,9 +9,19 @@ const resolvers = {
                 .select('-__v')
         },
         getRestaurant: async (parent, { restaurantId }) => {
-            return Restaurant.findOne({ _id: restaurantId })
+            const restaurant = await Restaurant.findOne({ _id: restaurantId })
                 .select('-__v')
-                .populate('reservations.user')
+            // .populate('reservations.user')
+
+            const openHour = parseInt(restaurant.business_hours_open)
+            const closeHour = parseInt(restaurant.business_hours_close)
+            let operatingHours = []
+
+            for (let i = openHour; i < closeHour + 1; i++) {
+                operatingHours.push(i)
+            }
+
+            return { restaurant, hours: operatingHours }
         },
         getAllRestaurants: async () => {
             return Restaurant.find({})

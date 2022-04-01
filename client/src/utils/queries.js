@@ -46,17 +46,20 @@ query GetAllRestaurants {
 `;
 
 export const GET_RESTAURANT_BY_ID = gql`
-query GetRestaurant($restaurantId: ID!) {
+query Query($restaurantId: ID!) {
 	getRestaurant(restaurantId: $restaurantId) {
-	  _id
-	  occupancy
-	  business_name
-	  business_address
-	  business_phone
-	  business_hours_open
-	  business_hours_close
-	  business_website
-	  business_image
+	  restaurant {
+		_id
+		occupancy
+		business_name
+		business_address
+		business_phone
+		business_hours_open
+		business_hours_close
+		business_website
+		business_image
+	  }
+	  hours
 	}
   }
 `;
