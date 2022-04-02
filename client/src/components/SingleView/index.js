@@ -89,7 +89,6 @@ export default function SingleView() {
                 <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
                 <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
                 <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
-                {/* <DatePicker /> */}
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Time</InputLabel>
                   <Select

@@ -116,7 +116,7 @@ type Auth {
 
 type ResWithHours {
 	restaurant: Restaurant
-	hours: [Int]
+	hours: [String]
 }
 `;
 
