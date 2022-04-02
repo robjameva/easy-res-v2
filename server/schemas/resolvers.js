@@ -48,9 +48,12 @@ const resolvers = {
             return { restaurant, hours: formattedHours }
         },
         getAllRestaurants: async () => {
-            return Restaurant.find({})
+            const restaurants = await Restaurant.find({})
                 .select('-__v')
-                .populate('reservations.user')
+
+            console.log(restaurants)
+
+            return restaurants
         },
         getReservationsByUser: async (parent, { userID }) => {
             return Reservation.find({ user: { _id: userID } })

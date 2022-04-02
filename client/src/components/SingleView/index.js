@@ -21,8 +21,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
 import { requirePropFactory } from "@mui/material";
-import { useQuery, useMutation } from '@apollo/client';
-import { GET_RESTAURANT_BY_ID } from '../../utils/queries';
+
+
 
 const theme = createTheme();
 

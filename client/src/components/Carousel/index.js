@@ -23,7 +23,6 @@ function CarouselArr(props) {
 
   const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
 
-
   const restaurantData = data?.getAllRestaurants || [];
   const [carouselNumber, setCarouselNumber] = useState(4);
 
@@ -34,17 +33,17 @@ function CarouselArr(props) {
   })
 
   if (loading.length) <h1>Loading</h1>
+  console.log(data)
 
-
-  const sliderItems = data.length > carouselNumber ? carouselNumber : data.length;
+  const sliderItems = restaurantData.length > carouselNumber ? carouselNumber : restaurantData.length;
   const items = [];
 
-  for (let i = 0; i < data.length; i += sliderItems) {
+  for (let i = 0; i < restaurantData.length; i += sliderItems) {
     if (i % sliderItems === 0) {
       items.push(
         <Card raised className="Banner" key={i.toString()}>
           <Grid container spacing={0} className="BannerGrid">
-            {data.slice(i, i + sliderItems).map((item, i) => {
+            {restaurantData.slice(i, i + sliderItems).map((item, i) => {
               return <Item key={i} item={item} />;
             })}
           </Grid>
