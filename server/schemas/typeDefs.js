@@ -40,8 +40,8 @@ const typeDefs = gql`
 		business_name: String!
 		business_address: String!
 		business_phone: String!
-		business_hours_open: String!
-		business_hours_close: String!
+		business_hours_open: Int!
+		business_hours_close: Int!
 		business_website: String!
 		business_image: String!
 	}
@@ -52,8 +52,8 @@ const typeDefs = gql`
 		business_name: String
 		business_address: String
 		business_phone: String
-		business_hours_open: String
-		business_hours_close: String
+		business_hours_open: Int!
+		business_hours_close: Int!
 		business_website: String
 		business_image: String
 	}
@@ -82,8 +82,8 @@ const typeDefs = gql`
 		business_name: String
 		business_address: String
 		business_phone: String
-		business_hours_open: String
-		business_hours_close: String
+		business_hours_open: Int!
+		business_hours_close: Int!
 		business_website: String
 		business_image: String
 	}
@@ -91,28 +91,33 @@ const typeDefs = gql`
 
   type Query {
   getUser(userId: ID!): User
-  getRestaurant(restaurantId: ID!): Restaurant
+  getRestaurant(restaurantId: ID!): ResWithHours
   getAllRestaurants: [Restaurant]
   getReservationsByUser(userID: ID!): [Reservation]
   }
   
-	type Mutation {
-		login(email: String!, password: String!): Auth
-		createUser(input: UserInput): Auth
-		createRestaurant(input: RestaurantInput): Restaurant
-		createReservation(input: ReservationCreateInput): Reservation
-		updateReservation(input: ReservationUpdateInput): Reservation
-		updateRestaurant(input: RestaurantUpdateInput): Restaurant
-		updateUser(input: UserUpdateInput): User
-		deleteUser(_id: ID!): User
-		deleteReservation(_id: ID!): Reservation
-		deleteRestaurant(_id: ID!): Restaurant
-	}
+type Mutation {
+	login(email: String!, password: String!): Auth
+	createUser(input: UserInput): Auth
+	createRestaurant(input: RestaurantInput): Restaurant
+	createReservation(input: ReservationCreateInput): Reservation
+	updateReservation(input: ReservationUpdateInput): Reservation
+	updateRestaurant(input: RestaurantUpdateInput): Restaurant
+	updateUser(input: UserUpdateInput): User
+	deleteUser(_id: ID!): User
+	deleteReservation(_id: ID!): Reservation
+	deleteRestaurant(_id: ID!): Restaurant
+}
 
-	type Auth {
-		token: ID!
-		user: User
-	}
+type Auth {
+	token: ID!
+	user: User
+}
+
+type ResWithHours {
+	restaurant: Restaurant
+	hours: [String]
+}
 `;
 
 // export the typeDefs

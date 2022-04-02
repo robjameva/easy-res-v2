@@ -1,12 +1,13 @@
 import React from 'react';
-import Carouseld from '../Carousel';
+import CarouselArr from '../Carousel';
 import Hero from '../Hero';
+
 
 function Home() {
     return (
         <section className='home'>
-            <Hero/>
-            <Carouseld/>
+            <Hero />
+            <CarouselArr />
         </section>
     );
 }

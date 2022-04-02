@@ -14,14 +14,46 @@ const resolvers = {
                 .select('-__v')
         },
         getRestaurant: async (parent, { restaurantId }) => {
-            return Restaurant.findOne({ _id: restaurantId })
+            const restaurant = await Restaurant.findOne({ _id: restaurantId })
                 .select('-__v')
-                .populate('reservations.user')
+
+            const reservations = await Reservation.aggregate([
+                // Stage 1: Filter reservations by restaurant id
+                {
+                    $match: { restaurant: restaurant._id }
+                },
+                // Stage 2: Group remaining documents by timeslot and calculate total quantity
+                {
+                    $group: { _id: "$time_slot", totalQuantity: { $sum: "$party_size" } }
+                }
+            ])
+
+            const openHour = parseInt(restaurant.business_hours_open)
+            const closeHour = parseInt(restaurant.business_hours_close)
+            const operatingHours = []
+            const fullHours = []
+
+            for (let i = openHour; i < closeHour + 1; i++) {
+                operatingHours.push(i)
+            }
+
+            reservations.forEach(hour => {
+                if (hour.totalQuantity > restaurant.occupancy) fullHours.push(hour._id);
+            })
+
+            const unformattedAvailableHours = operatingHours.filter(item => !fullHours.includes(item));
+
+            const formattedHours = format_business_hours(unformattedAvailableHours)
+
+            return { restaurant, hours: formattedHours }
         },
         getAllRestaurants: async () => {
-            return Restaurant.find({})
+            const restaurants = await Restaurant.find({})
                 .select('-__v')
-                .populate('reservations.user')
+
+            console.log(restaurants)
+
+            return restaurants
         },
         getReservationsByUser: async (parent, { userID }) => {
             return Reservation.find({ user: { _id: userID } })

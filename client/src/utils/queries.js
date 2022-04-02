@@ -30,15 +30,13 @@ export const QUERY_RESERVATION_BY_USER = gql`
 `;
 
 export const GET_ALL_RESTAURANTS = gql`
-query GetAllRestaurants {
+query Query {
 	getAllRestaurants {
 	  _id
 	  occupancy
 	  business_name
 	  business_address
 	  business_phone
-	  business_hours_open
-	  business_hours_close
 	  business_website
 	  business_image
 	}
@@ -46,17 +44,20 @@ query GetAllRestaurants {
 `;
 
 export const GET_RESTAURANT_BY_ID = gql`
-query GetRestaurant($restaurantId: ID!) {
+query Query($restaurantId: ID!) {
 	getRestaurant(restaurantId: $restaurantId) {
-	  _id
-	  occupancy
-	  business_name
-	  business_address
-	  business_phone
-	  business_hours_open
-	  business_hours_close
-	  business_website
-	  business_image
+	  restaurant {
+		_id
+		occupancy
+		business_name
+		business_address
+		business_phone
+		business_hours_open
+		business_hours_close
+		business_website
+		business_image
+	  }
+	  hours
 	}
   }
 `;
