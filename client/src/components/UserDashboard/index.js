@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -19,20 +19,37 @@ import Auth from '../../utils/auth';
 
 
 export default function UserDashboard() {
+let [dbReservationData, setDbReservationData] = useState([])
 
 const {loading, error, data} = useQuery(QUERY_RESERVATION_BY_USER, {
         variables: {userId: "624513b97cef160e8407c3a1"}
       });
-
+                                                                            
     useEffect(() => {
 
         const reservationData = data?.getReservationsByUser || [];
         console.log(reservationData);
-    },[data]);
+        setDbReservationData(reservationData);
+    },[loading]);
+    
+    if (!dbReservationData.length) {
+      return (
+      <>
+        <h3>No Reservations</h3>
 
-  return (
-    <>
-      <p>Hello World</p>
-    </>
-  )
+        <Link to="/">
+        <Button variant="contained" sx={{ mt: 3, mb: 2 }}>Edit User</Button>
+        </Link>
+      </>
+      )
+    }
+    return (
+        <>
+          <p>Hello World</p>
+          
+          <Link to="/">
+          <Button variant="contained" sx={{ mt: 3, mb: 2 }}>Edit User</Button>
+          </Link>
+        </>
+      )
 }

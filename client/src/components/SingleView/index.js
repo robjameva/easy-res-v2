@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import SearchAppBar from "../AppBar";
+import Footer from "../Footer";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -18,6 +20,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
 import { useQuery } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
+import { requirePropFactory } from "@mui/material";
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_RESTAURANT_BY_ID } from '../../utils/queries';
 
 const theme = createTheme();
 
@@ -41,6 +46,7 @@ export default function SingleView() {
   if (loading) {
     return <h1>Loading</h1>
   }
+
 
   return (
     <>
