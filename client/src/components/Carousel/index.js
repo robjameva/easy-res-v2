@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import autoBind from 'react-autobind';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
@@ -65,7 +64,7 @@ function CarouselArr(props) {
 function Item({ RestaurantData }) {
   return (
     <Grid item>
-      <Link to={`/${RestaurantData._id}`}>
+      <Link to={`/restaurant/${RestaurantData._id}`}>
         <Card className='card' sx={{ height: '100%' }}>
           <CardHeader
             avatar={

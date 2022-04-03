@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import SearchAppBar from "../AppBar";
-import Footer from "../Footer";
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import FoodBankIcon from '@mui/icons-material/FoodBank';
+import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import image from '../../assets/testImg/1.jpg';
-import DatePicker from "../DatePicker";
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
+import { MAKE_RESERVATION } from '../../utils/mutations'
 import { requirePropFactory } from "@mui/material";
-
+import unformat_business_hours from '../../utils/helpers'
+import auth from '../../utils/auth';
 
 
 const theme = createTheme();
@@ -29,6 +30,9 @@ const theme = createTheme();
 export default function SingleView() {
 
   const { restaurantId } = useParams();
+  const [timeSlot, setTimeSlot] = React.useState('');
+  const [partySize, setpartySize] = React.useState('');
+  const [makeRes] = useMutation(MAKE_RESERVATION);
 
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { restaurantId }
@@ -37,16 +41,41 @@ export default function SingleView() {
   const restaurantData = data?.getRestaurant || [];
   console.log(restaurantData)
 
-  const [timeSlot, setTimeSlot] = React.useState('');
 
-  const handleChange = (event) => {
+  const handleTimeChange = (event) => {
     setTimeSlot(event.target.value);
   };
+
+  const handlePartyChange = (event) => {
+    setpartySize(event.target.value);
+  };
+
+  const handleReservation = () => {
+    const user = auth.getProfile().data._id
+    const unformattedhour = unformat_business_hours(timeSlot)
+
+    try {
+      makeRes({
+        variables: {
+          input: {
+            party_size: partySize,
+            time_slot: unformattedhour,
+            user: user,
+            restaurant: restaurantId
+          }
+        }
+      });
+
+      window.location.assign('/');
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   if (loading) {
     return <h1>Loading</h1>
   }
-
 
   return (
     <>
@@ -102,15 +131,42 @@ export default function SingleView() {
                     id="demo-simple-select"
                     value={timeSlot}
                     label="timeSlot"
-                    onChange={handleChange}
+                    onChange={handleTimeChange}
                   >
                     {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
 
 
                   </Select>
                 </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Party Size</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={partySize}
+                    label="partySize"
+                    onChange={handlePartyChange}
+                  >
+                    <MenuItem value={1}>{1}</MenuItem>
+                    <MenuItem value={2}>{2}</MenuItem>
+                    <MenuItem value={3}>{3}</MenuItem>
+                    <MenuItem value={4}>{4}</MenuItem>
+                    <MenuItem value={5}>{5}</MenuItem>
+                    <MenuItem value={6}>{6}</MenuItem>
+                    <MenuItem value={7}>{7}</MenuItem>
+                    <MenuItem value={8}>{8}</MenuItem>
+                  </Select>
+                </FormControl>
                 <Grid container>
                   <Grid item xs>
+                    {timeSlot && partySize
+                      ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>
+                      :
+                      <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>}
                   </Grid>
                   <Grid item>
 

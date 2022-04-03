@@ -1,69 +1,24 @@
-import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
+import React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import FoodBankIcon from '@mui/icons-material/FoodBank';
+import {Link} from "react-router-dom";
 
 
 
 const theme = createTheme();
 
-export default function SignUpSide() {
-	const [userFormData, setUserFormData] = useState({
-		username: '',
-		first_name: '',
-		last_name: '',
-		phone_number: '',
-		email: '',
-		password: '',
-	});
-
-	const [createUser, { error }] = useMutation(CREATE_USER);
-
-	const handleInputChange = (event) => {
-		const { name, value } = event.target;
-		setUserFormData({ ...userFormData, [name]: value });
-	};
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-
-		try {
-			const { data } = await createUser({
-				variables: { input: { ...userFormData } }
-			});
-
-			if (data.createUser.user.isOwner) localStorage.setItem('isOwner', true);
-
-			Auth.login(data.createUser.token);
-		} catch (err) {
-			console.error(err);
-		}
-
-		setUserFormData({
-			username: '',
-			first_name: '',
-			last_name: '',
-			phone_number: '',
-			email: '',
-			password: '',
-		});
-	};
-
+export default function OwnerSign() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<Grid container component="main" sx={{ height: '120vh' }}>
+				<Grid container component="main" sx={{ height: '140vh' }}>
 					<CssBaseline />
 					<Grid
 						item
@@ -99,40 +54,33 @@ export default function SignUpSide() {
 								alignItems: 'center',
 							}}
 						>
-							<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-								<LockOutlinedIcon />
-							</Avatar>
+								<FoodBankIcon sx={{height: '50px', width: '50px'}}/>
 							<Typography component="h1" variant="h5">
 								Sign Up
 							</Typography>
 							<Box
 								component="form"
 								noValidate
-								onSubmit={handleSubmit}
 								sx={{ mt: 1 }}
 							>
 								<TextField
 									margin="normal"
 									required
 									fullWidth
-									id="first_name"
-									label="First Name"
-									name="first_name"
-									onChange={handleInputChange}
-									value={userFormData.first_name}
-									autoComplete="firstName"
+									id="restaurant-name"
+									label="Restaurant Name"
+									name="restaurant-name"
+									autoComplete="restaurant-name"
 									autoFocus
 								/>
-								<TextField
+							    <TextField
 									margin="normal"
 									required
 									fullWidth
-									id="last_name"
-									label="Last Name"
-									name="last_name"
-									onChange={handleInputChange}
-									value={userFormData.last_name}
-									autoComplete="lastName"
+									id="email"
+									label="Email Address"
+									name="email"
+									autoComplete="email"
 								/>
 								<TextField
 									margin="normal"
@@ -141,39 +89,49 @@ export default function SignUpSide() {
 									id="phone_number"
 									label="Phone Number"
 									name="phone_number"
-									onChange={handleInputChange}
-									value={userFormData.phone_number}
 									autoComplete="phoneNumber"
 								/>
-								<TextField
+                                <TextField
 									margin="normal"
 									required
 									fullWidth
-									id="username"
-									label="Username"
-									name="username"
-									onChange={handleInputChange}
-									value={userFormData.username}
-									autoComplete="username"
+									id="open-hours"
+									label="Open Hour"
+									name="open-hours"
+									autoComplete="open-hours"
 								/>
-								<TextField
+                                 <TextField
 									margin="normal"
 									required
 									fullWidth
-									id="email"
-									label="Email Address"
-									name="email"
-									onChange={handleInputChange}
-									value={userFormData.email}
-									autoComplete="email"
+									id="close-hours"
+									label="Closing Hour"
+									name="close-hours"
+									autoComplete="close-hours"
+								/>
+                                 <TextField
+									margin="normal"
+									required
+									fullWidth
+									id="website"
+									label="Website"
+									name="website"
+									autoComplete="website"
+								/>
+                                 <TextField
+									margin="normal"
+									required
+									fullWidth
+									id="image"
+									label="Restaurant Image URL"
+									name="image"
+									autoComplete="image"
 								/>
 								<TextField
 									margin="normal"
 									required
 									fullWidth
 									name="password"
-									onChange={handleInputChange}
-									value={userFormData.password}
 									label="Password"
 									type="password"
 									id="password"
@@ -200,15 +158,9 @@ export default function SignUpSide() {
 								</Button>
 								<Grid container>
 									<Grid item xs></Grid>
-									<Grid item>
-										<Link to="/login" variant="body2">
-											{'Already have an account? Sign In'}
-										</Link>
-										<br></br>
-										<Link to="/owner" variant="body2">
-											{'Want to put your restaurant on our site? Sign up here'}
-										</Link>
-									</Grid>
+									<Link to="/login" variant="body2">
+										{'Already have an account? Sign In'}
+									</Link>
 								</Grid>
 							</Box>
 						</Box>
