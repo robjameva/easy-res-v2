@@ -36,15 +36,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-  function createData(name, time, groupSize ) {
-    return { name, time, groupSize  };
+  function createData(firstName, lastName, time, groupSize ) {
+    return { firstName, lastName, time, groupSize  };
   }
   
   const rows = [
-    createData('Chris', '10:00', 6),
-    createData('Nick', '11:00', 2),
-    createData('Rob', '2:00', 5),
-    createData('Sean', '7:00', 8),
+    createData('Chris', 'McCormack', '10:00', 6),
+    createData('Nick', 'Perel','11:00', 2),
+    createData('Rob', 'Evanik', '2:00', 5),
+    createData('Sean', 'Gillepsie', '7:00', 8),
   ];
 
 export default function OwnerDash() {
@@ -74,17 +74,19 @@ export default function OwnerDash() {
       <Table aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell>First Name</StyledTableCell>
+            <StyledTableCell>Last Name</StyledTableCell>
             <StyledTableCell>Time</StyledTableCell>
             <StyledTableCell>Group Size</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.firstName}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {row.firstName}
               </StyledTableCell>
+              <StyledTableCell>{row.lastName}</StyledTableCell>
               <StyledTableCell>{row.time}</StyledTableCell>
               <StyledTableCell>{row.groupSize}</StyledTableCell>
             </StyledTableRow>
