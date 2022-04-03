@@ -20,10 +20,12 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
+import { MAKE_RESERVATION } from '../../utils/mutations'
 import { requirePropFactory } from "@mui/material";
-
+import unformat_business_hours from '../../utils/helpers'
+import auth from '../../utils/auth';
 
 
 const theme = createTheme();
@@ -31,6 +33,9 @@ const theme = createTheme();
 export default function SingleView() {
 
   const { restaurantId } = useParams();
+  const [timeSlot, setTimeSlot] = React.useState('');
+  const [partySize, setpartySize] = React.useState('');
+  const [makeRes] = useMutation(MAKE_RESERVATION);
 
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { restaurantId }
@@ -39,8 +44,6 @@ export default function SingleView() {
   const restaurantData = data?.getRestaurant || [];
   console.log(restaurantData)
 
-  const [timeSlot, setTimeSlot] = React.useState('');
-  const [partySize, setpartySize] = React.useState('');
 
   const handleTimeChange = (event) => {
     setTimeSlot(event.target.value);
@@ -50,10 +53,30 @@ export default function SingleView() {
     setpartySize(event.target.value);
   };
 
+  const handleReservation = () => {
+    const user = auth.getProfile().data._id
+    const unformattedhour = unformat_business_hours(timeSlot)
+
+    try {
+      makeRes({
+        variables: {
+          input: {
+            party_size: partySize,
+            time_slot: unformattedhour,
+            user: user,
+            restaurant: restaurantId
+          }
+        }
+      });
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   if (loading) {
     return <h1>Loading</h1>
   }
-
 
   return (
     <>
@@ -137,7 +160,7 @@ export default function SingleView() {
                 </FormControl>
                 <Grid container>
                   <Grid item xs>
-                    <Button variant="contained" endIcon={<FoodBankIcon />}>
+                    <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
                       Reserve
                     </Button>
                   </Grid>
