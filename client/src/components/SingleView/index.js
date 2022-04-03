@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SearchAppBar from "../AppBar";
-import Footer from "../Footer";
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -119,12 +116,12 @@ export default function SingleView() {
               }}
             >
               <Box component="form" noValidate sx={{ mt: 1 }}>
-                <Typography variant='h2'>
+                {/* <Typography variant='h2'>
                   {restaurantData.restaurant.business_name}
                 </Typography>
                 <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
                 <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
+                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography> */}
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Time</InputLabel>
                   <Select
@@ -134,7 +131,7 @@ export default function SingleView() {
                     label="timeSlot"
                     onChange={handleTimeChange}
                   >
-                    {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
+                    {/* {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)} */}
 
 
                   </Select>

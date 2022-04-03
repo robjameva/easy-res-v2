@@ -9,6 +9,8 @@ import UserDashboard from './components/UserDashboard';
 import Footer from './components/Footer';
 import SearchAppBar from './components/AppBar';
 import SingleView from './components/SingleView';
+import OwnerSign from "./components/OwnerSignUp"
+import OwnerDash from './components/OwnerDash';
 import {
 	ApolloProvider,
 	ApolloClient,
@@ -45,8 +47,9 @@ export default function App() {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/sign-up" component={SignUp} />
-						<Route exact path="/:restaurantId" component={SingleView} />
-						<Route exact path="/user-dashboard" component={UserDashboard} />
+						{/* <Route exact path="/:restaurantId" component={SingleView} /> */}
+						<Route exact path="/owner-dashboard" component={OwnerDash} />
+						<Route exact path="/owner" component={OwnerSign} />
 
 						{/* <Route exact path="" component={SingleView} /> */}
 					</Switch>

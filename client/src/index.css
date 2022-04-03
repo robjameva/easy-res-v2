@@ -31,6 +31,14 @@
   font-size: 100%;
 }
 
+.singleBanner {
+  margin: 0;
+  padding: 1%;
+  color: white;
+  background-color: black;
+  text-align: center;
+}
+
 .singleImg {
   height: 60%;
   width: 90%;

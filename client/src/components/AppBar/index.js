@@ -29,26 +29,23 @@ import AddIcon from '@mui/icons-material/Add';
 const listItems = [
   {
     listIcon: <Home />,
-    listText: "Home"
+    listText: "Home",
+    link: '/'
   },
   {
     listIcon: <DashboardIcon/>,
-    listText: "Dashboard"
+    listText: "Dashboard",
+    link: '/user-dashboard'
   },
   {
     listIcon: <RestaurantIcon />,
     listText: "Owned Restaurants",
-    link: '/owned'
-  },
-  {
-    listIcon: <EmailIcon />,
-    listText: "Contact Us",
-    link: '/contact'
+    link: '/owner-dashboard'
   },
   {
     listIcon: <PersonIcon />,
     listText: "Login",
-    link: '/log-in'
+    link: '/login'
   },
   {
     listIcon: <AddIcon />,
@@ -121,13 +118,24 @@ export default function SearchAppBar() {
       <Divider />
       <List>
         {listItems.map((listItem, index) => (
+          <Link to={listItem.link}>
           <ListItem style={{color:'white'}} button key={index}>
             <ListItemIcon style={{color:'white'}}>
               {listItem.listIcon}
             </ListItemIcon>
             <ListItemText primary={listItem.listText} />
           </ListItem>
+          </Link>
         ))}
+          <Link to='#'
+          onClick={() => window.location = 'mailto:easyResFakeEmail@notRealEmail.org'}>
+          <ListItem style={{color:'white'}}>
+            <ListItemIcon style={{color:'white'}}>
+            <EmailIcon />
+            </ListItemIcon>
+            <ListItemText primary='Contact' />
+          </ListItem>
+          </Link>
       </List>
     </Box>
   );
@@ -144,16 +152,18 @@ export default function SearchAppBar() {
             sx={{ mr: 0 }}
           >
             <MenuIcon
-             style={{ color: '#14006b' }} />
+             style={{ color: '#21325e' }} />
           </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            style={{ color: '#14006b' }}
+            style={{ color: '#21325e' }}
           >
+            <Link to='/'>
             <img className='logo' src={logo} alt="logo" />
+            </Link>
             {/* Easy Res */}
           </Typography>
           <Drawer open={open} anchor="left" onClose={toggleSlider}>
@@ -164,32 +174,32 @@ export default function SearchAppBar() {
             <>
             {/* link to profile when made */}
             <Link to="/user-dashboard">  
-            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Dashboard</Button>
+            <Button className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Dashboard</Button>
             </Link>
             <a href="/" onClick={logout}>
-            <Button className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Logout</Button>
+            <Button className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Logout</Button>
             </a>
             </>
           ) : (
             <>
             <Link to="/login" style={{textDecoration: 'none'}}>
-            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Login</Button>
+            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Login</Button>
             </Link>
             <Link to="/sign-up" style={{textDecoration: 'none'}}>
-            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#14006b' }}>Sign Up</Button>
+            <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Sign Up</Button>
             </Link>
             </>
           )}
           </Stack>
           
-          <Search sx={{ borderColor: '#14006b' }}>
+          <Search sx={{ borderColor: '#21325e' }}>
             <SearchIconWrapper>
-              <SearchIcon style={{ color: '#14006b' }}/>
+              <SearchIcon style={{ color: '#21325e' }}/>
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              style={{ color: '#14006b' }}
+              style={{ color: '#21325e' }}
             />
           </Search>
         </Toolbar>

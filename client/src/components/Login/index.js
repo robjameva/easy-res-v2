@@ -16,24 +16,6 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
-function Copyright(props) {
-	return (
-		<Typography
-			variant="body2"
-			color="text.secondary"
-			align="center"
-			{...props}
-		>
-			{'Copyright © '}
-			<Link color="inherit" to="https://mui.com/">
-				Easy Res
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	);
-}
-
 const theme = createTheme();
 
 export default function SignInSide() {
@@ -76,7 +58,7 @@ export default function SignInSide() {
   return (
     <> 
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: '85vh' }}>
         <CssBaseline />
         <Grid
           item

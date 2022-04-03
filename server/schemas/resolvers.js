@@ -1,11 +1,11 @@
-require('dotenv').config();
-const { AuthenticationError } = require('apollo-server-express');
-const { User, Restaurant, Reservation } = require('../models');
-const { signToken } = require('../utils/auth');
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
-const { format_business_hours } = require('../utils/helpers');
+// require('dotenv').config();
+// const { AuthenticationError } = require('apollo-server-express');
+// const { User, Restaurant, Reservation } = require('../models');
+// const { signToken } = require('../utils/auth');
+// // const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// // const authToken = process.env.TWILIO_AUTH_TOKEN;
+// // const client = require('twilio')(accountSid, authToken);
+// const { format_business_hours } = require('../utils/helpers');
 
 const resolvers = {
     Query: {
