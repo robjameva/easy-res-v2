@@ -6,10 +6,11 @@
 .hero,
 .hero h1 {
 	background-image: url('./assets/testImg/hero.jpeg');
-	height: 250px;
+	height: 200px;
 	width: 100%;
 	background-size: cover;
 	background-position: 80%;
+	background-repeat: no-repeat;
 	background-attachment: fixed;
 	margin-bottom: 0px;
 	padding-bottom: 0px;
@@ -31,83 +32,20 @@
 	font-size: 100%;
 }
 
-.Banner {
-	height: 400px;
-	position: relative;
-	align-items: center;
-}
-.Banner .Media {
-	background-color: white;
-	height: 100%;
-	overflow: hidden;
-	position: relative;
-	transition: 300ms;
-	cursor: pointer;
-}
-.Banner .Media .MediaCaption {
-	text-overflow: ellipsis;
-	position: absolute;
-	bottom: 0;
-	padding: 15px;
+.singleBanner {
+	margin: 0;
+	padding: 1%;
+	color: white;
 	background-color: black;
-	color: white;
-	opacity: 0.6;
-	width: 100%;
-	height: 10%;
-	font-size: 36px;
-	font-weight: 200;
-	transition: 300ms;
-	cursor: pointer;
-}
-.Banner .Media .MediaCaption:hover {
-	opacity: 0.8;
-}
-.Banner .Media:hover {
-	filter: brightness(115%);
-}
-.Banner .BannerGrid {
-	height: 100%;
-	position: relative;
-}
-.Banner .Content {
-	color: white;
-	background-color: red;
-	height: 100%;
-	position: relative;
-	cursor: pointer;
-	padding: 30px;
-	transition: 300ms;
-}
-.Banner .Content:hover,
-.Banner .Content:active {
-	background-color: tomato;
-}
-.Banner .Content:hover .ViewButton,
-.Banner .Content:active .ViewButton {
-	background-color: white;
-	color: red;
-}
-.Banner .Content .Title {
-	font-size: 42px;
-	font-weight: 500;
-}
-.Banner .Content .Caption {
-	margin-top: 10px;
-	font-size: 24px;
-}
-.Banner .Content .ViewButton {
-	margin-top: 40px;
-	color: white;
-	font-size: 24px;
-	border: 3px solid white;
-	text-transform: capitalize;
-	transition: 200ms;
+	text-align: center;
 }
 
 .singleImg {
 	height: 60%;
-	width: 60%;
-	border: 3px solid black;
+	width: 90%;
+	margin-top: 2%;
+	box-shadow: 0px 0px 10px 10px rgba(92, 93, 94, 0.3);
+	border-radius: 20px;
 }
 
 @media screen and (max-width: 700px) {

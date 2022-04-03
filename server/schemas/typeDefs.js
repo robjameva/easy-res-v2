@@ -33,6 +33,7 @@ const typeDefs = gql`
 		username: String!
 		password: String!
 		email: String!
+		isOwner: Boolean
 	}
 
 	input RestaurantInput {
@@ -40,8 +41,8 @@ const typeDefs = gql`
 		business_name: String!
 		business_address: String!
 		business_phone: String!
-		business_hours_open: String!
-		business_hours_close: String!
+		business_hours_open: Int!
+		business_hours_close: Int!
 		business_website: String!
 		business_image: String!
 	}
@@ -52,8 +53,8 @@ const typeDefs = gql`
 		business_name: String
 		business_address: String
 		business_phone: String
-		business_hours_open: String
-		business_hours_close: String
+		business_hours_open: Int!
+		business_hours_close: Int!
 		business_website: String
 		business_image: String
 	}
@@ -74,6 +75,7 @@ const typeDefs = gql`
 		phone_number: String
 		username: String
 		email: String
+		isOwner: Boolean
 	}
 
 	type Restaurant {
@@ -82,19 +84,19 @@ const typeDefs = gql`
 		business_name: String
 		business_address: String
 		business_phone: String
-		business_hours_open: String
-		business_hours_close: String
+		business_hours_open: Int!
+		business_hours_close: Int!
 		business_website: String
 		business_image: String
 	}
 
 
-  type Query {
-  getUser(userId: ID!): User
-  getRestaurant(restaurantId: ID!): Restaurant
-  getAllRestaurants: [Restaurant]
-  getReservationsByUser(userID: ID!): [Reservation]
-  }
+	type Query {
+		getUser(userId: ID!): User
+		getRestaurant(restaurantId: ID!): ResWithHours
+		getAllRestaurants: [Restaurant]
+		getReservationsByUser(userID: ID!): [Reservation]
+	}
   
 	type Mutation {
 		login(email: String!, password: String!): Auth
@@ -107,11 +109,16 @@ const typeDefs = gql`
 		deleteUser(_id: ID!): User
 		deleteReservation(_id: ID!): Reservation
 		deleteRestaurant(_id: ID!): Restaurant
-	}
+	}	
 
 	type Auth {
 		token: ID!
 		user: User
+	}
+
+	type ResWithHours {
+		restaurant: Restaurant
+		hours: [String]
 	}
 `;
 

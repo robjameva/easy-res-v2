@@ -11,6 +11,7 @@ export const CREATE_USER = gql`
 				first_name
 				email
 				_id
+				isOwner
 			}
 		}
 	}
@@ -27,7 +28,48 @@ export const LOGIN_USER = gql`
 				first_name
 				email
 				_id
+				isOwner
 			}
+		}
+	}
+`;
+
+export const MAKE_RESERVATION = gql`
+	mutation Mutation($input: ReservationCreateInput) {
+		createReservation(input: $input) {
+			_id
+			party_size
+			time_slot
+			user {
+				_id
+			}
+			restaurant {
+				_id
+			}
+		}
+	}
+`;
+
+export const DELETE_RESERVATION = gql`
+	mutation Mutation($id: ID!) {
+		deleteReservation(_id: $id) {
+			_id
+			party_size
+			time_slot
+			user {
+				_id
+			}
+			restaurant {
+				_id
+			}
+		}
+	}
+`;
+
+export const DELETE_RESTAURANT = gql`
+	mutation DeleteRestaurant($id: ID!) {
+		deleteRestaurant(_id: $id) {
+			_id
 		}
 	}
 `;

@@ -1,6 +1,4 @@
-import React from "react";
-import Carousel from "react-material-ui-carousel";
-import autoBind from 'react-autobind';
+import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
@@ -14,262 +12,97 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Carousel from 'react-material-ui-carousel'
+import { useQuery } from "@apollo/client";
+import { GET_ALL_RESTAURANTS } from '../../utils/queries'
+import { Link } from 'react-router-dom';
 
 
-function Banner(props) {
-  if (props.newProp) console.log(props.newProp);
-  const contentPosition = props.contentPosition
-    ? props.contentPosition
-    : "left";
-  const totalItems = props.length ? props.length : 3;
-  const mediaLength = totalItems - 1;
+function CarouselArr(props) {
 
-  let items = [];
-  const content = (
-    <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key="content">
-     <Card sx={{ height: '100%'}}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            ER
-          </Avatar>
-        }
-        title={props.item.Name}
-        subheader="Upscale Restaurant"
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={props.item.Image}
-        alt="Paella dish"
-      />
-       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {props.item.Address}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.item.Description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="call">
-          <PhoneIcon />
-        </IconButton>
-      </CardActions>
-         
-    </Card>
-    </Grid>
-  );
+  const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
 
-  for (let i = 0; i < mediaLength; i++) {
-    const item = props.item.Items[i];
+  const restaurantData = data?.getAllRestaurants || [];
+  const [carouselNumber, setCarouselNumber] = useState(4);
 
-    const media = (
-      <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key={item.Name}>
-        <Card sx={{ height: '100%'}}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            ER
-          </Avatar>
-        }
-        title={item.Name}
-        subheader="Casual Dining"
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={item.Image}
-        alt="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {item.Address}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {item.Description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="call">
-          <PhoneIcon />
-        </IconButton>
-      </CardActions>
-         
-    </Card>
-      </Grid>
-    );
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 900 && window.innerWidth <= 1535) {
+      setCarouselNumber(3)
+    }
+  })
 
-    items.push(media);
+  if (loading.length) <h1>Loading</h1>
+  console.log(data)
+
+  const sliderItems = restaurantData.length > carouselNumber ? carouselNumber : restaurantData.length;
+  const items = [];
+
+  for (let i = 0; i < restaurantData.length; i += sliderItems) {
+    if (i % sliderItems === 0) {
+      items.push(
+        <Card raised className="Banner" key={i.toString()}>
+          <Grid container spacing={0} className="BannerGrid">
+            {restaurantData.slice(i, i + sliderItems).map((item, i) => {
+              return <Item key={i} item={item} />;
+            })}
+          </Grid>
+        </Card>
+      );
+    }
   }
 
-     items.unshift(content);
- 
   return (
-    <Card raised className="Banner">
-      <Grid container spacing={0} className="BannerGrid">
-        {items}
-      </Grid>
-    </Card>
-  );
+    <Carousel>
+      {
+        restaurantData.map((RestaurantData, i) => <Item key={i} RestaurantData={RestaurantData} />)
+      }
+    </Carousel>
+  )
 }
 
-const items = [
-  {
-    Name: "Restaurant 1",
-    Image: require('../../assets/testImg/1.jpg'),
-    Description: 'This is a great place to eat!',
-    Address: '135 Test St. Tampa Fl',
-    Initials: 'R1',
-    Items: [
-      {
-        Name: "Restaurant 2",
-        Image: require('../../assets/testImg/2.jpg'),
-        Description: 'This is a great place to eat!',
-        Address: '135 Test St. Tampa Fl',
-        Initials: 'R2',
-      },
-      {
-        Name: "Restaurant 3",
-      Image: require('../../assets/testImg/3.webp'),
-      Description: 'This is a great place to eat!',
-        Address: '135 Test St. Tampa Fl',
-        Initials: 'R3',
-      }
-    ]
-  },
-  {
-    Name: "Restaurant 4",
-    Image: require('../../assets/testImg/4.jpg'),
-    Description: 'This is a great place to eat!',
-    Address: '135 Test St. Tampa Fl',
-    Initials: 'R4',
-    Items: [
-      {
-        Name: "Restaurant 5",
-      Image: require('../../assets/testImg/5.jpg'),
-      Description: 'This is a great place to eat!',
-      Address: '135 Test St. Tampa Fl',
-      Initials: 'R5',
-      },
-      {
-        Name: "Restaurant 6",
-      Image: require('../../assets/testImg/6.webp'),
-      Description: 'This is a great place to eat!',
-      Address: '135 Test St. Tampa Fl',
-      Initials: 'R6',
-      }
-    ]
-  }
-];
 
+function Item({ RestaurantData }) {
+  return (
+    <Grid item>
+      <Link to={`/restaurant/${RestaurantData._id}`}>
+        <Card className='card' sx={{ height: '100%' }}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                ER
+              </Avatar>
+            }
+            title={RestaurantData.business_name}
+            subheader="Upscale Restaurant"
+          />
+          <CardMedia
+            component="img"
+            height="194"
+            image={RestaurantData.Image}
+            alt="Paella dish"
+          />
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {RestaurantData.business_address}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {RestaurantData.business_website}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="call">
+              <PhoneIcon />
+            </IconButton>
+          </CardActions>
 
-class BannerExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      autoPlay: true,
-      animation: "fade",
-      indicators: true,
-      timeout: 500,
-      navButtonsAlwaysVisible: false,
-      navButtonsAlwaysInvisible: false,
-      cycleNavigation: true
-    };
-
-    autoBind(this);
-  }
-
-  toggleAutoPlay() {
-    this.setState({
-      autoPlay: !this.state.autoPlay
-    });
-  }
-
-  toggleIndicators() {
-    this.setState({
-      indicators: !this.state.indicators
-    });
-  }
-
-  toggleNavButtonsAlwaysVisible() {
-    this.setState({
-      navButtonsAlwaysVisible: !this.state.navButtonsAlwaysVisible
-    });
-  }
-
-  toggleNavButtonsAlwaysInvisible() {
-    this.setState({
-      navButtonsAlwaysInvisible: !this.state.navButtonsAlwaysInvisible
-    });
-  }
-
-  toggleCycleNavigation() {
-    this.setState({
-      cycleNavigation: !this.state.cycleNavigation
-    });
-  }
-
-  changeAnimation(event) {
-    this.setState({
-      animation: event.target.value
-    });
-  }
-
-  changeTimeout(event, value) {
-    this.setState({
-      timeout: value
-    });
-  }
-
-  render() {
-    return (
-      <div style={{ paddingTop:"35px", marginTop: "0px", color: "#494949" }}>
-
-        <Carousel style={{display: 'flex', justify_content: 'center'}}
-          className="Example"
-          autoPlay={this.state.autoPlay}
-          animation={this.state.animation}
-          indicators={this.state.indicators}
-          timeout={this.state.timeout}
-          cycleNavigation={this.state.cycleNavigation}
-          navButtonsAlwaysVisible={this.state.navButtonsAlwaysVisible}
-          navButtonsAlwaysInvisible={this.state.navButtonsAlwaysInvisible}
-          next={(now, previous) =>
-            console.log(
-            //   `Next User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
-          prev={(now, previous) =>
-            console.log(
-            //   `Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
-          onChange={(now, previous) =>
-            console.log(
-            //   `OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
-        >
-          {items.map((item, index) => {
-            return (
-              <Banner
-                item={item}
-                key={index}
-              />
-            );
-          })}
-        </Carousel>
-      </div>
-    );
-  }
+        </Card>
+      </Link>
+    </Grid>
+  )
 }
 
-export default BannerExample;
+export default CarouselArr;
+

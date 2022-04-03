@@ -16,24 +16,6 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
-function Copyright(props) {
-	return (
-		<Typography
-			variant="body2"
-			color="text.secondary"
-			align="center"
-			{...props}
-		>
-			{'Copyright © '}
-			<Link color="inherit" to="https://mui.com/">
-				Easy Res
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	);
-}
-
 const theme = createTheme();
 
 export default function SignInSide() {
@@ -49,17 +31,12 @@ export default function SignInSide() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		const data = new FormData(event.currentTarget);
-		console.log({
-			email: data.get('email'),
-			password: data.get('password'),
-		});
-
 		try {
 			const { data } = await login({
 				variables: { ...userFormData },
 			});
-			console.log(data);
+
+			if (data.login.user.isOwner) localStorage.setItem('isOwner', true);
 
 			Auth.login(data.login.token);
 		} catch (e) {
@@ -84,7 +61,8 @@ export default function SignInSide() {
 						sm={4}
 						md={7}
 						sx={{
-							backgroundImage: 'url(https://source.unsplash.com/random)',
+							backgroundImage:
+								'url(https://source.unsplash.com/random/?food-drink)',
 							backgroundRepeat: 'no-repeat',
 							backgroundColor: (t) =>
 								t.palette.mode === 'light'
@@ -116,12 +94,11 @@ export default function SignInSide() {
 								<LockOutlinedIcon />
 							</Avatar>
 							<Typography component="h1" variant="h5">
-								Log in
+								Login
 							</Typography>
 							<Box
 								component="form"
 								noValidate
-								validated={validated}
 								onSubmit={handleSubmit}
 								sx={{ mt: 1 }}
 							>
@@ -132,22 +109,20 @@ export default function SignInSide() {
 									id="email"
 									label="Email Address"
 									name="email"
-									onChange={handleInputChange}
-									value={userFormData.email}
 									autoComplete="email"
 									autoFocus
+									onChange={handleInputChange}
 								/>
 								<TextField
 									margin="normal"
 									required
 									fullWidth
 									name="password"
-									onChange={handleInputChange}
-									value={userFormData.password}
 									label="Password"
 									type="password"
 									id="password"
 									autoComplete="current-password"
+									onChange={handleInputChange}
 								/>
 								<FormControlLabel
 									control={<Checkbox value="remember" color="primary" />}
@@ -159,17 +134,16 @@ export default function SignInSide() {
 									variant="contained"
 									sx={{ mt: 3, mb: 2 }}
 								>
-									Sign In
+									Login
 								</Button>
 								<Grid container>
 									<Grid item xs></Grid>
 									<Grid item>
-										<Link to="#" variant="body2">
+										<Link to="/sign-up" variant="body2">
 											{"Don't have an account? Sign Up"}
 										</Link>
 									</Grid>
 								</Grid>
-								<Copyright sx={{ mt: 5 }} />
 							</Box>
 						</Box>
 					</Grid>
