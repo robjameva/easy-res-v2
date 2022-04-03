@@ -66,6 +66,8 @@ export default function SingleView() {
         }
       });
 
+      window.location.assign('/');
+
     } catch (e) {
       console.error(e);
     }
@@ -157,9 +159,14 @@ export default function SingleView() {
                 </FormControl>
                 <Grid container>
                   <Grid item xs>
-                    <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
-                      Reserve
-                    </Button>
+                    {timeSlot && partySize
+                      ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>
+                      :
+                      <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>}
                   </Grid>
                   <Grid item>
 
