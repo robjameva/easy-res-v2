@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -17,23 +14,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
-function Copyright(props) {
-	return (
-		<Typography
-			variant="body2"
-			color="text.secondary"
-			align="center"
-			{...props}
-		>
-			{'Copyright © '}
-			<Link color="inherit" href="https://mui.com/">
-				Easy Res
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	);
-}
+
 
 const theme = createTheme();
 
@@ -97,7 +78,7 @@ export default function SignUpSide() {
 						sm={4}
 						md={7}
 						sx={{
-							backgroundImage: 'url(https://source.unsplash.com/random)',
+							backgroundImage: 'url(https://source.unsplash.com/random/?food-drink)',
 							backgroundRepeat: 'no-repeat',
 							backgroundColor: (t) =>
 								t.palette.mode === 'light'
@@ -227,11 +208,11 @@ export default function SignUpSide() {
 								<Grid container>
 									<Grid item xs></Grid>
 									<Grid item>
-										<Link to="/sign-in" variant="body2">
+										<Link to="/login" variant="body2">
 											{'Already have an account? Sign In'}
 										</Link>
 										<br></br>
-										<Link to="" variant="body2">
+										<Link to="/owner" variant="body2">
 											{'Want to put your restaurant on our site? Sign up here'}
 										</Link>
 									</Grid>
