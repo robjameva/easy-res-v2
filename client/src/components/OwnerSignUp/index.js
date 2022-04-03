@@ -134,6 +134,17 @@ export default function OwnerSign() {
                   margin="normal"
                   required
                   fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  onChange={handleInputChange}
+                  value={ownerFormData.username}
+                  autoComplete="username"
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
