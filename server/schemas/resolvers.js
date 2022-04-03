@@ -59,6 +59,10 @@ const resolvers = {
             return Reservation.find({ user: { _id: userID } })
                 .select('-__v')
         },
+        getReservationsByRestaurant: async (parent, { restaurantID }) => {
+            return Reservation.find({ restaurant: { _id: restaurantID } })
+                .select('-__v')
+        },
 
     },
     Mutation: {
