@@ -62,6 +62,7 @@ const resolvers = {
         getReservationsByRestaurant: async (parent, { restaurantID }) => {
             return Reservation.find({ restaurant: { _id: restaurantID } })
                 .select('-__v')
+                .populate('user')
         },
 
     },
