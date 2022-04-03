@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import FoodBankIcon from '@mui/icons-material/FoodBank';
+import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -38,9 +40,14 @@ export default function SingleView() {
   console.log(restaurantData)
 
   const [timeSlot, setTimeSlot] = React.useState('');
+  const [partySize, setpartySize] = React.useState('');
 
-  const handleChange = (event) => {
+  const handleTimeChange = (event) => {
     setTimeSlot(event.target.value);
+  };
+
+  const handlePartyChange = (event) => {
+    setpartySize(event.target.value);
   };
 
   if (loading) {
@@ -102,15 +109,37 @@ export default function SingleView() {
                     id="demo-simple-select"
                     value={timeSlot}
                     label="timeSlot"
-                    onChange={handleChange}
+                    onChange={handleTimeChange}
                   >
                     {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
 
 
                   </Select>
                 </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Party Size</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={partySize}
+                    label="partySize"
+                    onChange={handlePartyChange}
+                  >
+                    <MenuItem value={1}>{1}</MenuItem>
+                    <MenuItem value={2}>{2}</MenuItem>
+                    <MenuItem value={3}>{3}</MenuItem>
+                    <MenuItem value={4}>{4}</MenuItem>
+                    <MenuItem value={5}>{5}</MenuItem>
+                    <MenuItem value={6}>{6}</MenuItem>
+                    <MenuItem value={7}>{7}</MenuItem>
+                    <MenuItem value={8}>{8}</MenuItem>
+                  </Select>
+                </FormControl>
                 <Grid container>
                   <Grid item xs>
+                    <Button variant="contained" endIcon={<FoodBankIcon />}>
+                      Reserve
+                    </Button>
                   </Grid>
                   <Grid item>
 
