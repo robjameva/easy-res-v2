@@ -14,11 +14,11 @@ import {Link} from "react-router-dom";
 
 const theme = createTheme();
 
-export default function OwnerSign() {
+export default function AddRestaurant() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<Grid container component="main" sx={{ height: '110vh' }}>
+				<Grid container component="main" sx={{ height: '120vh' }}>
 					<CssBaseline />
 					<Grid
 						item
@@ -56,7 +56,7 @@ export default function OwnerSign() {
 						>
 								<FoodBankIcon sx={{height: '50px', width: '50px'}}/>
 							<Typography component="h1" variant="h5">
-								Sign Up As An Owner
+								Add New Restaurant
 							</Typography>
 							<Box
 								component="form"
@@ -67,20 +67,11 @@ export default function OwnerSign() {
 									margin="normal"
 									required
 									fullWidth
-									id="first_name"
-									label="First Name"
-									name="first_name"
-									autoComplete="firstName"
+									id="restaurant-name"
+									label="Restaurant Name"
+									name="restaurant-name"
+									autoComplete="restaurant-name"
 									autoFocus
-								/>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									id="last_name"
-									label="Last Name"
-									name="last_name"
-									autoComplete="lastName"
 								/>
 							    <TextField
 									margin="normal"
@@ -100,27 +91,42 @@ export default function OwnerSign() {
 									name="phone_number"
 									autoComplete="phoneNumber"
 								/>
-								<TextField
+                                <TextField
 									margin="normal"
 									required
 									fullWidth
-									name="password"
-									label="Password"
-									type="password"
-									id="password"
-									autoComplete="current-password"
+									id="open-hours"
+									label="Open Hour"
+									name="open-hours"
+									autoComplete="open-hours"
 								/>
-								<TextField
+                                 <TextField
 									margin="normal"
 									required
 									fullWidth
-									name="confirm_password"
-									label="Confirm Password"
-									type="password"
-									id="confirm_password"
-									autoComplete="current-password"
+									id="close-hours"
+									label="Closing Hour"
+									name="close-hours"
+									autoComplete="close-hours"
 								/>
-
+                                 <TextField
+									margin="normal"
+									required
+									fullWidth
+									id="website"
+									label="Website"
+									name="website"
+									autoComplete="website"
+								/>
+                                 <TextField
+									margin="normal"
+									required
+									fullWidth
+									id="image"
+									label="Restaurant Image URL"
+									name="image"
+									autoComplete="image"
+								/>
 								<Button
 									type="submit"
 									fullWidth
