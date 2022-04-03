@@ -43,6 +43,8 @@ export default function SignUpSide() {
 				variables: { input: { ...userFormData } }
 			});
 
+			if (data.createUser.user.isOwner) localStorage.setItem('isOwner', true);
+
 			Auth.login(data.createUser.token);
 		} catch (err) {
 			console.error(err);

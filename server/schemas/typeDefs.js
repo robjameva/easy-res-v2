@@ -33,6 +33,7 @@ const typeDefs = gql`
 		username: String!
 		password: String!
 		email: String!
+		isOwner: Boolean
 	}
 
 	input RestaurantInput {
@@ -74,6 +75,7 @@ const typeDefs = gql`
 		phone_number: String
 		username: String
 		email: String
+		isOwner: Boolean
 	}
 
 	type Restaurant {
@@ -89,35 +91,35 @@ const typeDefs = gql`
 	}
 
 
-  type Query {
-  getUser(userId: ID!): User
-  getRestaurant(restaurantId: ID!): ResWithHours
-  getAllRestaurants: [Restaurant]
-  getReservationsByUser(userID: ID!): [Reservation]
-  }
+	type Query {
+		getUser(userId: ID!): User
+		getRestaurant(restaurantId: ID!): ResWithHours
+		getAllRestaurants: [Restaurant]
+		getReservationsByUser(userID: ID!): [Reservation]
+	}
   
-type Mutation {
-	login(email: String!, password: String!): Auth
-	createUser(input: UserInput): Auth
-	createRestaurant(input: RestaurantInput): Restaurant
-	createReservation(input: ReservationCreateInput): Reservation
-	updateReservation(input: ReservationUpdateInput): Reservation
-	updateRestaurant(input: RestaurantUpdateInput): Restaurant
-	updateUser(input: UserUpdateInput): User
-	deleteUser(_id: ID!): User
-	deleteReservation(_id: ID!): Reservation
-	deleteRestaurant(_id: ID!): Restaurant
-}
+	type Mutation {
+		login(email: String!, password: String!): Auth
+		createUser(input: UserInput): Auth
+		createRestaurant(input: RestaurantInput): Restaurant
+		createReservation(input: ReservationCreateInput): Reservation
+		updateReservation(input: ReservationUpdateInput): Reservation
+		updateRestaurant(input: RestaurantUpdateInput): Restaurant
+		updateUser(input: UserUpdateInput): User
+		deleteUser(_id: ID!): User
+		deleteReservation(_id: ID!): Reservation
+		deleteRestaurant(_id: ID!): Restaurant
+	}	
 
-type Auth {
-	token: ID!
-	user: User
-}
+	type Auth {
+		token: ID!
+		user: User
+	}
 
-type ResWithHours {
-	restaurant: Restaurant
-	hours: [String]
-}
+	type ResWithHours {
+		restaurant: Restaurant
+		hours: [String]
+	}
 `;
 
 // export the typeDefs
