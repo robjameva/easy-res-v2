@@ -11,6 +11,7 @@ export const CREATE_USER = gql`
 				first_name
 				email
 				_id
+				isOwner
 			}
 		}
 	}
@@ -27,6 +28,7 @@ export const LOGIN_USER = gql`
 				first_name
 				email
 				_id
+				isOwner
 			}
 		}
 	}
