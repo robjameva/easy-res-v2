@@ -73,3 +73,17 @@ export const DELETE_RESTAURANT = gql`
 		}
 	}
 `;
+
+export const UPDATE_USER = gql`
+	mutation UpdateUser($input: UserUpdateInput) {
+		updateUser(input: $input) {
+			_id
+			first_name
+			last_name
+			phone_number
+			username
+			email
+			isOwner
+		}
+	}
+`;

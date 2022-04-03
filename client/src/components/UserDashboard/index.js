@@ -22,6 +22,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { flexbox } from '@mui/system';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
 import auth from '../../utils/auth';
@@ -62,7 +63,7 @@ export default function UserDashboard() {
 		<>
 			<Grid container>
 				{dbReservationData.map((reservation, index) => (
-					<Grid key={index} item xs={12} padding>
+					<Grid key={index} item xs={12} padding sx={{ display: 'flex' }}>
 						<Grid item xs={3}>
 							<Card className="card" sx={{ height: '100%' }}>
 								<CardHeader
@@ -104,14 +105,18 @@ export default function UserDashboard() {
 							</Card>
 						</Grid>
 
-						<Grid item padding>
-							<Typography variant="h4">Reservation Info:</Typography>
-							<Typography>Time:{reservation.time_slot}</Typography>
-							<Typography>Party Size:{reservation.party_size}</Typography>
+						<Grid item xs={8} style={{ textAlign: 'right' }} padding>
+							<Typography variant="h3">Reservation Info:</Typography>
+							<Typography sx={{ fontSize: '2vw' }}>
+								Time:{reservation.time_slot}
+							</Typography>
+							<Typography sx={{ fontSize: '2vw' }}>
+								Party Size:{reservation.party_size}
+							</Typography>
 						</Grid>
 					</Grid>
 				))}
-				<Link to="/">
+				<Link to="/edit-user">
 					<Button variant="contained" sx={{ mt: 3, mb: 2 }}>
 						Edit User
 					</Button>
