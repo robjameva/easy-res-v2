@@ -31,3 +31,19 @@ export const LOGIN_USER = gql`
 		}
 	}
 `;
+
+export const MAKE_RESERVATION = gql`
+mutation Mutation($input: ReservationCreateInput) {
+	createReservation(input: $input) {
+	  _id
+	  party_size
+	  time_slot
+	  user {
+		_id
+	  }
+	  restaurant {
+		_id
+	  }
+	}
+  }
+`;
