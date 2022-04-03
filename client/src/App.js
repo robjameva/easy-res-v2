@@ -5,7 +5,6 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login"
 import Home from "../src/components/Home";
 import UserDashboard from './components/UserDashboard';
-// import SingleView from "./components/SingleView";
 import Footer from './components/Footer';
 import SearchAppBar from './components/AppBar';
 import SingleView from './components/SingleView';
@@ -47,7 +46,7 @@ export default function App() {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/sign-up" component={SignUp} />
-						{/* <Route exact path="/:restaurantId" component={SingleView} /> */}
+						<Route exact path="/restaurant/:restaurantId" component={SingleView} />
 						<Route exact path="/owner-dashboard" component={OwnerDash} />
 						<Route exact path="/owner" component={OwnerSign} />
 
