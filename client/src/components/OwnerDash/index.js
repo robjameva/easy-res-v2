@@ -55,10 +55,10 @@ export default function OwnerDash() {
           </div>
         <Grid container  style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginTop: '3%' }}>
           <Grid item xs={12} sm={4}>
-    <Card>
+    <Card style={{height:'100%'}}>
       <CardMedia
         component="img"
-        height="140"
+        height="180"
         image=''
         alt="Restaurant Image"
       />

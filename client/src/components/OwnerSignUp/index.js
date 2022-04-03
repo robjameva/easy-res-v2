@@ -18,7 +18,7 @@ export default function OwnerSign() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<Grid container component="main" sx={{ height: '100vh' }}>
+				<Grid container component="main" sx={{ height: '140vh' }}>
 					<CssBaseline />
 					<Grid
 						item
