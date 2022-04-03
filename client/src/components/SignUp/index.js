@@ -37,20 +37,13 @@ export default function SignUpSide() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		// const data = new FormData(event.currentTarget);
-		// console.log({
-		// 	username: data.get('username'),
-		// 	first_name: data.get('first_name'),
-		// 	last_name: data.get('last_name'),
-		// 	phone_number: data.get('phone_number'),
-		// 	email: data.get('email'),
-		// 	password: data.get('password'),
-		// });
 
 		try {
 			const { data } = await createUser({
 				variables: { input: { ...userFormData } }
 			});
+
+			if (data.createUser.user.isOwner) localStorage.setItem('isOwner', true);
 
 			Auth.login(data.createUser.token);
 		} catch (err) {
