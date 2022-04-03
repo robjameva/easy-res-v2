@@ -24,20 +24,22 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
-import Auth from '../../utils/auth';
+import auth from '../../utils/auth';
 
 export default function UserDashboard() {
-	let [dbReservationData, setDbReservationData] = useState([]);
+	const user = auth.getProfile().data._id;
 
 	const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_USER, {
-		variables: { userId: '624513b97cef160e8407c3a1' },
+		variables: { userId: user },
 	});
 
 	useEffect(() => {
 		const reservationData = data?.getReservationsByUser || [];
-		console.log(reservationData);
+		// console.log(reservationData);
 		setDbReservationData(reservationData);
 	}, [loading]);
+
+	let [dbReservationData, setDbReservationData] = useState([]);
 
 	if (!dbReservationData.length) {
 		return (
@@ -52,52 +54,69 @@ export default function UserDashboard() {
 			</>
 		);
 	}
+	if (loading) {
+		return <h1>Loading</h1>;
+	}
+	console.log(dbReservationData);
 	return (
 		<>
-			<Link to="/">
-				<Button variant="contained" sx={{ mt: 3, mb: 2 }}>
-					Edit Reservation
-				</Button>
-			</Link>
-			<Card className="card" sx={{ height: '100%' }}>
-				<CardHeader
-					avatar={
-						<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-							ER
-						</Avatar>
-					}
-					title={dbReservationData.map((reservation) => (
-						<>
-							<li key="{party}">{reservation.party_size}</li>
-							<li key="{time}">{reservation.time_slot}</li>
-							{/* <li key="{restaurant}">{reservation.restaurant}</li> */}
-						</>
-					))}
-					subheader="Upscale Restaurant"
-				/>
-				<CardMedia
-					component="img"
-					height="194"
-					image={dbReservationData.restaurant.business_image}
-					alt="Paella dish"
-				/>
-				<CardContent>
-					<Typography variant="body2" color="text.secondary">
-						{dbReservationData.restaurant.business_address}
-					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						{dbReservationData.restaurant.business_website}
-					</Typography>
-				</CardContent>
-				<CardActions disableSpacing>
-					<IconButton aria-label="add to favorites">
-						<FavoriteIcon />
-					</IconButton>
-					<IconButton aria-label="call">
-						<PhoneIcon />
-					</IconButton>
-				</CardActions>
-			</Card>
+			<Grid container>
+				{dbReservationData.map((reservation, index) => (
+					<Grid key={index} item xs={12} padding>
+						<Grid item xs={3}>
+							<Card className="card" sx={{ height: '100%' }}>
+								<CardHeader
+									avatar={
+										<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+											ER
+										</Avatar>
+									}
+									title={reservation.restaurant.business_name}
+									subheader="Upscale Restaurant"
+								/>
+								<CardMedia
+									component="img"
+									height="194"
+									image={reservation.restaurant.business_image}
+									alt="Paella dish"
+								/>
+								<CardContent>
+									<Typography variant="body2" color="text.secondary">
+										{reservation.restaurant.business_address}
+									</Typography>
+									<Typography variant="body2" color="text.secondary">
+										{reservation.restaurant.business_website}
+									</Typography>
+								</CardContent>
+								<CardActions disableSpacing>
+									<IconButton aria-label="add to favorites">
+										<FavoriteIcon />
+									</IconButton>
+									<IconButton aria-label="call">
+										<PhoneIcon />
+									</IconButton>
+									<Link to="/">
+										<Button variant="contained" sx={{ mt: 3, mb: 2 }}>
+											Edit Reservation
+										</Button>
+									</Link>
+								</CardActions>
+							</Card>
+						</Grid>
+
+						<Grid item padding>
+							<Typography variant="h4">Reservation Info:</Typography>
+							<Typography>Time:{reservation.time_slot}</Typography>
+							<Typography>Party Size:{reservation.party_size}</Typography>
+						</Grid>
+					</Grid>
+				))}
+				<Link to="/">
+					<Button variant="contained" sx={{ mt: 3, mb: 2 }}>
+						Edit User
+					</Button>
+				</Link>
+			</Grid>
 		</>
 	);
 }
