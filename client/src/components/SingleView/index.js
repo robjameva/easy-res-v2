@@ -11,10 +11,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import image from '../../assets/testImg/1.jpg';
-import DatePicker from "../DatePicker";
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from "@apollo/client";
@@ -116,12 +116,12 @@ export default function SingleView() {
               }}
             >
               <Box component="form" noValidate sx={{ mt: 1 }}>
-                {/* <Typography variant='h2'>
+                <Typography variant='h2'>
                   {restaurantData.restaurant.business_name}
                 </Typography>
                 <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
                 <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography> */}
+                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Time</InputLabel>
                   <Select
@@ -131,7 +131,7 @@ export default function SingleView() {
                     label="timeSlot"
                     onChange={handleTimeChange}
                   >
-                    {/* {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)} */}
+                    {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
 
 
                   </Select>

@@ -15,7 +15,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Carousel from 'react-material-ui-carousel'
 import { useQuery } from "@apollo/client";
 import { GET_ALL_RESTAURANTS } from '../../utils/queries'
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function CarouselArr(props) {
@@ -64,7 +64,7 @@ function CarouselArr(props) {
 function Item({ RestaurantData }) {
   return (
     <Grid item>
-      {/* <Link to={`/${RestaurantData._id}`}> */}
+      <Link to={`/restaurant/${RestaurantData._id}`}>
         <Card className='card' sx={{ height: '100%' }}>
           <CardHeader
             avatar={
@@ -99,7 +99,7 @@ function Item({ RestaurantData }) {
           </CardActions>
 
         </Card>
-      {/* </Link> */}
+      </Link>
     </Grid>
   )
 }
