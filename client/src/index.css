@@ -69,6 +69,10 @@
   height: 100px
 }
 
+.carousel-cards {
+  margin-top: 4%; 
+}
+
 @media screen and (max-width: 1300px) {
   .bottomBanner {
     font-size: 28px;
