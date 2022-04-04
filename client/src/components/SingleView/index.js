@@ -35,62 +35,62 @@ const theme = createTheme();
 
 export default function SingleView() {
   const [expanded, setExpanded] = React.useState(false);
-  // const { restaurantId } = useParams();
-  // const [timeSlot, setTimeSlot] = React.useState('');
-  // const [partySize, setpartySize] = React.useState('');
-  // const [makeRes] = useMutation(MAKE_RESERVATION);
+  const { restaurantId } = useParams();
+  const [timeSlot, setTimeSlot] = React.useState('');
+  const [partySize, setpartySize] = React.useState('');
+  const [makeRes] = useMutation(MAKE_RESERVATION);
 
-  const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
+  // const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
+  const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
+    variables: { restaurantId }
+  });
+
   const allRest = data?.getAllRestaurants || [];
 
   const randRest = allRest[Math.floor(Math.random() * allRest.length)];
-
-  // const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
-  //   variables: { restaurantId }
-  // });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  // const restaurantData = data?.getRestaurant || [];
-  // console.log(restaurantData)
+  const restaurantData = data?.getRestaurant || [];
+  console.log(restaurantData)
 
 
-  // const handleTimeChange = (event) => {
-  //   setTimeSlot(event.target.value);
-  // };
+  const handleTimeChange = (event) => {
+    setTimeSlot(event.target.value);
+  };
 
-  // const handlePartyChange = (event) => {
-  //   setpartySize(event.target.value);
-  // };
+  const handlePartyChange = (event) => {
+    setpartySize(event.target.value);
+  };
 
-  // const handleReservation = () => {
-  //   const user = auth.getProfile().data._id
-  //   const unformattedhour = unformat_business_hours(timeSlot)
+  const handleReservation = () => {
+    const user = auth.getProfile().data._id
+    const unformattedhour = unformat_business_hours(timeSlot)
 
-  //   try {
-  //     makeRes({
-  //       variables: {
-  //         input: {
-  //           party_size: partySize,
-  //           time_slot: unformattedhour,
-  //           user: user,
-  //           restaurant: restaurantId
-  //         }
-  //       }
-  //     });
+    try {
+      makeRes({
+        variables: {
+          input: {
+            party_size: partySize,
+            time_slot: unformattedhour,
+            user: user,
+            restaurant: restaurantId
+          }
+        }
+      });
 
-  //     window.location.assign('/');
+      window.location.assign('/');
 
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
-  // if (loading) {
-  //   return <h1>Loading</h1>
-  // }
+  if (loading) {
+    return <h1>Loading</h1>
+  }
 
   return (
     <>
@@ -113,16 +113,16 @@ export default function SingleView() {
             <div className='bottomBanner'>
               <Grid container>
                 <Grid item xs={6}>
-              <h3>Not what you were looking for? Try pizzaz! </h3>
+              <h3>Not what you were looking for? Try {randRest.business_name}! </h3>
               </Grid>
               <Grid item xs={6} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Stack style={{display: 'flex', alignItems: 'center', padding: '3%'}}>
                 <img className='singleLogo' src={image}></img>
-              {/* <Link to={`/restaurant/${randRest._id}`}> */}
+              <Link to={`/restaurant/${randRest._id}`}>
               <Button style={{backgroundColor: 'white',fontWeight: 'bold', color: 'black', marginTop: '25%'}} variant="contained" startIcon={<RestaurantIcon />}>
                 Try It Out
               </Button>
-              {/* </Link> */}
+              </Link>
               </Stack>
               </Grid>
               </Grid>
@@ -140,32 +140,31 @@ export default function SingleView() {
             >
               <Box component="form" noValidate sx={{ mt: 1 }}>
                 <Typography variant='h2'>
-                  Rest name
-                  {/* {restaurantData.restaurant.business_name} */}
+                  {restaurantData.restaurant.business_name}
                 </Typography>
-                {/* <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
+                <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
                 <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography> */}
+                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
                 <Grid comtainer xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3%' }}>
                   <Grid item xs={12} >
                     <InputLabel>Time</InputLabel>
                     <Select
                       sx={{ width: '100%' }}
-                      // value={timeSlot}
+                      value={timeSlot}
                       label="timeSlot"
                       value='10'
-                    // onChange={handleTimeChange}
+                    onChange={handleTimeChange}
                     >
-                      {/* {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)} */}
+                      {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
                     </Select>
                   </Grid>
                   <Grid item xs={12}>
                     <InputLabel>Party Size</InputLabel>
                     <Select
                       sx={{ width: '100%' }}
-                      // value={partySize}
+                      value={partySize}
                       label="partySize"
-                    // onChange={handlePartyChange}
+                    onChange={handlePartyChange}
                     >
                       <MenuItem value={1}>{1}</MenuItem>
                       <MenuItem value={2}>{2}</MenuItem>
@@ -180,14 +179,15 @@ export default function SingleView() {
                 </Grid>
                 <Grid container style={{ marginTop: '10%' }}>
                   <Grid item >
-                    {/* {timeSlot && partySize */}
-                    {/* ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
+                    {timeSlot && partySize
+                     ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
                         Reserve
                       </Button>
-                      : */}
+                      : 
                     <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
                       Reserve
                     </Button>
+                    }
                   </Grid>
                 </Grid>
               </Box>
