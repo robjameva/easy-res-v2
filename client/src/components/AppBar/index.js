@@ -132,7 +132,7 @@ export default function SearchAppBar() {
       <List>
         {listItems.map((listItem, index) => (
           <Link key={index} to={listItem.link}>
-            <ListItem style={{ color: 'white' }} button >
+            <ListItem onClick={toggleSlider} style={{ color: 'white' }} button >
               <ListItemIcon style={{ color: 'white' }}>
                 {listItem.listIcon}
               </ListItemIcon>
@@ -142,7 +142,7 @@ export default function SearchAppBar() {
         ))}
         <Link to='#'
           onClick={() => window.location = 'mailto:easyResFakeEmail@notRealEmail.org'}>
-          <ListItem style={{ color: 'white' }}>
+          <ListItem onClick={toggleSlider} style={{ color: 'white' }}>
             <ListItemIcon style={{ color: 'white' }}>
               <EmailIcon />
             </ListItemIcon>
