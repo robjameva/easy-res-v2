@@ -40,12 +40,14 @@ export default function SingleView() {
   const [partySize, setpartySize] = React.useState('');
   const [makeRes] = useMutation(MAKE_RESERVATION);
 
-  // const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
+  const { loading: loading1, error: erro1, data: data1 } = useQuery(GET_ALL_RESTAURANTS);
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { restaurantId }
   });
 
-  const allRest = data?.getAllRestaurants || [];
+  console.log(data1)
+
+  const allRest = data1?.getAllRestaurants || [];
 
   const randRest = allRest[Math.floor(Math.random() * allRest.length)];
 
@@ -109,22 +111,22 @@ export default function SingleView() {
             md={6}
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
           >
-           <img className='singleImage' src={image1}></img>
+            <img className='singleImage' src={image1}></img>
             <div className='bottomBanner'>
               <Grid container>
                 <Grid item xs={6}>
-              <h3>Not what you were looking for? Try {randRest.business_name}! </h3>
-              </Grid>
-              <Grid item xs={6} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Stack style={{display: 'flex', alignItems: 'center', padding: '3%'}}>
-                <img className='singleLogo' src={image}></img>
-              <Link to={`/restaurant/${randRest._id}`}>
-              <Button style={{backgroundColor: 'white',fontWeight: 'bold', color: 'black', marginTop: '25%'}} variant="contained" startIcon={<RestaurantIcon />}>
-                Try It Out
-              </Button>
-              </Link>
-              </Stack>
-              </Grid>
+                  <h3>Not what you were looking for? Try {randRest.business_name}! </h3>
+                </Grid>
+                <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Stack style={{ display: 'flex', alignItems: 'center', padding: '3%' }}>
+                    <img className='singleLogo' src={image}></img>
+                    <Link to={`/restaurant/${randRest._id}`}>
+                      <Button style={{ backgroundColor: 'white', fontWeight: 'bold', color: 'black', marginTop: '25%' }} variant="contained" startIcon={<RestaurantIcon />}>
+                        Try It Out
+                      </Button>
+                    </Link>
+                  </Stack>
+                </Grid>
               </Grid>
             </div>
           </Grid>
@@ -145,15 +147,14 @@ export default function SingleView() {
                 <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
                 <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
                 <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
-                <Grid comtainer xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3%' }}>
+                <Grid item xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3%' }}>
                   <Grid item xs={12} >
                     <InputLabel>Time</InputLabel>
                     <Select
                       sx={{ width: '100%' }}
                       value={timeSlot}
                       label="timeSlot"
-                      value='10'
-                    onChange={handleTimeChange}
+                      onChange={handleTimeChange}
                     >
                       {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
                     </Select>
@@ -164,7 +165,7 @@ export default function SingleView() {
                       sx={{ width: '100%' }}
                       value={partySize}
                       label="partySize"
-                    onChange={handlePartyChange}
+                      onChange={handlePartyChange}
                     >
                       <MenuItem value={1}>{1}</MenuItem>
                       <MenuItem value={2}>{2}</MenuItem>
@@ -180,13 +181,13 @@ export default function SingleView() {
                 <Grid container style={{ marginTop: '10%' }}>
                   <Grid item >
                     {timeSlot && partySize
-                     ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
+                      ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
                         Reserve
                       </Button>
-                      : 
-                    <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
-                      Reserve
-                    </Button>
+                      :
+                      <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>
                     }
                   </Grid>
                 </Grid>
