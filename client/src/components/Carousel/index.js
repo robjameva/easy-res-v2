@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { GET_ALL_RESTAURANTS } from '../../utils/queries'
+import { Link } from 'react-router-dom';
+import Carousel from "react-material-ui-carousel";
+import autoBind from 'react-autobind';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,97 +17,94 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Carousel from 'react-material-ui-carousel'
-import { useQuery } from "@apollo/client";
-import { GET_ALL_RESTAURANTS } from '../../utils/queries'
-import { Link } from 'react-router-dom';
+import ReactDOM from "react-dom";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
+
+const handleOnDragStart = e => e.preventDefault();
 
 
-function CarouselArr(props) {
 
+export default function CarouselHome() {
   const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
 
   const restaurantData = data?.getAllRestaurants || [];
-  const [carouselNumber, setCarouselNumber] = useState(4);
 
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 900 && window.innerWidth <= 1535) {
-      setCarouselNumber(3)
-    }
-  })
+  const items = restaurantData;
+  // console.log(items)
 
   if (loading.length) <h1>Loading</h1>
-  console.log(data)
-
-  const sliderItems = restaurantData.length > carouselNumber ? carouselNumber : restaurantData.length;
-  const items = [];
-
-  for (let i = 0; i < restaurantData.length; i += sliderItems) {
-    if (i % sliderItems === 0) {
-      items.push(
-        <Card raised className="Banner" key={i.toString()}>
-          <Grid container spacing={0} className="BannerGrid">
-            {restaurantData.slice(i, i + sliderItems).map((item, i) => {
-              return <Item key={i} item={item} />;
-            })}
-          </Grid>
-        </Card>
-      );
-    }
-  }
+  // console.log(data)
 
   return (
-    <Carousel>
-      {
-        restaurantData.map((RestaurantData, i) => <Item key={i} RestaurantData={RestaurantData} />)
-      }
-    </Carousel>
-  )
+    <div className="carousel-cards">
+      <AliceCarousel
+      autoPlay={true}
+      autoPlayInterval={4000}
+      animationDuration={1000}
+      // animationType='fadeout'
+      infinite={true}
+        responsive={{
+          0: {
+            items: 1
+          },
+          700: {
+            items: 2
+          },
+          1024: {
+            items: 3
+          },
+          1300: {
+            items: 4
+          }
+        }}
+        mouseDragEnabled
+      >
+        {items.map((items ,i) => {
+          console.log(i)
+          console.log(items._id)
+          return (
+            <Link to={`/restaurant/${items._id}`} key={i}>
+            <Card sx={{ height: '100%' }}>
+              <CardHeader
+                avatar={
+                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                    ER
+                  </Avatar>
+                }
+                title={items.business_name}
+              />
+              <CardMedia
+                component="img"
+                height="194"
+                image={items.image}
+                alt="Image"
+              />
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  {items.business_address}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {items.business_website}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <IconButton aria-label="add to favorites">
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton aria-label="call">
+                  <PhoneIcon />
+                </IconButton>
+              </CardActions>
+
+            </Card>
+            </Link>
+          )
+        })
+        }
+      </AliceCarousel>
+    </div>
+  );
 }
 
-
-function Item({ RestaurantData }) {
-  return (
-    <Grid item>
-      <Link to={`/restaurant/${RestaurantData._id}`}>
-        <Card className='card' sx={{ height: '100%' }}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                ER
-              </Avatar>
-            }
-            title={RestaurantData.business_name}
-            subheader="Upscale Restaurant"
-          />
-          <CardMedia
-            component="img"
-            height="194"
-            image={RestaurantData.Image}
-            alt="Paella dish"
-          />
-          <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {RestaurantData.business_address}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {RestaurantData.business_website}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="call">
-              <PhoneIcon />
-            </IconButton>
-          </CardActions>
-
-        </Card>
-      </Link>
-    </Grid>
-  )
-}
-
-export default CarouselArr;
 
