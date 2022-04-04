@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,6 +15,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { useQuery } from "@apollo/client";
+import { GET_RESERVATION_BY_RESTAURANT } from '../../utils/queries'
+import { Link } from 'react-router-dom';
+
+const image = require('../../assets/testImg/5.jpg')
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -35,19 +40,30 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       border: 0,
     },
   }));
-
-  function createData(name, time, groupSize ) {
-    return { name, time, groupSize  };
-  }
   
-  const rows = [
-    createData('Chris', '10:00', 6),
-    createData('Nick', '11:00', 2),
-    createData('Rob', '2:00', 5),
-    createData('Sean', '7:00', 8),
-  ];
 
-export default function OwnerDash() {
+  // function createData(firstName, lastName, time, groupSize ) {
+  //   return { firstName, lastName, time, groupSize  };
+  // }
+  
+  // const reservationData = [
+  //   createData('Chris', 'McCormack', '10:00', 6),
+  //   createData('Nick', 'Perel','11:00', 2),
+  //   createData('Rob', 'Evanik', '2:00', 5),
+  //   createData('Sean', 'Gillepsie', '7:00', 8),
+  // ];
+
+export default function OwnerDash(props) {
+
+  const { loading, error, data } = useQuery(GET_RESERVATION_BY_RESTAURANT, { variables: { restaurantId: "624646dccba6002fc89d7ca4" }});
+  const reservationData = data?.getReservationsByRestaurant || [];
+  // const [dbResData, setDbResData] = useState()
+  console.log(reservationData)
+
+  if (loading.length) <h1>Loading</h1>
+  
+
+
   return (
     <Box>
         <div className='singleBanner'>
@@ -59,7 +75,7 @@ export default function OwnerDash() {
       <CardMedia
         component="img"
         height="180"
-        image=''
+        image={image}
         alt="Restaurant Image"
       />
       <CardContent>
@@ -74,19 +90,21 @@ export default function OwnerDash() {
       <Table aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell>First Name</StyledTableCell>
+            <StyledTableCell>Last Name</StyledTableCell>
             <StyledTableCell>Time</StyledTableCell>
             <StyledTableCell>Group Size</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
+          {reservationData.map((reservation, i) => (
+            <StyledTableRow key={i}>
+              <StyledTableCell component="th" scope="reservation">
+                {reservation.user.first_name}
               </StyledTableCell>
-              <StyledTableCell>{row.time}</StyledTableCell>
-              <StyledTableCell>{row.groupSize}</StyledTableCell>
+              <StyledTableCell>{reservation.user.last_name}</StyledTableCell>
+              <StyledTableCell>{reservation.time_slot}</StyledTableCell>
+              <StyledTableCell>{reservation.party_size}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

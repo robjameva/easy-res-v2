@@ -61,3 +61,17 @@ query Query($restaurantId: ID!) {
 	}
   }
 `;
+
+export const GET_RESERVATION_BY_RESTAURANT = gql`
+query GetReservationsByRestaurant($restaurantId: ID!) {
+	getReservationsByRestaurant(restaurantID: $restaurantId) {
+	  _id
+	  party_size
+	  time_slot
+	  user {
+		first_name
+		last_name
+	  }
+	}
+  }
+`;

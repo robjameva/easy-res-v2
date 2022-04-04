@@ -96,6 +96,7 @@ const typeDefs = gql`
 		getRestaurant(restaurantId: ID!): ResWithHours
 		getAllRestaurants: [Restaurant]
 		getReservationsByUser(userID: ID!): [Reservation]
+		getReservationsByRestaurant(restaurantID: ID!): [Reservation]
 	}
   
 	type Mutation {
