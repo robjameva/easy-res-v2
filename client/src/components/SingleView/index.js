@@ -9,7 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import image from '../../assets/testImg/1.jpg';
+import image1 from '../../assets/testImg/1.jpg';
+import image from '../../assets/images/logoHalf.png'
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -24,37 +25,11 @@ import unformat_business_hours from '../../utils/helpers'
 import auth from '../../utils/auth';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import { red } from '@mui/material/colors';
 import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import Stack from '@mui/material/Stack'
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 const theme = createTheme();
 
@@ -134,57 +109,23 @@ export default function SingleView() {
             md={6}
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
           >
-            <Card sx={{ width: '70%' }}>
-              <CardMedia
-                component="img"
-                height="300"
-                image={image}
-                alt="Paella dish"
-              />
-              <CardActions disableSpacing>
-                <Typography>
-                  Contact Restaurant
-                </Typography>
-                <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon />
-                </ExpandMore>
-              </CardActions>
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                  <List>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <PhoneIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Phone" />
-                      </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <FavoriteIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Favorite" />
-                      </ListItemButton>
-                    </ListItem>
-                  </List>
-
-                </CardContent>
-              </Collapse>
-            </Card>
+           <img className='singleImage' src={image1}></img>
             <div className='bottomBanner'>
-              <h3>Not What You Were Looking For? Try feggeeg </h3>
+              <Grid container>
+                <Grid item xs={6}>
+              <h3>Not what you were looking for? Try pizzaz! </h3>
+              </Grid>
+              <Grid item xs={6} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Stack style={{display: 'flex', alignItems: 'center', padding: '3%'}}>
+                <img className='singleLogo' src={image}></img>
               {/* <Link to={`/restaurant/${randRest._id}`}> */}
-              <Button variant="contained" startIcon={<RestaurantIcon />}>
+              <Button style={{backgroundColor: 'white',fontWeight: 'bold', color: 'black', marginTop: '25%'}} variant="contained" startIcon={<RestaurantIcon />}>
                 Try It Out
               </Button>
               {/* </Link> */}
+              </Stack>
+              </Grid>
+              </Grid>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
