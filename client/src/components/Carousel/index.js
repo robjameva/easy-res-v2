@@ -31,13 +31,19 @@ export default function CarouselHome() {
   const restaurantData = data?.getAllRestaurants || [];
 
   const items = restaurantData;
+  // console.log(items)
 
   if (loading.length) <h1>Loading</h1>
-  console.log(data)
+  // console.log(data)
 
   return (
-    <div className="App">
+    <div className="carousel-cards">
       <AliceCarousel
+      autoPlay={true}
+      autoPlayInterval={4000}
+      animationDuration={1000}
+      // animationType='fadeout'
+      infinite={true}
         responsive={{
           0: {
             items: 1
@@ -54,10 +60,12 @@ export default function CarouselHome() {
         }}
         mouseDragEnabled
       >
-        {items.map((i) => {
+        {items.map((items ,i) => {
           console.log(i)
+          console.log(items._id)
           return (
-            <Card sx={{ height: '100%' }} key={i}>
+            <Link to={`/restaurant/${items._id}`} key={i}>
+            <Card sx={{ height: '100%' }}>
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -65,13 +73,12 @@ export default function CarouselHome() {
                   </Avatar>
                 }
                 title={items.business_name}
-                subheader="Casual Dining"
               />
               <CardMedia
                 component="img"
                 height="194"
                 image={items.image}
-                alt="Paella dish"
+                alt="Image"
               />
               <CardContent>
                 <Typography variant="body2" color="text.secondary">
@@ -91,6 +98,7 @@ export default function CarouselHome() {
               </CardActions>
 
             </Card>
+            </Link>
           )
         })
         }
