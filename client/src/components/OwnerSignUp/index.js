@@ -175,16 +175,6 @@ export default function OwnerSign() {
                   id="password"
                   autoComplete="current-password"
                 />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="confirm_password"
-                  label="Confirm Password"
-                  type="password"
-                  id="confirm_password"
-                  autoComplete="current-password"
-                />
 
                 <Button
                   type="submit"
