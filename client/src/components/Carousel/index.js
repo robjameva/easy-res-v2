@@ -32,11 +32,11 @@ function Banner(props) {
 
   let items = [];
 
-  restaurantData.map((i) => {
-   const items = restaurantData[i];
+  for ( let i = 0; i < restaurantData.length; i++) {
+    const item = restaurantData[i];
     const media = (
       <Grid item xs={12/3 } key={i}>
-        <Link to={`/restaurant/${restaurantData._id}`}>
+        <Link to={`/restaurant/${item._id}`}>
         <Card sx={{ height: '100%'}}>
       <CardHeader
         avatar={
@@ -44,22 +44,22 @@ function Banner(props) {
             ER
           </Avatar>
         }
-        title={restaurantData.business_name}
+        title={item.business_name}
         subheader="Casual Dining"
       />
       <CardMedia
         component="img"
         height="194"
-        image={restaurantData.Image}
+        image={item.Image}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-        {restaurantData.business_address}
+        {item.business_address}
         </Typography>
         <Typography variant="body2" color="text.secondary">
         <Typography variant="body2" color="text.secondary">
-          {restaurantData.business_website}
+          {item.business_website}
           </Typography>
         </Typography>
       </CardContent>
@@ -78,7 +78,7 @@ function Banner(props) {
     );
 
     items.push(media);
-  })
+      }
 
  
   return (
@@ -169,7 +169,7 @@ class CarouselHome extends React.Component {
           {items.map((item, index) => {
             return (
               <Banner
-                item={items}
+                item={item}
                 key={index}
               />
             );
