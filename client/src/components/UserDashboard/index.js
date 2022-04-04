@@ -63,57 +63,77 @@ export default function UserDashboard() {
 		<>
 			<Grid container>
 				{dbReservationData.map((reservation, index) => (
-					<Grid key={index} item xs={12} padding sx={{ display: 'flex' }}>
-						<Grid item xs={3}>
-							<Card className="card" sx={{ height: '100%' }}>
-								<CardHeader
-									avatar={
-										<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-											ER
-										</Avatar>
-									}
-									title={reservation.restaurant.business_name}
-									subheader="Upscale Restaurant"
-								/>
-								<CardMedia
+					<Grid key={index} item xs={12} padding sx={{ 
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            <Grid item xs={3} padding>
+              <Card>
+                <CardMedia
 									component="img"
-									height="194"
 									image={reservation.restaurant.business_image}
 									alt="Paella dish"
 								/>
-								<CardContent>
-									<Typography variant="body2" color="text.secondary">
-										{reservation.restaurant.business_address}
-									</Typography>
-									<Typography variant="body2" color="text.secondary">
-										{reservation.restaurant.business_website}
-									</Typography>
-								</CardContent>
-								<CardActions disableSpacing>
-									<IconButton aria-label="add to favorites">
-										<FavoriteIcon />
-									</IconButton>
-									<IconButton aria-label="call">
-										<PhoneIcon />
-									</IconButton>
-									<Link to="/">
-										<Button variant="contained" sx={{ mt: 3, mb: 2 }}>
-											Edit Reservation
-										</Button>
-									</Link>
-								</CardActions>
-							</Card>
+              </Card>
+            </Grid>
+						<Grid item xs={4}>
+            <Card sx={{ minWidth: 275 }}>
+              <CardHeader
+                avatar={
+                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                    ER
+                  </Avatar>
+                }
+                title={reservation.restaurant.business_name}
+                subheader="Upscale Restaurant"
+              />
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  Reservation Information
+                </Typography>
+                <Typography variant="body2">
+                  Time:{reservation.time_slot}
+                </Typography>
+                <Typography variant="body2">
+                  Party Size:{reservation.party_size}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <IconButton aria-label="add to favorites">
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton aria-label="call">
+                  <PhoneIcon />
+                </IconButton>
+                <Link to="/">
+                  <Button variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    Edit Reservation
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
 						</Grid>
 
-						<Grid item xs={8} style={{ textAlign: 'right' }} padding>
-							<Typography variant="h3">Reservation Info:</Typography>
-							<Typography sx={{ fontSize: '2vw' }}>
-								Time:{reservation.time_slot}
-							</Typography>
-							<Typography sx={{ fontSize: '2vw' }}>
-								Party Size:{reservation.party_size}
-							</Typography>
-						</Grid>
+						{/* <Grid item xs={8} style={{ textAlign: 'right' }} padding>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    Reservation Info:
+                  </Typography>
+                  
+                  <Typography variant="body2">
+                    Time:
+                    <br />
+                    {reservation.time_slot}
+                  </Typography>
+                  <Typography variant="body2">
+                    Party Size:
+                    <br />
+                    {reservation.party_size}
+                  </Typography>
+                </CardContent>
+              </Card>
+						</Grid> */}
 					</Grid>
 				))}
 				<Link to="/edit-user">
