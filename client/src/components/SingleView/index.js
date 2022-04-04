@@ -154,11 +154,7 @@ export default function SingleView() {
                       sx={{ width: '100%' }}
                       value={timeSlot}
                       label="timeSlot"
-<<<<<<< HEAD
                       onChange={handleTimeChange}
-=======
-                    onChange={handleTimeChange}
->>>>>>> 1dcc9d5529f78f5aaf569b10d2f458edee6d582a
                     >
                       {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
                     </Select>
