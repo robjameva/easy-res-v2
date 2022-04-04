@@ -25,6 +25,7 @@ import { Link } from "react-router-dom";
 import Auth from '../../utils/auth';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AddIcon from '@mui/icons-material/Add';
+import FoodBankIcon from '@mui/icons-material/FoodBank'
 
 const listItems = [
   {
@@ -41,6 +42,16 @@ const listItems = [
     listIcon: <RestaurantIcon />,
     listText: "Owned Restaurants",
     link: '/owner-dashboard'
+  },
+  {
+    listIcon: <FoodBankIcon />,
+    listText: "Add New Restaurant",
+    link: '/add-restaurant'
+  },
+  {
+    listIcon: <FoodBankIcon />,
+    listText: "SV",
+    link: '/restaurant/:restaurantId'
   },
   {
     listIcon: <PersonIcon />,
