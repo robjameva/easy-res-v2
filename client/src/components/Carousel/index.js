@@ -17,58 +17,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 function Banner(props) {
-  if (props.newProp) console.log(props.newProp);
-  const contentPosition = props.contentPosition
-    ? props.contentPosition
-    : "left";
   const totalItems = props.length ? props.length : 3;
-  const mediaLength = totalItems - 1;
+  const mediaLength = totalItems;
 
   let items = [];
-  const content = (
-    <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key="content">
-     <Card sx={{ height: '100%'}}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            ER
-          </Avatar>
-        }
-        title={props.item.Name}
-        subheader="Upscale Restaurant"
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={props.item.Image}
-        alt="Paella dish"
-      />
-       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {props.item.Address}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.item.Description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="call">
-          <PhoneIcon />
-        </IconButton>
-      </CardActions>
-         
-    </Card>
-    </Grid>
-  );
 
   for (let i = 0; i < mediaLength; i++) {
-    const item = props.item.Items[i];
-
     const media = (
-      <Grid item xs={12 / 1} sm={12/2} md={12 / 3} lg={12 / 3} xl={12 / 4} key={item.Name}>
+      <Grid item xs={12/3 } key={items.Name}>
         <Card sx={{ height: '100%'}}>
       <CardHeader
         avatar={
@@ -76,21 +32,21 @@ function Banner(props) {
             ER
           </Avatar>
         }
-        title={item.Name}
+        title={items.Name}
         subheader="Casual Dining"
       />
       <CardMedia
         component="img"
         height="194"
-        image={item.Image}
+        image={items.Image}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {item.Address}
+          {items.Address}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {item.Description}
+          {items.Description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -109,7 +65,6 @@ function Banner(props) {
     items.push(media);
   }
 
-     items.unshift(content);
  
   return (
     <Card raised className="Banner">
@@ -127,7 +82,7 @@ const items = [
     Description: 'This is a great place to eat!',
     Address: '135 Test St. Tampa Fl',
     Initials: 'R1',
-    Items: [
+  },
       {
         Name: "Restaurant 2",
         Image: require('../../assets/testImg/2.jpg'),
@@ -141,9 +96,7 @@ const items = [
       Description: 'This is a great place to eat!',
         Address: '135 Test St. Tampa Fl',
         Initials: 'R3',
-      }
-    ]
-  },
+      },
   {
     Name: "Restaurant 4",
     Image: require('../../assets/testImg/4.jpg'),
@@ -170,7 +123,7 @@ const items = [
 ];
 
 
-class BannerExample extends React.Component {
+class CarouselHome extends React.Component {
   constructor(props) {
     super(props);
 
@@ -242,21 +195,6 @@ class BannerExample extends React.Component {
           cycleNavigation={this.state.cycleNavigation}
           navButtonsAlwaysVisible={this.state.navButtonsAlwaysVisible}
           navButtonsAlwaysInvisible={this.state.navButtonsAlwaysInvisible}
-          next={(now, previous) =>
-            console.log(
-              `Next User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
-          prev={(now, previous) =>
-            console.log(
-              `Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
-          onChange={(now, previous) =>
-            console.log(
-              `OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`
-            )
-          }
         >
           {items.map((item, index) => {
             return (
@@ -272,4 +210,4 @@ class BannerExample extends React.Component {
   }
 }
 
-export default BannerExample;
+export default CarouselHome;
