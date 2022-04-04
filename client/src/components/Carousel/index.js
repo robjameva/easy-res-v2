@@ -20,8 +20,7 @@ import autoBind from 'react-autobind';
 
 
 function Banner(props) {
-  const totalItems = props.length ? props.length : 3;
-  const mediaLength = totalItems;
+  // const totalItems = props.length ? props.length : 3;
 
   if (loading.length) <h1>Loading</h1>
   console.log(data)
@@ -89,9 +88,7 @@ function Banner(props) {
     </Card>
   );
 }
-
-// const items = restaurantData;
-
+const items = [1,2,3]
 
 class CarouselHome extends React.Component {
   constructor(props) {
