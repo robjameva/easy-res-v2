@@ -50,6 +50,22 @@ export const MAKE_RESERVATION = gql`
 	}
 `;
 
+export const EDIT_RESERVATION = gql`
+mutation Mutation($input: ReservationUpdateInput) {
+	updateReservation(input: $input) {
+	  _id
+	  party_size
+	  time_slot
+	  user {
+		_id
+	  }
+	  restaurant {
+		_id
+	  }
+	}
+  }
+`;
+
 export const DELETE_RESERVATION = gql`
 	mutation Mutation($id: ID!) {
 		deleteReservation(_id: $id) {

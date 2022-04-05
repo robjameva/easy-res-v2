@@ -18,8 +18,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_RESTAURANT_BY_ID, GET_ALL_RESTAURANTS } from '../../utils/queries'
-import { MAKE_RESERVATION } from '../../utils/mutations'
+import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
+import { EDIT_RESERVATION } from '../../utils/mutations'
 import { requirePropFactory } from "@mui/material";
 import unformat_business_hours from '../../utils/helpers'
 import auth from '../../utils/auth';
@@ -34,24 +34,15 @@ import Stack from '@mui/material/Stack'
 const theme = createTheme();
 
 export default function EditRes() {
-  // const [expanded, setExpanded] = React.useState(false);
   const { restaurantId } = useParams();
+  const { reservationId } = useParams();
   const [timeSlot, setTimeSlot] = React.useState('');
   const [partySize, setpartySize] = React.useState('');
-  const [makeRes] = useMutation(MAKE_RESERVATION);
+  const [editRes] = useMutation(EDIT_RESERVATION);
 
-  // const { loading: loading1, error: erro1, data: data1 } = useQuery(GET_ALL_RESTAURANTS);
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { restaurantId }
   });
-
-  // const allRest = data1?.getAllRestaurants || [];
-
-  // const randRest = allRest[Math.floor(Math.random() * allRest.length)];
-
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded);
-  // };
 
   const restaurantData = data?.getRestaurant || [];
   console.log(restaurantData)
@@ -65,23 +56,22 @@ export default function EditRes() {
     setpartySize(event.target.value);
   };
 
-  const handleReservation = () => {
+  const handleReservation = async () => {
     const user = auth.getProfile().data._id
     const unformattedhour = unformat_business_hours(timeSlot)
 
     try {
-      makeRes({
+      editRes({
         variables: {
           input: {
+            reservationID: reservationId,
             party_size: partySize,
-            time_slot: unformattedhour,
-            user: user,
-            restaurant: restaurantId
+            time_slot: unformattedhour
           }
         }
       });
 
-      window.location.assign('/');
+      window.location.assign('/user-dashboard');
 
     } catch (e) {
       console.error(e);
@@ -110,23 +100,6 @@ export default function EditRes() {
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
           >
             <img className='singleImage' src={image1}></img>
-            {/* <div className='bottomBanner'>
-              <Grid container>
-                <Grid item xs={6}>
-                  <h3>Not what you were looking for? Try {randRest.business_name}! </h3>
-                </Grid>
-                <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Stack style={{ display: 'flex', alignItems: 'center', padding: '3%' }}>
-                    <img className='singleLogo' src={image}></img>
-                    <Link to={`/restaurant/${randRest._id}`}>
-                      <Button style={{ backgroundColor: 'white', fontWeight: 'bold', color: 'black', marginTop: '25%' }} variant="contained" startIcon={<RestaurantIcon />}>
-                        Try It Out
-                      </Button>
-                    </Link>
-                  </Stack>
-                </Grid>
-              </Grid>
-            </div> */}
           </Grid>
           <Grid item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
             <Box
