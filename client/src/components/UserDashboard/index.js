@@ -17,6 +17,10 @@ import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -41,6 +45,46 @@ export default function UserDashboard() {
 	}, [loading]);
 
 	let [dbReservationData, setDbReservationData] = useState([]);
+
+  let [resFormToggle, setResFormToggle] = useState(false);
+
+  const [timeSlot, setTimeSlot] = React.useState('');
+  const [partySize, setpartySize] = React.useState('');
+
+  const handleTimeChange = (event) => {
+    setTimeSlot(event.target.value);
+  };
+
+  const handlePartyChange = (event) => {
+    setpartySize(event.target.value);
+  };
+
+  // const handleReservation = () => {
+  //   const user = auth.getProfile().data._id
+  //   const unformattedhour = unformat_business_hours(timeSlot)
+
+  //   try {
+  //     makeRes({
+  //       variables: {
+  //         input: {
+  //           party_size: partySize,
+  //           time_slot: unformattedhour,
+  //           user: user,
+  //           restaurant: restaurantId
+  //         }
+  //       }
+  //     });
+
+  //     window.location.assign('/');
+
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
+
+  function toggleResForm() {
+    setResFormToggle(!resFormToggle);
+  }
 
 	if (!dbReservationData.length) {
 		return (
@@ -105,14 +149,87 @@ export default function UserDashboard() {
                 <IconButton aria-label="call">
                   <PhoneIcon />
                 </IconButton>
-                <Link to="/">
-                  <Button variant="contained" sx={{ mt: 3, mb: 2 }}>
+                
+                  <Button onClick={toggleResForm} variant="contained" sx={{ mt: 3, mb: 2 }}>
                     Edit Reservation
                   </Button>
-                </Link>
+                
               </CardActions>
             </Card>
 						</Grid>
+
+            {resFormToggle && 
+            <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
+            <Box
+              sx={{
+                my: 8,
+                mx: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Box component="form" noValidate sx={{ mt: 1 }}>
+                <Typography variant='h2'>
+                  {reservation.restaurant.business_name}
+                </Typography>
+                <Typography variant='h4'>{reservation.restaurant.business_website}</Typography>
+                <Typography variant='h6'>{reservation.restaurant.business_address}</Typography>
+                <Typography variant='h6'>{reservation.restaurant.business_phone}</Typography>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Time</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={timeSlot}
+                    label="timeSlot"
+                    onChange={handleTimeChange}
+                  >
+                    {/* {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)} */}
+
+
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Party Size</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={reservation.partySize}
+                    label="partySize"
+                    onChange={handlePartyChange}
+                  >
+                    <MenuItem value={1}>{1}</MenuItem>
+                    <MenuItem value={2}>{2}</MenuItem>
+                    <MenuItem value={3}>{3}</MenuItem>
+                    <MenuItem value={4}>{4}</MenuItem>
+                    <MenuItem value={5}>{5}</MenuItem>
+                    <MenuItem value={6}>{6}</MenuItem>
+                    <MenuItem value={7}>{7}</MenuItem>
+                    <MenuItem value={8}>{8}</MenuItem>
+                  </Select>
+                </FormControl>
+                <Grid container>
+                  <Grid item xs>
+                    {/* {timeSlot && partySize
+                      ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>
+                      :
+                      <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>} */}
+                  </Grid>
+                  <Grid item>
+
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Grid>
+
+
+            }
 
 						{/* <Grid item xs={8} style={{ textAlign: 'right' }} padding>
               <Card sx={{ minWidth: 275 }}>
