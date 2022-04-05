@@ -11,6 +11,7 @@ import SingleView from './components/SingleView';
 import OwnerSign from './components/OwnerSignUp';
 import OwnerDash from './components/OwnerDash';
 import AddRestaurant from "./components/AddRestaurant"
+import EditRes from './components/EditRes';
 import {
 	ApolloProvider,
 	ApolloClient,
@@ -48,6 +49,7 @@ export default function App() {
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/sign-up" component={SignUp} />
 						<Route exact path="/restaurant/:restaurantId" component={SingleView} />
+						<Route exact path="/restaurant/:restaurantId/:reservationId" component={EditRes} />
 						<Route exact path="/owner-dashboard" component={OwnerDash} />
 						<Route exact path="/user-dashboard" component={UserDashboard} />
 						<Route exact path="/owner" component={OwnerSign} />

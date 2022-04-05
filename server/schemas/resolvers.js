@@ -51,13 +51,13 @@ const resolvers = {
             const restaurants = await Restaurant.find({})
                 .select('-__v')
 
-            console.log(restaurants)
-
             return restaurants
         },
         getReservationsByUser: async (parent, { userID }) => {
-            return Reservation.find({ user: { _id: userID } })
+            const reservation = await Reservation.find({ user: { _id: userID } })
                 .select('-__v')
+
+            return reservation
         },
         getReservationsByRestaurant: async (parent, { restaurantID }) => {
             return Reservation.find({ restaurant: { _id: restaurantID } })
