@@ -40,7 +40,7 @@ export default function SignUpSide() {
 
 		try {
 			const { data } = await createUser({
-				variables: { input: { ...userFormData } }
+				variables: { input: { ...userFormData } },
 			});
 
 			if (data.createUser.user.isOwner) localStorage.setItem('isOwner', false);
