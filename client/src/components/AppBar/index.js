@@ -26,6 +26,10 @@ import Auth from '../../utils/auth';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AddIcon from '@mui/icons-material/Add';
 import FoodBankIcon from '@mui/icons-material/FoodBank'
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import { GET_ALL_RESTAURANTS } from '../../utils/queries'
+import { useQuery } from "@apollo/client";
 
 const listItems = [
   {
@@ -107,9 +111,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+ 
+
 
 
 export default function SearchAppBar() {
+
+  const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
+
+  const restaurantData = data?.getAllRestaurants || [];
+  const allNames = restaurantData.business_name;
 
   const [open, setOpen] = useState(false);
 
@@ -198,16 +209,26 @@ export default function SearchAppBar() {
             )}
           </Stack>
 
-          <Search sx={{ borderColor: '#21325e' }}>
-            <SearchIconWrapper>
-              <SearchIcon style={{ color: '#21325e' }} />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              style={{ color: '#21325e' }}
-            />
-          </Search>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={allNames}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Search" />}
+          />
+
+{/* <Search sx={{ borderColor: '#21325e' }}>
+              <SearchIconWrapper>
+                <SearchIcon style={{ color: '#21325e' }} />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                style={{ color: '#21325e' }}
+              />
+            </Search> */}
+
+         
         </Toolbar>
       </AppBar>
     </Box>
