@@ -22,8 +22,9 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import Typography from '@mui/material/Typography';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useQuery } from '@apollo/client';
-import { QUERY_RESERVATION_BY_USER, GET_RESTAURANT_BY_ID } from '../../utils/queries';
+import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
 import auth from '../../utils/auth';
+import { format_business_hour } from '../../utils/helpers'
 
 // const theme = createTheme();
 
@@ -31,11 +32,7 @@ export default function UserDashboard() {
   const user = auth.getProfile().data._id;
   let [dbReservationData, setDbReservationData] = useState([]);
 
-  let [resFormToggle, setResFormToggle] = useState(false);
   let [userFormToggle, setUserFormToggle] = useState(false);
-
-  const [timeSlot, setTimeSlot] = React.useState('');
-  const [partySize, setpartySize] = React.useState('');
 
   const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_USER, {
     variables: { userId: user },
@@ -46,24 +43,6 @@ export default function UserDashboard() {
     setDbReservationData(reservationData);
   }, [loading]);
 
-
-  // const { loading: l1, error: e1, data: d1 } = useQuery(GET_RESTAURANT_BY_ID, {
-  //   variables: { restaurantId: dbReservationData[0].restaurant._id }
-  // });
-  // const restaurantData = d1?.getRestaurant || [];
-
-  // console.log(restaurantData)
-
-
-
-
-  const handleTimeChange = (event) => {
-    setTimeSlot(event.target.value);
-  };
-
-  const handlePartyChange = (event) => {
-    setpartySize(event.target.value);
-  };
 
   function handleEditRes(restaurantId, reservationId) {
     window.location.assign(`/restaurant/${restaurantId}/${reservationId}`);
@@ -80,7 +59,9 @@ export default function UserDashboard() {
   if (loading) {
     return <h1>Loading</h1>;
   }
+
   console.log(dbReservationData);
+
   return (
     <>
       <br />
@@ -104,24 +85,15 @@ export default function UserDashboard() {
             </Grid>
             <Grid item xs={8}>
               <Card sx={{ width: '60vw', maxHeight: '30vh' }}>
-                <CardHeader
-                  avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                      ER
-                    </Avatar>
-                  }
-                  title={reservation.restaurant.business_name}
-                  titleTypographyProps={{ variant: 'h3' }}
-                />
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Typography variant="h4" component="div">
-                    Reservation Information
+                    Your Reservation at {reservation.restaurant.business_name}
                   </Typography>
                   <Typography variant="h6">
-                    Time:{reservation.time_slot}
+                    Time: {format_business_hour(reservation.time_slot)}
                   </Typography>
                   <Typography variant="h6">
-                    Party Size:{reservation.party_size}
+                    Party Size: {reservation.party_size} people
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
