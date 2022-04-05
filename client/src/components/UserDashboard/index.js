@@ -24,7 +24,7 @@ import Typography from '@mui/material/Typography';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
-import { EDIT_USER } from '../../utils/mutations'
+import { EDIT_USER, DELETE_RESERVATION } from '../../utils/mutations'
 import auth from '../../utils/auth';
 import { format_business_hour } from '../../utils/helpers'
 
@@ -35,6 +35,7 @@ export default function UserDashboard() {
   const [userFormData, setUserFormData] = useState({});
 
   const [editUser, { error: editUserError }] = useMutation(EDIT_USER);
+  const [deleteRes, { error: deleteResError }] = useMutation(DELETE_RESERVATION);
 
   let [dbReservationData, setDbReservationData] = useState([]);
 
@@ -59,13 +60,28 @@ export default function UserDashboard() {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleSubmitEdit = async (event) => {
+  const handleSubmitEditUser = async (event) => {
     event.preventDefault();
 
     try {
       const response = await editUser({
         variables: { input: { ...userFormData, _id: user } },
       });
+      window.location.assign('/user-dashboard')
+
+    } catch (err) {
+      console.error(err);
+    }
+
+  };
+
+  const handleDeleteRes = async (reservationID) => {
+
+    try {
+      const response = await deleteRes({
+        variables: { id: reservationID },
+      });
+
       window.location.assign('/user-dashboard')
 
     } catch (err) {
@@ -131,7 +147,11 @@ export default function UserDashboard() {
                   </IconButton>
 
                   <Button onClick={() => handleEditRes(reservation.restaurant._id, reservation._id)} variant="contained" sx={{ mt: 3, mb: 2 }}>
-                    Edit Reservation
+                    Edit
+                  </Button>
+
+                  <Button onClick={() => handleDeleteRes(reservation._id)} variant="contained" color="error" sx={{ mt: 3, mb: 2 }}>
+                    Cancel
                   </Button>
 
                 </CardActions>
@@ -221,7 +241,7 @@ export default function UserDashboard() {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
-                      onClick={handleSubmitEdit}
+                      onClick={handleSubmitEditUser}
                     >
                       Confirm Edit
                     </Button>
