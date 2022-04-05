@@ -1,40 +1,48 @@
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 
 
-class Upload extends React.Component {
-  processFile = async e => {
-    var file = e.target.files[0];
-    var formdata = new FormData();
+import React from 'react'
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
 
-    formdata.append("file", file);
-    formdata.append("cloud_name", "easy-res-v2");
-    // formdata.append("upload_preset", "my-preset");
+// Import any actions required for transformations.
+import {fill} from "@cloudinary/url-gen/actions/resize";
 
-    let res = await fetch(
-      "https://api.cloudinary.com/v1_1/shirly/auto/upload",
-      {
-        method: "post",
-        mode: "cors",
-        body: formdata
-      }
-    );
+export default function ImageUpload () {
 
-    let json = await res.json();
-    console.log(JSON.stringify(json.secure_url));
-  };
 
-  render() {
-    return (
-    
-      <div>
-        <h3 className='upload-btn'>Upload a Picture for Your Restaurant Here!</h3>
-        <input type="file" onChange={this.processFile} />
-      </div>
+  // 2. Set your cloud name
+  //========================
 
-    );
-  }
-}
+  // Create a Cloudinary instance and set your cloud name.
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'easy-res-v2'
+    }
+  });
 
-export default Upload;
+
+  // 3. Get your image
+  //===================
+
+  // Instantiate a CloudinaryImage object for the image with the public ID, 'docs/models'.
+  const myImage = cld.image('docs/models'); 
+
+
+  // 4. Transform your image
+  //=========================
+
+  // Resize to 250 x 250 pixels using the 'fill' crop mode.
+  myImage.resize(fill().width(250).height(250));
+
+
+  // 5. Deliver your image
+  // =========================
+
+  // Render the image in a React component.
+  return (
+    <div>
+      <AdvancedImage cldImg={myImage} />
+    </div>
+  )
+
+};
