@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SearchAppBar from '../AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -19,17 +14,18 @@ import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PhoneIcon from '@mui/icons-material/Phone';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { flexbox } from '@mui/system';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
 import auth from '../../utils/auth';
+
+const theme = createTheme();
 
 export default function UserDashboard() {
 	const user = auth.getProfile().data._id;
@@ -47,6 +43,7 @@ export default function UserDashboard() {
 	let [dbReservationData, setDbReservationData] = useState([]);
 
   let [resFormToggle, setResFormToggle] = useState(false);
+  let [userFormToggle, setUserFormToggle] = useState(false);
 
   const [timeSlot, setTimeSlot] = React.useState('');
   const [partySize, setpartySize] = React.useState('');
@@ -86,16 +83,20 @@ export default function UserDashboard() {
     setResFormToggle(!resFormToggle);
   }
 
+  function toggleUserForm() {
+    setUserFormToggle(!userFormToggle);
+  }
+
 	if (!dbReservationData.length) {
 		return (
 			<>
-				<h3>No Reservations</h3>
+				<Typography variant="h3" sx={{textAlign: "center"}}>No Reservations</Typography>
 
-				<Link to="/">
-					<Button variant="contained" sx={{ mt: 3, mb: 2 }}>
+				
+					<Button onClick={toggleUserForm} variant="contained" sx={{ mt: 3, mb: 2 }}>
 						Edit User
 					</Button>
-				</Link>
+				
 			</>
 		);
 	}
@@ -105,14 +106,17 @@ export default function UserDashboard() {
 	console.log(dbReservationData);
 	return (
 		<>
+      <br/>
 			<Grid container>
 				{dbReservationData.map((reservation, index) => (
 					<Grid key={index} item xs={12} padding sx={{ 
             display: 'flex',
-            justifyContent: 'center'
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-            <Grid item xs={3} padding>
-              <Card>
+            <Grid item xs={8} padding>
+              <Card sx={{ width: '60vw', maxHeight: '40vh' }}>
                 <CardMedia
 									component="img"
 									image={reservation.restaurant.business_image}
@@ -120,8 +124,8 @@ export default function UserDashboard() {
 								/>
               </Card>
             </Grid>
-						<Grid item xs={4}>
-            <Card sx={{ minWidth: 275 }}>
+						<Grid item xs={8}>
+            <Card sx={{ width: '60vw', maxHeight: '30vh' }}>
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -129,16 +133,16 @@ export default function UserDashboard() {
                   </Avatar>
                 }
                 title={reservation.restaurant.business_name}
-                subheader="Upscale Restaurant"
+                titleTypographyProps={{ variant:'h3' }}
               />
-              <CardContent>
-                <Typography variant="h5" component="div">
+              <CardContent sx={{ textAlign: 'center' }}>
+                <Typography variant="h4" component="div">
                   Reservation Information
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="h6">
                   Time:{reservation.time_slot}
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="h6">
                   Party Size:{reservation.party_size}
                 </Typography>
               </CardContent>
@@ -157,9 +161,10 @@ export default function UserDashboard() {
               </CardActions>
             </Card>
 						</Grid>
-
-            {resFormToggle && 
-            <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
+            <br/>
+            <br/>
+          {resFormToggle && 
+            <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square >
             <Box
               sx={{
                 my: 8,
@@ -167,10 +172,10 @@ export default function UserDashboard() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-              }}
+              }} 
             >
-              <Box component="form" noValidate sx={{ mt: 1 }}>
-                <Typography variant='h2'>
+              <Box component="form" noValidate padding sx={{ mt: 1, width: '25vw', textAlign: 'center' }}>
+                <Typography variant='h3'>
                   {reservation.restaurant.business_name}
                 </Typography>
                 <Typography variant='h4'>{reservation.restaurant.business_website}</Typography>
@@ -227,37 +232,117 @@ export default function UserDashboard() {
               </Box>
             </Box>
           </Grid>
+          }
+          <br/>
+          <br/>
+          
+          {userFormToggle &&
+          <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square >
+            <Box
+              sx={{
+                my: 8,
+                mx: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }} 
+            >
+              <Box component="form" noValidate padding sx={{ mt: 1, width: '25vw', textAlign: 'center' }}>
+                <Typography variant='h3'>
+                  Edit User
+                </Typography>
+                <TextField
+									margin="normal"
+									required
+									fullWidth
+									id="first_name"
+									label="First Name"
+									name="first_name"
+									// onChange={handleInputChange}
+									// value={userFormData.first_name}
+									autoComplete="firstName"
+									autoFocus
+								/>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									id="last_name"
+									label="Last Name"
+									name="last_name"
+									// onChange={handleInputChange}
+									// value={userFormData.last_name}
+									autoComplete="lastName"
+								/>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									id="phone_number"
+									label="Phone Number"
+									name="phone_number"
+									// onChange={handleInputChange}
+									// value={userFormData.phone_number}
+									autoComplete="phoneNumber"
+								/>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									id="email"
+									label="Email Address"
+									name="email"
+									// onChange={handleInputChange}
+									// value={userFormData.email}
+									autoComplete="email"
+								/>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									name="password"
+									// onChange={handleInputChange}
+									// value={userFormData.password}
+									label="Password"
+									type="password"
+									id="password"
+									autoComplete="current-password"
+								/>
+                <Button
+									type="submit"
+									fullWidth
+									variant="contained"
+									sx={{ mt: 3, mb: 2 }}
+								>
+									Confirm Edit
+								</Button>
+                <Grid container>
+                  <Grid item xs>
+                    {/* {timeSlot && partySize
+                      ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>
+                      :
+                      <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
+                        Reserve
+                      </Button>} */}
+                  </Grid>
+                  <Grid item>
 
-
-            }
-
-						{/* <Grid item xs={8} style={{ textAlign: 'right' }} padding>
-              <Card sx={{ minWidth: 275 }}>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    Reservation Info:
-                  </Typography>
-                  
-                  <Typography variant="body2">
-                    Time:
-                    <br />
-                    {reservation.time_slot}
-                  </Typography>
-                  <Typography variant="body2">
-                    Party Size:
-                    <br />
-                    {reservation.party_size}
-                  </Typography>
-                </CardContent>
-              </Card>
-						</Grid> */}
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Grid>
+          
+          }
 					</Grid>
 				))}
-				<Link to="/edit-user">
-					<Button variant="contained" sx={{ mt: 3, mb: 2 }}>
+				
+					<Button onClick={toggleUserForm} variant="contained" sx={{ mt: 3, mb: 2 }}>
 						Edit User
 					</Button>
-				</Link>
+				
 			</Grid>
 		</>
 	);
