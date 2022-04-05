@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Restaurant, Reservation } = require('../models');
 const { signToken } = require('../utils/auth');
@@ -51,13 +51,15 @@ const resolvers = {
             const restaurants = await Restaurant.find({})
                 .select('-__v')
 
-            console.log(restaurants)
-
             return restaurants
         },
         getReservationsByUser: async (parent, { userID }) => {
-            return Reservation.find({ user: { _id: userID } })
+            const reservation = await Reservation.find({ user: { _id: userID } })
                 .select('-__v')
+                .populate('restaurant')
+                .populate('user')
+
+            return reservation
         },
         getReservationsByRestaurant: async (parent, { restaurantID }) => {
             return Reservation.find({ restaurant: { _id: restaurantID } })
