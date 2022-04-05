@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Restaurant, Reservation } = require('../models');
 const { signToken } = require('../utils/auth');
