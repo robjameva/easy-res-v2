@@ -35,8 +35,24 @@ export const LOGIN_USER = gql`
 `;
 
 export const MAKE_RESERVATION = gql`
-mutation Mutation($input: ReservationCreateInput) {
-	createReservation(input: $input) {
+	mutation Mutation($input: ReservationCreateInput) {
+		createReservation(input: $input) {
+			_id
+			party_size
+			time_slot
+			user {
+				_id
+			}
+			restaurant {
+				_id
+			}
+		}
+	}
+`;
+
+export const EDIT_RESERVATION = gql`
+mutation Mutation($input: ReservationUpdateInput) {
+	updateReservation(input: $input) {
 	  _id
 	  party_size
 	  time_slot
@@ -48,4 +64,42 @@ mutation Mutation($input: ReservationCreateInput) {
 	  }
 	}
   }
+`;
+
+export const DELETE_RESERVATION = gql`
+	mutation Mutation($id: ID!) {
+		deleteReservation(_id: $id) {
+			_id
+			party_size
+			time_slot
+			user {
+				_id
+			}
+			restaurant {
+				_id
+			}
+		}
+	}
+`;
+
+export const DELETE_RESTAURANT = gql`
+	mutation DeleteRestaurant($id: ID!) {
+		deleteRestaurant(_id: $id) {
+			_id
+		}
+	}
+`;
+
+export const EDIT_USER = gql`
+	mutation UpdateUser($input: UserUpdateInput) {
+		updateUser(input: $input) {
+			_id
+			first_name
+			last_name
+			phone_number
+			username
+			email
+			isOwner
+		}
+	}
 `;
