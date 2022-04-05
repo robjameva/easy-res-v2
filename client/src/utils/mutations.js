@@ -90,7 +90,7 @@ export const DELETE_RESTAURANT = gql`
 	}
 `;
 
-export const UPDATE_USER = gql`
+export const EDIT_USER = gql`
 	mutation UpdateUser($input: UserUpdateInput) {
 		updateUser(input: $input) {
 			_id

@@ -18,11 +18,13 @@ import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import GroupsIcon from '@mui/icons-material/Groups';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Typography from '@mui/material/Typography';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
+import { EDIT_USER } from '../../utils/mutations'
 import auth from '../../utils/auth';
 import { format_business_hour } from '../../utils/helpers'
 
@@ -30,6 +32,10 @@ import { format_business_hour } from '../../utils/helpers'
 
 export default function UserDashboard() {
   const user = auth.getProfile().data._id;
+  const [userFormData, setUserFormData] = useState({});
+
+  const [editUser, { error: editUserError }] = useMutation(EDIT_USER);
+
   let [dbReservationData, setDbReservationData] = useState([]);
 
   let [userFormToggle, setUserFormToggle] = useState(false);
@@ -47,6 +53,26 @@ export default function UserDashboard() {
   function handleEditRes(restaurantId, reservationId) {
     window.location.assign(`/restaurant/${restaurantId}/${reservationId}`);
   }
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleSubmitEdit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await editUser({
+        variables: { input: { ...userFormData, _id: user } },
+      });
+      window.location.assign('/user-dashboard')
+
+    } catch (err) {
+      console.error(err);
+    }
+
+  };
 
   function toggleUserForm() {
     setUserFormToggle(!userFormToggle);
@@ -93,7 +119,7 @@ export default function UserDashboard() {
                     Time: {format_business_hour(reservation.time_slot)}
                   </Typography>
                   <Typography variant="h6">
-                    Party Size: {reservation.party_size} people
+                    Party: {reservation.party_size} people
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -136,8 +162,9 @@ export default function UserDashboard() {
                       id="first_name"
                       label="First Name"
                       name="first_name"
-                      // onChange={handleInputChange}
-                      // value={userFormData.first_name}
+                      onChange={handleInputChange}
+                      value={userFormData.first_name}
+                      defaultValue={dbReservationData[0].user.first_name}
                       autoComplete="firstName"
                       autoFocus
                     />
@@ -148,8 +175,9 @@ export default function UserDashboard() {
                       id="last_name"
                       label="Last Name"
                       name="last_name"
-                      // onChange={handleInputChange}
-                      // value={userFormData.last_name}
+                      onChange={handleInputChange}
+                      value={userFormData.last_name}
+                      defaultValue={dbReservationData[0].user.last_name}
                       autoComplete="lastName"
                     />
                     <TextField
@@ -159,8 +187,9 @@ export default function UserDashboard() {
                       id="phone_number"
                       label="Phone Number"
                       name="phone_number"
-                      // onChange={handleInputChange}
-                      // value={userFormData.phone_number}
+                      onChange={handleInputChange}
+                      value={userFormData.phone_number}
+                      defaultValue={dbReservationData[0].user.phone_number}
                       autoComplete="phoneNumber"
                     />
                     <TextField
@@ -170,8 +199,9 @@ export default function UserDashboard() {
                       id="email"
                       label="Email Address"
                       name="email"
-                      // onChange={handleInputChange}
-                      // value={userFormData.email}
+                      onChange={handleInputChange}
+                      value={userFormData.email}
+                      defaultValue={dbReservationData[0].user.email}
                       autoComplete="email"
                     />
                     <TextField
@@ -179,8 +209,8 @@ export default function UserDashboard() {
                       required
                       fullWidth
                       name="password"
-                      // onChange={handleInputChange}
-                      // value={userFormData.password}
+                      onChange={handleInputChange}
+                      value={userFormData.password}
                       label="Password"
                       type="password"
                       id="password"
@@ -191,19 +221,13 @@ export default function UserDashboard() {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
+                      onClick={handleSubmitEdit}
                     >
                       Confirm Edit
                     </Button>
                     <Grid container>
                       <Grid item xs>
-                        {/* {timeSlot && partySize
-                      ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
-                        Reserve
-                      </Button>
-                      :
-                      <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
-                        Reserve
-                      </Button>} */}
+
                       </Grid>
                       <Grid item>
 

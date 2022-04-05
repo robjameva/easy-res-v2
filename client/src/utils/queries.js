@@ -21,6 +21,10 @@ export const QUERY_RESERVATION_BY_USER = gql`
 			time_slot
 			user {
 				_id
+				first_name
+				last_name
+				phone_number
+				email
 			}
 			restaurant {
 				_id

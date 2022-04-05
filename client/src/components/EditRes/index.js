@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton'; import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import image1 from '../../assets/testImg/1.jpg';
-import image from '../../assets/images/logoHalf.png'
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -20,14 +15,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
 import { EDIT_RESERVATION } from '../../utils/mutations'
-import { requirePropFactory } from "@mui/material";
 import unformat_business_hours from '../../utils/helpers'
-import auth from '../../utils/auth';
-import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import ShareIcon from '@mui/icons-material/Share';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import Stack from '@mui/material/Stack'
+
 
 
 
@@ -57,7 +46,6 @@ export default function EditRes() {
   };
 
   const handleReservation = async () => {
-    const user = auth.getProfile().data._id
     const unformattedhour = unformat_business_hours(timeSlot)
 
     try {
