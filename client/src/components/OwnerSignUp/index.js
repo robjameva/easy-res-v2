@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import Upload from "../Cloudinary";
 
 const theme = createTheme();
 
@@ -175,6 +176,8 @@ export default function OwnerSign() {
                   id="password"
                   autoComplete="current-password"
                 />
+                
+                <Upload />
 
                 <Button
                   type="submit"

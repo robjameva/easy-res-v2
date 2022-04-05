@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignUp from "./components/SignUp";
 import Login from "./components/Login"
 import Home from "../src/components/Home";
-import UserDashboard from './components/UserDashboard';
+// import UserDashboard from './components/UserDashboard';
 import Footer from './components/Footer';
 import SearchAppBar from './components/AppBar';
 import SingleView from './components/SingleView';
