@@ -12,19 +12,19 @@ Easy Res is an online restaurant reservation service similar to Open Table or Re
 * Twilio API 
 * Node.js
 * Express.js
-* Express-Sessions
-* Sequelize 
+* React
+* MongoDB
+* Material UI
+* Apollo
+* GraphQL
+* JSON Web Token
 * Bcrypt 
-* Handlebars 
-* MySQL2
-* Bootstrap
 * CSS
 * Heroku
-* JawsDB
 
 ## Contributers
 * Robert Evanik: https://github.com/robjameva <br>
 * Chris Mccormack https://github.com/CmcCormack92 <br>
 * Sean Gillespie https://github.com/seene3 <br>
-* Nick Perel  <br>
+* Nick Perel https://github.com/nickperel <br>
 * Nick Defex https://github.com/Ndefected15
