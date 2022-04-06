@@ -119,9 +119,8 @@ export default function UserDashboard() {
               <Card sx={{ width: '60vw', maxHeight: '40vh' }}>
                 <CardMedia
                   component="img"
-                  // image={reservation.restaurant.business_image}
-                  image={'https://media-cdn.tripadvisor.com/media/photo-s/1a/b8/46/6d/london-stock.jpg'}
-                  alt="Paella dish"
+                  image={require(`../../assets/testImg/${reservation.restaurant.business_image}`)}
+                  alt={reservation.restaurant.business_name}
                 />
               </Card>
             </Grid>
