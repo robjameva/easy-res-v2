@@ -38,7 +38,7 @@ export default function AddRestaurant() {
 
 		try {
 			const { data } = await createRestaurant({
-				variables: { input: { ...userFormData, owner: user } },
+				variables: { input: { ...userFormData, owner: user, business_image: '1.jpg' } },
 			});
 
 			if (data) window.location.assign('/owner-dashboard');
@@ -165,16 +165,6 @@ export default function AddRestaurant() {
 									name="business_website"
 									onChange={handleInputChange}
 									value={userFormData.website}
-								/>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									id="business_image"
-									label="Restaurant Image URL"
-									name="business_image"
-									onChange={handleInputChange}
-									value={userFormData.image}
 								/>
 								<Button
 									type="submit"
