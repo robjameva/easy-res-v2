@@ -79,7 +79,7 @@ export default function SingleView() {
         }
       });
 
-      if (res) window.location.assign('/');
+      if (res) window.location.assign('/user-dashboard');
 
     } catch (e) {
       console.error(e);

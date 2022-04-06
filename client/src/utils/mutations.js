@@ -88,6 +88,14 @@ export const DELETE_RESTAURANT = gql`
 	}
 `;
 
+export const CREATE_RESTAURANT = gql`
+mutation CreateRestaurant($input: RestaurantInput) {
+	createRestaurant(input: $input) {
+	  _id
+	}
+  }
+`;
+
 export const EDIT_USER = gql`
 	mutation UpdateUser($input: UserUpdateInput) {
 		updateUser(input: $input) {

@@ -179,11 +179,11 @@ export default function SignUpSide() {
 									<Grid item xs></Grid>
 									<Grid item>
 										<Link to="/login" variant="body2">
-											{'Already have an account? Sign In'}
+											{'Already have an account?'}
 										</Link>
 										<br></br>
 										<Link to="/owner" variant="body2">
-											{'Want to put your restaurant on our site? Sign up here'}
+											{'Use Easy Res at your restaurant!'}
 										</Link>
 									</Grid>
 								</Grid>

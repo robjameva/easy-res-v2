@@ -175,7 +175,7 @@ export default function OwnerSign() {
                 <Grid container>
                   <Grid item xs></Grid>
                   <Link to="/login" variant="body2">
-                    {"Already have an account? Sign In"}
+                    {"Already have an account?"}
                   </Link>
                 </Grid>
               </Box>
