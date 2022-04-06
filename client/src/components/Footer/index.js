@@ -28,21 +28,21 @@ export default function Footer() {
   return (
       <Box
         component="footer"
+        //fixed
         sx={{
-          py: 3,
+          py: 2,
           px: 2,
-          mt: 'auto',
         }}
-        style={{backgroundColor:'white'}}
+        style={{backgroundColor:'grey', position: "fixed", bottom: "0", width: "100%", margin: '-10px'}}
       >
         
         <Container width="fullWidth" 
-        style={{display: 'flex', justifyContent: 'flex-end'}}>
+        style={{display: 'flex', justifyContent: 'center'}}>
           <Copyright />
-          <Link to="/user-dashboard" style={{ textDecoration: 'none' }}>
-              <Button size="medium" variant="outlined" style={{ color: '#21325e' }}>Edit User</Button>
+          <Link to="/user-dashboard" style={{ textDecoration: 'none', marginLeft: "30px" }}>
+              <Button size="medium" variant="contained" style={{ color: '#FFFFFF' }}>Edit User</Button>
           </Link>
         </Container>
       </Box>
-  );
+  ); 
 }
