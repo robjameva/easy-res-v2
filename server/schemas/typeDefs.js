@@ -45,6 +45,7 @@ const typeDefs = gql`
 		business_hours_close: Int!
 		business_website: String!
 		business_image: String!
+		owner: ID!
 	}
 
 	input RestaurantUpdateInput {
@@ -57,6 +58,7 @@ const typeDefs = gql`
 		business_hours_close: Int!
 		business_website: String
 		business_image: String
+		owner: ID
 	}
 
 	input UserUpdateInput {
@@ -88,6 +90,7 @@ const typeDefs = gql`
 		business_hours_close: Int!
 		business_website: String
 		business_image: String
+		owner: User
 	}
 
 
@@ -97,6 +100,7 @@ const typeDefs = gql`
 		getAllRestaurants: [Restaurant]
 		getReservationsByUser(userID: ID!): [Reservation]
 		getReservationsByRestaurant(restaurantID: ID!): [Reservation]
+		getReservationsByOwner(ownerID: ID!): [Reservation]
 	}
   
 	type Mutation {
@@ -109,6 +113,8 @@ const typeDefs = gql`
 		updateUser(input: UserUpdateInput): User
 		deleteUser(_id: ID!): User
 		deleteReservation(_id: ID!): Reservation
+		deleteAllReservations: [Reservation]
+		deleteAllRestaurants: [Restaurant]
 		deleteRestaurant(_id: ID!): Restaurant
 	}	
 
