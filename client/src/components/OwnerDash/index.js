@@ -16,8 +16,9 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useQuery } from "@apollo/client";
-import { GET_RESERVATION_BY_RESTAURANT } from '../../utils/queries'
+import { QUERY_RESERVATION_BY_OWNER } from '../../utils/queries'
 import { Link } from 'react-router-dom';
+import auth from '../../utils/auth'
 
 const image = require('../../assets/testImg/5.jpg')
 
@@ -54,9 +55,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // ];
 
 export default function OwnerDash(props) {
+  const user = auth.getProfile().data._id;
 
-  const { loading, error, data } = useQuery(GET_RESERVATION_BY_RESTAURANT, { variables: { restaurantId: "62486976b4820550339306bd" } });
-  const reservationData = data?.getReservationsByRestaurant || [];
+  const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_OWNER,
+    { variables: { ownerId: user } });
+
+  const reservationData = data?.getReservationsByOwner || [];
   // const [dbResData, setDbResData] = useState()
   console.log(reservationData)
 

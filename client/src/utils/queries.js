@@ -38,6 +38,25 @@ export const QUERY_RESERVATION_BY_USER = gql`
 	}
 `;
 
+export const QUERY_RESERVATION_BY_OWNER = gql`
+query GetReservationsByOwner($ownerId: ID!) {
+	getReservationsByOwner(ownerID: $ownerId) {
+	  _id
+	  party_size
+	  time_slot
+	  user {
+		_id
+	  }
+	  restaurant {
+		_id
+		owner {
+		  _id
+		}
+	  }
+	}
+  }
+`;
+
 export const GET_ALL_RESTAURANTS = gql`
 	query Query {
 		getAllRestaurants {
