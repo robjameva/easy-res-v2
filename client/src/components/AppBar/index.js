@@ -20,12 +20,12 @@ import Home from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
-import logo from '../../assets/images/logo.png'
-import { Link } from "react-router-dom";
+import logo from '../../assets/images/logo.png';
+import { Link } from 'react-router-dom';
 import Auth from '../../utils/auth';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AddIcon from '@mui/icons-material/Add';
-import FoodBankIcon from '@mui/icons-material/FoodBank'
+import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { GET_ALL_RESTAURANTS } from '../../utils/queries'
@@ -73,57 +73,57 @@ const listItems = [
 ];
 
 const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
+	position: 'relative',
+	borderRadius: theme.shape.borderRadius,
+	backgroundColor: alpha(theme.palette.common.white, 0.15),
+	'&:hover': {
+		backgroundColor: alpha(theme.palette.common.white, 0.25),
+	},
+	marginLeft: 0,
+	width: '100%',
+	[theme.breakpoints.up('sm')]: {
+		marginLeft: theme.spacing(1),
+		width: 'auto',
+	},
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+	padding: theme.spacing(0, 2),
+	height: '100%',
+	position: 'absolute',
+	pointerEvents: 'none',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
+	color: 'inherit',
+	'& .MuiInputBase-input': {
+		padding: theme.spacing(1, 1, 1, 0),
+		// vertical padding + font size from searchIcon
+		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+		transition: theme.transitions.create('width'),
+		width: '100%',
+		[theme.breakpoints.up('sm')]: {
+			width: '12ch',
+			'&:focus': {
+				width: '20ch',
+			},
+		},
+	},
 }));
-
- 
-
-
 
 export default function SearchAppBar() {
 
   const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
 
   const restaurantData = data?.getAllRestaurants || [];
-  const allNames = restaurantData.business_name;
+	let allNames = [];
+	restaurantData.map((item, i) => {
+		allNames.push(item.business_name);
+		console.log(item.business_name);
+	});
 
   const [open, setOpen] = useState(false);
 
@@ -218,17 +218,18 @@ export default function SearchAppBar() {
             options={allNames}
             sx={{ width: 300, mx: 3 }}
             renderInput={(params) => <TextField {...params}  
-            placeholder="Search…" 
-            inputProps={{ 'aria-label': 'search' }}
+            // placeholder="Search…" 
+            // inputProps={{ 'aria-label': 'search' }}
             style={{ color: '#21325e' }} 
-            variant="standard"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}  />}
+            // variant="standard"
+            // InputProps={{
+            //   startAdornment: (
+            //     <InputAdornment position="start">
+            //       <SearchIcon />
+            //     </InputAdornment>
+            //   ),
+            // }}  
+			/>}
            
           />         
         </Toolbar>

@@ -56,7 +56,7 @@ export default function OwnerDash(props) {
 
   if (loading.length || l1.length) <h1>Loading</h1>
 
-
+console.log(reservationData)
 
   return (
     <Box>
@@ -83,6 +83,7 @@ export default function OwnerDash(props) {
             )
           })}
         </Grid>
+        {reservationData.length >0 ? (
         <Grid item xs={12} sm={6}>
           <TableContainer component={Paper}>
             <Table aria-label="customized table">
@@ -111,6 +112,10 @@ export default function OwnerDash(props) {
             </Table>
           </TableContainer>
         </Grid>
+        )
+      : 
+      <h1>There are Currently No Reservations for your Restaurant!</h1>
+      }
       </Grid>
     </Box>
   );
