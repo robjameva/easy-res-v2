@@ -46,9 +46,12 @@ query GetReservationsByOwner($ownerId: ID!) {
 	  time_slot
 	  user {
 		_id
+		first_name
+		last_name
 	  }
 	  restaurant {
 		_id
+		business_name
 		owner {
 		  _id
 		}
@@ -71,6 +74,22 @@ export const GET_ALL_RESTAURANTS = gql`
 			business_image
 		}
 	}
+`;
+
+export const GET_RESTAURANTS_BY_OWNER = gql`
+query Query($ownerID: ID!) {
+	getRestaurantsByOwner(ownerID: $ownerID) {
+	  _id
+	  business_address
+	  business_hours_close
+	  business_hours_open
+	  business_image
+	  business_name
+	  business_phone
+	  business_website
+	  occupancy
+	}
+  }
 `;
 
 export const GET_RESTAURANT_BY_ID = gql`

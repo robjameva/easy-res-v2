@@ -54,6 +54,12 @@ const resolvers = {
 
             return restaurants
         },
+        getRestaurantsByOwner: async (parent, { ownerID }) => {
+            const restaurants = await Restaurant.find({ owner: { _id: ownerID } })
+                .select('-__v')
+
+            return restaurants
+        },
         getReservationsByUser: async (parent, { userID }) => {
             const reservation = await Reservation.find({ user: { _id: userID } })
                 .select('-__v')
@@ -67,11 +73,11 @@ const resolvers = {
                 .select('-__v')
                 .populate('user')
         },
-        // restaurant: { owner: { _id: mongo.ObjectId("624bb3a804347ec427c0bea4") } }
         getReservationsByOwner: async (parent, { ownerID }) => {
             const reservation = await Reservation.find({})
                 .select('-__v')
                 .populate('restaurant')
+                .populate('user')
 
             return reservation.filter(reservation => reservation.restaurant.owner._id == ownerID)
         },

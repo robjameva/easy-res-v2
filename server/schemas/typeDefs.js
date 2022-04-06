@@ -98,6 +98,7 @@ const typeDefs = gql`
 		getUser(userId: ID!): User
 		getRestaurant(restaurantId: ID!): ResWithHours
 		getAllRestaurants: [Restaurant]
+		getRestaurantsByOwner(ownerID: ID!): [Restaurant]
 		getReservationsByUser(userID: ID!): [Reservation]
 		getReservationsByRestaurant(restaurantID: ID!): [Reservation]
 		getReservationsByOwner(ownerID: ID!): [Reservation]

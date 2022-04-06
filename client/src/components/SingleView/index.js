@@ -44,7 +44,7 @@ export default function SingleView() {
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { restaurantId }
   });
-  
+
   const allRest = data1?.getAllRestaurants || [];
 
   const randRest = allRest[Math.floor(Math.random() * allRest.length)];
@@ -63,12 +63,12 @@ export default function SingleView() {
     setpartySize(event.target.value);
   };
 
-  const handleReservation = () => {
+  const handleReservation = async () => {
     const user = auth.getProfile().data._id
     const unformattedhour = unformat_business_hours(timeSlot)
 
     try {
-      makeRes({
+      const res = await makeRes({
         variables: {
           input: {
             party_size: partySize,
@@ -79,7 +79,7 @@ export default function SingleView() {
         }
       });
 
-      window.location.assign('/');
+      if (res) window.location.assign('/');
 
     } catch (e) {
       console.error(e);
