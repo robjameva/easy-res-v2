@@ -50,3 +50,35 @@ export default function unformat_business_hours(hour) {
             return 11
     }
 }
+
+
+export function format_business_hour(hour) {
+    switch (hour) {
+        case 12:
+            return '12:00 pm'
+        case 13:
+            return '1:00 pm'
+        case 14:
+            return '2:00 pm'
+        case 15:
+            return '3:00 pm'
+        case 16:
+            return '4:00 pm'
+        case 17:
+            return '5:00 pm'
+        case 18:
+            return '6:00 pm'
+        case 19:
+            return '7:00 pm'
+        case 20:
+            return '8:00 pm'
+        case 21:
+            return '9:00 pm'
+        case 22:
+            return '10:00 pm'
+        case 23:
+            return '11:00 pm'
+        default:
+            return `${hour}:00 am`
+    }
+}

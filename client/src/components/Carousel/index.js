@@ -31,10 +31,9 @@ export default function CarouselHome() {
   const restaurantData = data?.getAllRestaurants || [];
 
   const items = restaurantData;
-  // console.log(items)
 
   if (loading.length) <h1>Loading</h1>
-  // console.log(data)
+
 
   return (
     <div className="carousel-cards">
@@ -60,11 +59,9 @@ export default function CarouselHome() {
         }}
         mouseDragEnabled
       >
-        {items.map((items ,i) => {
-          console.log(i)
-          console.log(items._id)
+        {items.map((item ,i) => {
           return (
-            <Link to={`/restaurant/${items._id}`} key={i}>
+            <Link to={`/restaurant/${item._id}`} key={i}>
             <Card sx={{ height: '100%' }}>
               <CardHeader
                 avatar={
@@ -72,20 +69,20 @@ export default function CarouselHome() {
                     ER
                   </Avatar>
                 }
-                title={items.business_name}
+                title={item.business_name}
               />
               <CardMedia
                 component="img"
                 height="194"
-                image={items.image}
+                image= {require(`../../assets/testImg/${item.business_image}`)}
                 alt="Image"
               />
               <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                  {items.business_address}
+                  {item.business_address}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {items.business_website}
+                  {item.business_website}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>

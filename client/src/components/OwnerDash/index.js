@@ -16,8 +16,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useQuery } from "@apollo/client";
-import { GET_RESERVATION_BY_RESTAURANT } from '../../utils/queries'
+import { QUERY_RESERVATION_BY_OWNER, GET_RESTAURANTS_BY_OWNER } from '../../utils/queries'
 import { Link } from 'react-router-dom';
+import auth from '../../utils/auth'
+import { format_business_hour } from '../../utils/helpers'
+
 
 const image = require('../../assets/testImg/5.jpg')
 
@@ -41,26 +44,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-// function createData(firstName, lastName, time, groupSize ) {
-//   return { firstName, lastName, time, groupSize  };
-// }
-
-// const reservationData = [
-//   createData('Chris', 'McCormack', '10:00', 6),
-//   createData('Nick', 'Perel','11:00', 2),
-//   createData('Rob', 'Evanik', '2:00', 5),
-//   createData('Sean', 'Gillepsie', '7:00', 8),
-// ];
-
 export default function OwnerDash(props) {
+  const user = auth.getProfile().data._id;
 
-  const { loading, error, data } = useQuery(GET_RESERVATION_BY_RESTAURANT, { variables: { restaurantId: "62486976b4820550339306bd" } });
-  const reservationData = data?.getReservationsByRestaurant || [];
-  // const [dbResData, setDbResData] = useState()
-  console.log(reservationData)
+  const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_OWNER,
+    { variables: { ownerId: user } });
 
-  if (loading.length) <h1>Loading</h1>
+  const { loading: l1, error: e1, data: d1 } = useQuery(GET_RESTAURANTS_BY_OWNER,
+    { variables: { ownerID: user } });
+
+  const reservationData = data?.getReservationsByOwner || [];
+
+  const restaurantData = d1?.getRestaurantsByOwner || [];
+
+  if (loading.length || l1.length) <h1>Loading</h1>
 
 
 
@@ -71,19 +68,23 @@ export default function OwnerDash(props) {
       </div>
       <Grid container style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginTop: '3%' }}>
         <Grid item xs={12} sm={4}>
-          <Card style={{ height: '100%' }}>
-            <CardMedia
-              component="img"
-              height="180"
-              image={image}
-              alt="Restaurant Image"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Restaurant Name
-              </Typography>
-            </CardContent>
-          </Card>
+          {restaurantData.map(restaurant => {
+            return (
+              <Card key={restaurant._id} style={{ height: '100%' }}>
+                <CardMedia
+                  component="img"
+                  height="180"
+                  image={require(`../../assets/testImg/${restaurant.business_image}`)}
+                  alt={restaurant.business_name}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {restaurant.business_name}
+                  </Typography>
+                </CardContent>
+              </Card>
+            )
+          })}
         </Grid>
         <Grid item xs={12} sm={6}>
           <TableContainer component={Paper}>
@@ -94,6 +95,7 @@ export default function OwnerDash(props) {
                   <StyledTableCell>Last Name</StyledTableCell>
                   <StyledTableCell>Time</StyledTableCell>
                   <StyledTableCell>Group Size</StyledTableCell>
+                  <StyledTableCell>Restaurant</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -103,8 +105,9 @@ export default function OwnerDash(props) {
                       {reservation.user.first_name}
                     </StyledTableCell>
                     <StyledTableCell>{reservation.user.last_name}</StyledTableCell>
-                    <StyledTableCell>{reservation.time_slot}</StyledTableCell>
+                    <StyledTableCell>{format_business_hour(reservation.time_slot)}</StyledTableCell>
                     <StyledTableCell>{reservation.party_size}</StyledTableCell>
+                    <StyledTableCell>{reservation.restaurant.business_name}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

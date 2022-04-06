@@ -17,12 +17,12 @@ const theme = createTheme();
 
 export default function OwnerSign() {
   const [ownerFormData, setOwnerFormData] = useState({
-    username: "",
     first_name: "",
     last_name: "",
     phone_number: "",
     email: "",
     password: "",
+    business_image: ""
   });
 
   const [createUser, { error }] = useMutation(CREATE_USER);
@@ -48,7 +48,6 @@ export default function OwnerSign() {
     }
 
     setOwnerFormData({
-      username: "",
       first_name: "",
       last_name: "",
       phone_number: "",
@@ -134,17 +133,6 @@ export default function OwnerSign() {
                   margin="normal"
                   required
                   fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                  onChange={handleInputChange}
-                  value={ownerFormData.username}
-                  autoComplete="username"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
@@ -187,7 +175,7 @@ export default function OwnerSign() {
                 <Grid container>
                   <Grid item xs></Grid>
                   <Link to="/login" variant="body2">
-                    {"Already have an account? Sign In"}
+                    {"Already have an account?"}
                   </Link>
                 </Grid>
               </Box>
