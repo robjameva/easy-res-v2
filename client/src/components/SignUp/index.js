@@ -20,7 +20,6 @@ const theme = createTheme();
 
 export default function SignUpSide() {
 	const [userFormData, setUserFormData] = useState({
-		username: '',
 		first_name: '',
 		last_name: '',
 		phone_number: '',
@@ -51,7 +50,6 @@ export default function SignUpSide() {
 		}
 
 		setUserFormData({
-			username: '',
 			first_name: '',
 			last_name: '',
 			phone_number: '',
@@ -144,17 +142,6 @@ export default function SignUpSide() {
 									onChange={handleInputChange}
 									value={userFormData.phone_number}
 									autoComplete="phoneNumber"
-								/>
-								<TextField
-									margin="normal"
-									required
-									fullWidth
-									id="username"
-									label="Username"
-									name="username"
-									onChange={handleInputChange}
-									value={userFormData.username}
-									autoComplete="username"
 								/>
 								<TextField
 									margin="normal"

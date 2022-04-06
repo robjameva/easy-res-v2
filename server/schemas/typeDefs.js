@@ -30,7 +30,6 @@ const typeDefs = gql`
 		first_name: String!
 		last_name: String!
 		phone_number: String!
-		username: String!
 		password: String!
 		email: String!
 		isOwner: Boolean
@@ -54,8 +53,8 @@ const typeDefs = gql`
 		business_name: String
 		business_address: String
 		business_phone: String
-		business_hours_open: Int!
-		business_hours_close: Int!
+		business_hours_open: Int
+		business_hours_close: Int
 		business_website: String
 		business_image: String
 		owner: ID
@@ -66,7 +65,6 @@ const typeDefs = gql`
 		first_name: String
 		last_name: String
 		phone_number: String
-		username: String
 		email: String
 	}
 
@@ -75,7 +73,6 @@ const typeDefs = gql`
 		first_name: String
 		last_name: String
 		phone_number: String
-		username: String
 		email: String
 		isOwner: Boolean
 	}

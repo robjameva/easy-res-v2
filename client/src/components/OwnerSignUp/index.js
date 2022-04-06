@@ -17,7 +17,6 @@ const theme = createTheme();
 
 export default function OwnerSign() {
   const [ownerFormData, setOwnerFormData] = useState({
-    username: "",
     first_name: "",
     last_name: "",
     phone_number: "",
@@ -49,7 +48,6 @@ export default function OwnerSign() {
     }
 
     setOwnerFormData({
-      username: "",
       first_name: "",
       last_name: "",
       phone_number: "",
@@ -130,17 +128,6 @@ export default function OwnerSign() {
                   onChange={handleInputChange}
                   value={ownerFormData.last_name}
                   autoComplete="lastName"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                  onChange={handleInputChange}
-                  value={ownerFormData.username}
-                  autoComplete="username"
                 />
                 <TextField
                   margin="normal"
