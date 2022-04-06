@@ -6,6 +6,7 @@ const { signToken } = require('../utils/auth');
 // const authToken = process.env.TWILIO_AUTH_TOKEN;
 // const client = require('twilio')(accountSid, authToken);
 const { format_business_hours } = require('../utils/helpers');
+const mongo = require('mongoose');
 
 const resolvers = {
     Query: {
@@ -65,6 +66,14 @@ const resolvers = {
             return Reservation.find({ restaurant: { _id: restaurantID } })
                 .select('-__v')
                 .populate('user')
+        },
+        // restaurant: { owner: { _id: mongo.ObjectId("624bb3a804347ec427c0bea4") } }
+        getReservationsByOwner: async (parent, { ownerID }) => {
+            const reservation = await Reservation.find({})
+                .select('-__v')
+                .populate('restaurant')
+
+            return reservation.filter(reservation => reservation.restaurant.owner._id == ownerID)
         },
 
     },
@@ -154,6 +163,16 @@ const resolvers = {
             const reservation = await Reservation.findOneAndDelete({ _id })
 
             return reservation;
+        },
+        deleteAllReservations: async () => {
+            const reservation = await Reservation.deleteMany({})
+
+            return reservation;
+        },
+        deleteAllRestaurants: async () => {
+            const restaurant = await Restaurant.deleteMany({})
+
+            return restaurant;
         },
         deleteRestaurant: async (parent, { _id }) => {
             const restaurant = await Restaurant.findOneAndDelete({ _id })
