@@ -114,3 +114,15 @@ query GetReservationsByRestaurant($restaurantId: ID!) {
   }
 `;
 
+export const GET_USER_INFO = gql`
+query Query($userId: ID!) {
+	getUser(userId: $userId) {
+	  _id
+	  email
+	  first_name
+	  isOwner
+	  last_name
+	  phone_number
+	}
+  }
+`;

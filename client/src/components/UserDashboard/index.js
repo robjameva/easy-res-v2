@@ -23,7 +23,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import Typography from '@mui/material/Typography';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
+import { QUERY_RESERVATION_BY_USER, GET_USER_INFO } from '../../utils/queries';
 import { EDIT_USER, DELETE_RESERVATION } from '../../utils/mutations'
 import auth from '../../utils/auth';
 import { format_business_hour } from '../../utils/helpers'
@@ -44,6 +44,11 @@ export default function UserDashboard() {
   const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_USER, {
     variables: { userId: user },
   });
+
+  const { loading: l1, error: e1, data: d1 } = useQuery(GET_USER_INFO, {
+    variables: { userId: user },
+  });
+  const userData = d1?.getUser || [];
 
   useEffect(() => {
     const reservationData = data?.getReservationsByUser || [];
@@ -98,7 +103,7 @@ export default function UserDashboard() {
   //   return <Typography variant="h3" sx={{ textAlign: "center" }}>No Reservations</Typography>
   // }
 
-  if (loading) {
+  if (loading || l1) {
     return <h1>Loading</h1>;
   }
 
@@ -157,104 +162,104 @@ export default function UserDashboard() {
               </Card>
             </Grid>
             <br />
-            <br />  
+            <br />
           </Grid>
         ))}
 
-              <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square >
-                <Box
-                  sx={{
-                    my: 8,
-                    mx: 4,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Box component="form" noValidate padding sx={{ mt: 1, width: '25vw', textAlign: 'center' }}>
-                    <Typography variant='h3'>
-                      Edit User
-                    </Typography>
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="first_name"
-                      label="First Name"
-                      name="first_name"
-                      onChange={handleInputChange}
-                      value={userFormData.first_name}
-                      defaultValue={dbReservationData[0].user.first_name}
-                      autoComplete="firstName"
-                      autoFocus
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="last_name"
-                      label="Last Name"
-                      name="last_name"
-                      onChange={handleInputChange}
-                      value={userFormData.last_name}
-                      defaultValue={dbReservationData[0].user.last_name}
-                      autoComplete="lastName"
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="phone_number"
-                      label="Phone Number"
-                      name="phone_number"
-                      onChange={handleInputChange}
-                      value={userFormData.phone_number}
-                      defaultValue={dbReservationData[0].user.phone_number}
-                      autoComplete="phoneNumber"
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      onChange={handleInputChange}
-                      value={userFormData.email}
-                      defaultValue={dbReservationData[0].user.email}
-                      autoComplete="email"
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      onChange={handleInputChange}
-                      value={userFormData.password}
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                      onClick={handleSubmitEditUser}
-                    >
-                      Confirm Edit
-                    </Button>
-                    <Grid container>
-                      <Grid item xs>
+        <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square >
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Box component="form" noValidate padding sx={{ mt: 1, width: '25vw', textAlign: 'center' }}>
+              <Typography variant='h3'>
+                Edit User
+              </Typography>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="first_name"
+                label="First Name"
+                name="first_name"
+                onChange={handleInputChange}
+                value={userFormData.first_name}
+                defaultValue={userData.first_name}
+                autoComplete="firstName"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="last_name"
+                label="Last Name"
+                name="last_name"
+                onChange={handleInputChange}
+                value={userFormData.last_name}
+                defaultValue={userData.last_name}
+                autoComplete="lastName"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="phone_number"
+                label="Phone Number"
+                name="phone_number"
+                onChange={handleInputChange}
+                value={userFormData.phone_number}
+                defaultValue={userData.phone_number}
+                autoComplete="phoneNumber"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                onChange={handleInputChange}
+                value={userFormData.email}
+                defaultValue={userData.email}
+                autoComplete="email"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                onChange={handleInputChange}
+                value={userFormData.password}
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmitEditUser}
+              >
+                Confirm Edit
+              </Button>
+              <Grid container>
+                <Grid item xs>
 
-                      </Grid>
-                      <Grid item>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Box>
+                </Grid>
+                <Grid item>
+                </Grid>
               </Grid>
+            </Box>
+          </Box>
+        </Grid>
 
         {/* <Button onClick={toggleUserForm} variant="contained" sx={{ mt: 3, mb: 2 }}>
           Edit User
