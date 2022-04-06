@@ -49,10 +49,6 @@ export default function SingleView() {
 
   const randRest = allRest[Math.floor(Math.random() * allRest.length)];
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   const restaurantData = data?.getRestaurant || [];
 
   const handleTimeChange = (event) => {
@@ -116,7 +112,7 @@ export default function SingleView() {
                 <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Stack style={{ display: 'flex', alignItems: 'center', padding: '3%' }}>
                     <img className='singleLogo' src={image}></img>
-                    <Link to={`/restaurant/${randRest._id}`}>
+                    <Link className='link' to={`/restaurant/${randRest._id}`}>
                       <Button style={{ backgroundColor: 'white', fontWeight: 'bold', color: 'black', marginTop: '25%' }} variant="contained" startIcon={<RestaurantIcon />}>
                         Try It Out
                       </Button>

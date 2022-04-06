@@ -52,6 +52,10 @@
   box-shadow: 0px 0px 5px 5px rgba(92, 93, 94, .3);
 }
 
+.link {
+	text-decoration: none;
+}
+
 .bottomBanner {
   width: 100%;
   height: 40%;
@@ -92,7 +96,7 @@
 	border-radius: 20px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 730px) {
 	.logo {
 		display: none;
 	}
@@ -123,6 +127,9 @@
   .singleLogo {
     width: 60px;
     height: 60px
+  }
+  .copyright {
+	font-size: 3px;
   }
 }
 

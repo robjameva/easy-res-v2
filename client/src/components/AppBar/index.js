@@ -30,6 +30,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { GET_ALL_RESTAURANTS } from '../../utils/queries'
 import { useQuery } from "@apollo/client";
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
 
 const listItems = [
   {
@@ -142,7 +145,7 @@ export default function SearchAppBar() {
       <Divider />
       <List>
         {listItems.map((listItem, index) => (
-          <Link key={index} to={listItem.link}>
+          <Link className='link' key={index} to={listItem.link}>
             <ListItem onClick={toggleSlider} style={{ color: 'white' }} button >
               <ListItemIcon style={{ color: 'white' }}>
                 {listItem.listIcon}
@@ -151,7 +154,7 @@ export default function SearchAppBar() {
             </ListItem>
           </Link>
         ))}
-        <Link to='#'
+        <Link className='link' to='#'
           onClick={() => window.location = 'mailto:easyResFakeEmail@notRealEmail.org'}>
           <ListItem onClick={toggleSlider} style={{ color: 'white' }}>
             <ListItemIcon style={{ color: 'white' }}>
@@ -185,7 +188,7 @@ export default function SearchAppBar() {
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             style={{ color: '#21325e' }}
           >
-            <Link to='/'>
+            <Link className='link' to='/'>
               <img className='logo' src={logo} alt="logo" />
             </Link>
             {/* Easy Res */}
@@ -202,7 +205,7 @@ export default function SearchAppBar() {
               </>
             ) : (
               <>
-                <Link to="/login" style={{ textDecoration: 'none' }}>
+                <Link className='link' to="/login" style={{ textDecoration: 'none' }}>
                   <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Login</Button>
                 </Link>
               </>
@@ -213,22 +216,21 @@ export default function SearchAppBar() {
             disablePortal
             id="combo-box-demo"
             options={allNames}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Search" />}
-          />
-
-{/* <Search sx={{ borderColor: '#21325e' }}>
-              <SearchIconWrapper>
-                <SearchIcon style={{ color: '#21325e' }} />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-                style={{ color: '#21325e' }}
-              />
-            </Search> */}
-
-         
+            sx={{ width: 300, mx: 3 }}
+            renderInput={(params) => <TextField {...params}  
+            placeholder="Search…" 
+            inputProps={{ 'aria-label': 'search' }}
+            style={{ color: '#21325e' }} 
+            variant="standard"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}  />}
+           
+          />         
         </Toolbar>
       </AppBar>
     </Box>

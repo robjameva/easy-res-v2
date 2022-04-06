@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -17,7 +15,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useQuery } from "@apollo/client";
 import { QUERY_RESERVATION_BY_OWNER, GET_RESTAURANTS_BY_OWNER } from '../../utils/queries'
-import { Link } from 'react-router-dom';
 import auth from '../../utils/auth'
 import { format_business_hour } from '../../utils/helpers'
 
