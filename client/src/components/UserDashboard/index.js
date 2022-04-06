@@ -30,16 +30,13 @@ import { format_business_hour } from '../../utils/helpers'
 
 // const theme = createTheme();
 
-export default function UserDashboard() {
+export default function UserDashboard({userFormToggle}) {
   const user = auth.getProfile().data._id;
   const [userFormData, setUserFormData] = useState({});
-
   const [editUser, { error: editUserError }] = useMutation(EDIT_USER);
   const [deleteRes, { error: deleteResError }] = useMutation(DELETE_RESERVATION);
 
   let [dbReservationData, setDbReservationData] = useState([]);
-
-  let [userFormToggle, setUserFormToggle] = useState(false);
 
   const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_USER, {
     variables: { userId: user },
@@ -95,10 +92,6 @@ export default function UserDashboard() {
 
   };
 
-  // function toggleUserForm() {
-  //   setUserFormToggle(!userFormToggle);
-  // }
-
   // if (!dbReservationData.length) {
   //   return <Typography variant="h3" sx={{ textAlign: "center" }}>No Reservations</Typography>
   // }
@@ -107,19 +100,19 @@ export default function UserDashboard() {
     return <h1>Loading</h1>;
   }
 
-  console.log(dbReservationData);
+  // console.log(dbReservationData);
 
   return (
     <>
       <br />
-      <Grid container>
-        {dbReservationData.map((reservation, index) => (
-          <Grid key={index} item xs={12} padding sx={{
+      <Grid container sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
           }}>
+        {dbReservationData.map((reservation, index) => (
+          <Grid key={index} item xs={12} padding >
             <Grid item xs={8} padding>
               <Card sx={{ width: '60vw', maxHeight: '40vh' }}>
                 <CardMedia
@@ -166,7 +159,7 @@ export default function UserDashboard() {
           </Grid>
         ))}
 
-        <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square >
+        {userFormToggle && <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square > 
           <Box
             sx={{
               my: 8,
@@ -174,6 +167,7 @@ export default function UserDashboard() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Box component="form" noValidate padding sx={{ mt: 1, width: '25vw', textAlign: 'center' }}>
@@ -259,12 +253,7 @@ export default function UserDashboard() {
               </Grid>
             </Box>
           </Box>
-        </Grid>
-
-        {/* <Button onClick={toggleUserForm} variant="contained" sx={{ mt: 3, mb: 2 }}>
-          Edit User
-        </Button> */}
-
+        </Grid>}
       </Grid>
     </>
   );
