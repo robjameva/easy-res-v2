@@ -46,7 +46,7 @@ const listItems = [
   {
     listIcon: <FoodBankIcon />,
     listText: "Add New Restaurant",
-    link: '/add-restaurant'
+    link: '/owner/add-restaurant'
   },
   {
     listIcon: <FoodBankIcon />,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,13 +8,45 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client"
+import { CREATE_RESTAURANT } from '../../utils/mutations';
+import auth from '../../utils/auth'
 
 
 
 const theme = createTheme();
 
 export default function AddRestaurant() {
+	const user = auth.getProfile().data._id;
+
+	const [userFormData, setUserFormData] = useState({});
+
+	const [createRestaurant, { error }] = useMutation(CREATE_RESTAURANT);
+
+	const handleInputChange = (event) => {
+		const { name, value } = event.target;
+		setUserFormData({ ...userFormData, [name]: value });
+	};
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		userFormData.occupancy = parseInt(userFormData.occupancy)
+		userFormData.business_hours_open = parseInt(userFormData.business_hours_open)
+		userFormData.business_hours_close = parseInt(userFormData.business_hours_close)
+
+		try {
+			const { data } = await createRestaurant({
+				variables: { input: { ...userFormData, owner: user, business_image: '1.jpg' } },
+			});
+
+			if (data) window.location.assign('/owner-dashboard');
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -54,7 +86,7 @@ export default function AddRestaurant() {
 								alignItems: 'center',
 							}}
 						>
-								<FoodBankIcon sx={{height: '50px', width: '50px'}}/>
+							<FoodBankIcon sx={{ height: '50px', width: '50px' }} />
 							<Typography component="h1" variant="h5">
 								Add New Restaurant
 							</Typography>
@@ -67,73 +99,81 @@ export default function AddRestaurant() {
 									margin="normal"
 									required
 									fullWidth
-									id="restaurant-name"
+									id="business_name"
 									label="Restaurant Name"
-									name="restaurant-name"
-									autoComplete="restaurant-name"
+									name="business_name"
 									autoFocus
-								/>
-							    <TextField
-									margin="normal"
-									required
-									fullWidth
-									id="email"
-									label="Email Address"
-									name="email"
-									autoComplete="email"
+									onChange={handleInputChange}
+									value={userFormData.restaurantName}
 								/>
 								<TextField
 									margin="normal"
 									required
 									fullWidth
-									id="phone_number"
+									id="business_address"
+									label="Restaurant address"
+									name="business_address"
+									onChange={handleInputChange}
+									value={userFormData.address}
+								/>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									id="business_phone"
 									label="Phone Number"
-									name="phone_number"
-									autoComplete="phoneNumber"
+									name="business_phone"
+									onChange={handleInputChange}
+									value={userFormData.phone_number}
 								/>
-                                <TextField
+								<TextField
 									margin="normal"
 									required
 									fullWidth
-									id="open-hours"
+									id="occupancy"
+									label="Occupancy"
+									name="occupancy"
+									onChange={handleInputChange}
+									value={userFormData.occupancy}
+								/>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									id="business_hours_open"
 									label="Open Hour"
-									name="open-hours"
-									autoComplete="open-hours"
+									name="business_hours_open"
+									onChange={handleInputChange}
+									value={userFormData.open}
 								/>
-                                 <TextField
+								<TextField
 									margin="normal"
 									required
 									fullWidth
-									id="close-hours"
+									id="business_hours_close"
 									label="Closing Hour"
-									name="close-hours"
-									autoComplete="close-hours"
+									name="business_hours_close"
+									onChange={handleInputChange}
+									value={userFormData.close}
 								/>
-                                 <TextField
+								<TextField
 									margin="normal"
 									required
 									fullWidth
-									id="website"
+									id="business_website"
 									label="Website"
-									name="website"
-									autoComplete="website"
-								/>
-                                 <TextField
-									margin="normal"
-									required
-									fullWidth
-									id="image"
-									label="Restaurant Image URL"
-									name="image"
-									autoComplete="image"
+									name="business_website"
+									onChange={handleInputChange}
+									value={userFormData.website}
 								/>
 								<Button
 									type="submit"
 									fullWidth
 									variant="contained"
 									sx={{ mt: 3, mb: 2 }}
+									onClick={handleSubmit}
 								>
-									Sign Up
+									Add Restaurant
 								</Button>
 								<Grid container>
 									<Grid item xs></Grid>

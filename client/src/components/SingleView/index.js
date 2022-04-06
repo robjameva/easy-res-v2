@@ -45,8 +45,6 @@ export default function SingleView() {
     variables: { restaurantId }
   });
 
-  console.log(data1)
-
   const allRest = data1?.getAllRestaurants || [];
 
   const randRest = allRest[Math.floor(Math.random() * allRest.length)];
@@ -56,8 +54,6 @@ export default function SingleView() {
   };
 
   const restaurantData = data?.getRestaurant || [];
-  console.log(restaurantData)
-
 
   const handleTimeChange = (event) => {
     setTimeSlot(event.target.value);
@@ -67,12 +63,12 @@ export default function SingleView() {
     setpartySize(event.target.value);
   };
 
-  const handleReservation = () => {
+  const handleReservation = async () => {
     const user = auth.getProfile().data._id
     const unformattedhour = unformat_business_hours(timeSlot)
 
     try {
-      makeRes({
+      const res = await makeRes({
         variables: {
           input: {
             party_size: partySize,
@@ -83,7 +79,7 @@ export default function SingleView() {
         }
       });
 
-      window.location.assign('/');
+      if (res) window.location.assign('/user-dashboard');
 
     } catch (e) {
       console.error(e);
@@ -111,7 +107,7 @@ export default function SingleView() {
             md={6}
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
           >
-            <img className='singleImage' src={image1}></img>
+            <img className='singleImage' src={require(`../../assets/testImg/${restaurantData.restaurant.business_image}`)}></img>
             <div className='bottomBanner'>
               <Grid container>
                 <Grid item xs={6}>
