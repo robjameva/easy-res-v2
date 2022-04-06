@@ -23,6 +23,7 @@ export default function OwnerSign() {
     phone_number: "",
     email: "",
     password: "",
+    business_image: ""
   });
 
   const [createUser, { error }] = useMutation(CREATE_USER);

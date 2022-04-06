@@ -133,7 +133,7 @@ export default function AddRestaurant() {
 									variant="contained"
 									sx={{ mt: 3, mb: 2 }}
 								>
-									Sign Up
+									Add Restaurant
 								</Button>
 								<Grid container>
 									<Grid item xs></Grid>
