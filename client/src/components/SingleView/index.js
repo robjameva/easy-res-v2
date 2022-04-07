@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
@@ -25,10 +25,6 @@ const theme = createTheme();
 
 export default function SingleView() {
   const history = useHistory();
-
-  useEffect(() => {
-    if (!auth.loggedIn()) history.push(`/login`);
-  });
 
   const [expanded, setExpanded] = React.useState(false);
   const { restaurantId } = useParams();
