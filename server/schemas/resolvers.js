@@ -1,10 +1,10 @@
-// require('dotenv').config();
+require('dotenv').config();
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Restaurant, Reservation } = require('../models');
 const { signToken } = require('../utils/auth');
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const client = require('twilio')(accountSid, authToken);
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 const { format_business_hours } = require('../utils/helpers');
 const mongo = require('mongoose');
 
@@ -122,14 +122,13 @@ const resolvers = {
             const firstName = newReservation[0].user.first_name;
             const phoneNumber = newReservation[0].user.phone_number;
 
-
-            // client.messages
-            //     .create({
-            //         body:
-            //             `Hello ${firstName}, your table is confirmed at ${businessName} for ${party} people at ${timeSlot}.`,
-            //         from: '+17853776055',
-            //         to: `+1${phoneNumber}`
-            //     })
+            client.messages
+                .create({
+                    body:
+                        `Hello ${firstName}, your table is confirmed at ${businessName} for ${party} people at ${timeSlot}.`,
+                    from: '+17853776055',
+                    to: `+1${phoneNumber}`
+                })
 
             return reservation;
         },
@@ -138,7 +137,21 @@ const resolvers = {
                 { _id: input.reservationID },
                 input,
                 { new: true, runValidators: true }
-            );
+            ).populate('user').populate('restaurant')
+
+            const businessName = updatedReservation.restaurant.business_name;
+            const party = updatedReservation.party_size;
+            const timeSlot = format_business_hours([updatedReservation.time_slot])[0];
+            const firstName = updatedReservation.user.first_name;
+            const phoneNumber = updatedReservation.user.phone_number;
+
+            client.messages
+                .create({
+                    body:
+                        `Hello ${firstName}, your reservation has been updated at ${businessName} for ${party} people at ${timeSlot}.`,
+                    from: '+17853776055',
+                    to: `+1${phoneNumber}`
+                })
 
             return updatedReservation
         },
