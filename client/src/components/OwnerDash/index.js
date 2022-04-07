@@ -71,7 +71,7 @@ export default function OwnerDash(props) {
         <Grid item xs={12} sm={4}>
           {restaurantData.map(restaurant => {
             return (
-              <Card className='ownerCard' key={restaurant._id} style={{ height: '45%', marginBottom: "5%" }}>
+              <Card className='ownerCard' key={restaurant._id} style={{ height: '250px', marginBottom: "5%" }}>
                 <CardMedia
                   component="img"
                   height="180"
