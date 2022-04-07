@@ -56,11 +56,6 @@ const listItems = [
     link: '/owner/add-restaurant'
   },
   {
-    listIcon: <FoodBankIcon />,
-    listText: "SV",
-    link: '/restaurant/:restaurantId'
-  },
-  {
     listIcon: <PersonIcon />,
     listText: "Login",
     link: '/login'

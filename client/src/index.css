@@ -54,6 +54,7 @@
 
 .link {
 	text-decoration: none;
+	color: #00000099;
 }
 
 .bottomBanner {
@@ -76,6 +77,14 @@
 
 .carousel-cards {
   margin-top: 4%; 
+}
+
+.carousel-icon-link {
+	color: #f44336;
+}
+
+.MuiCardHeader-title {
+	font-size: 25px !important;
 }
 
 @media screen and (max-width: 1300px) {

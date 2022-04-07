@@ -17,6 +17,8 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import PinDropIcon from '@mui/icons-material/PinDrop';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 import ReactDOM from "react-dom";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -34,7 +36,7 @@ export default function CarouselHome() {
 
   if (loading.length) <h1>Loading</h1>
 
-
+console.log(items)
   return (
     <div className="carousel-cards">
       <AliceCarousel
@@ -61,22 +63,23 @@ export default function CarouselHome() {
       >
         {items.map((item ,i) => {
           return (
-            <Link className='link' to={`/restaurant/${item._id}`} key={i}>
             <Card sx={{ height: '100%' }}>
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    ER
+                    {item.business_name[0]}
                   </Avatar>
                 }
                 title={item.business_name}
               />
+              <Link className='link' to={`/restaurant/${item._id}`} key={i}>
               <CardMedia
                 component="img"
                 height="194"
                 image= {require(`../../assets/testImg/${item.business_image}`)}
                 alt="Image"
-              />
+                />
+                </Link>
               <CardContent>
                 <Typography variant="body2" color="text.secondary">
                   {item.business_address}
@@ -87,15 +90,28 @@ export default function CarouselHome() {
               </CardContent>
               <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
+                  <a className="carousel-icon-link" target={"_blank"} href={`https://google.com/maps/place/${item.business_address}`}>
+                    <PinDropIcon>
+
+                    </PinDropIcon>
+                  </a>
                 </IconButton>
                 <IconButton aria-label="call">
-                  <PhoneIcon />
+                <a className="carousel-icon-link" target={"_blank"} href={`tel:+${item.business_phone}`}>
+                  <PhoneIcon fontSize="small">
+                  </PhoneIcon>
+                </a>
+                </IconButton>
+                <IconButton>
+                  <a className="carousel-icon-link" target={"_blank"} href={`https://www.yelp.com/search?find_desc=${item.business_name}`}>
+                  <ReviewsIcon fontSize="small">
+
+                  </ReviewsIcon>
+                  </a>
                 </IconButton>
               </CardActions>
 
             </Card>
-            </Link>
           )
         })
         }
