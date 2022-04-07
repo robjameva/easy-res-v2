@@ -49,7 +49,7 @@ export default function CarouselHome() {
           1024: {
             items: 3
           },
-          1300: {
+          1500: {
             items: 4
           }
         }}
@@ -80,7 +80,7 @@ export default function CarouselHome() {
               <Grid container
                 style={{ height: "100px", backgroundColor: '#F0F0F0' }}
               >
-                <Grid item xs={8} style={{ display: "flex", justifyContent: 'flex-start', alignItems: "space-around" }}>
+                <Grid item xs={11} style={{ display: "flex", justifyContent: 'flex-start', alignItems: "space-around" }}>
                   <CardContent
                     style={{
                       backgroundColor: '#F0F0F0',
@@ -99,32 +99,34 @@ export default function CarouselHome() {
                     </Stack>
                   </CardContent>
                 </Grid>
-                <Grid item xs={4} style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+                <Grid item xs={1} style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
                   <CardActions disableSpacing
                     style={{
                       backgroundColor: '#F0F0F0',
                     }}
                   >
-                    <IconButton aria-label="add to favorites">
-                      <a className="carousel-icon-link" target={"_blank"} href={`https://google.com/maps/place/${item.business_address}`}>
-                        <PinDropIcon fontSize="large">
+                    <Stack>
+                      <IconButton aria-label="add to favorites">
+                        <a className="carousel-icon-link" target={"_blank"} href={`https://google.com/maps/place/${item.business_address}`}>
+                          <PinDropIcon fontSize="medium">
 
-                        </PinDropIcon>
-                      </a>
-                    </IconButton>
-                    <IconButton aria-label="call">
+                          </PinDropIcon>
+                        </a>
+                      </IconButton>
+                      {/* <IconButton aria-label="call">
                       <a className="carousel-icon-link" target={"_blank"} href={`tel:+${item.business_phone}`}>
-                        <PhoneIcon fontSize="large">
+                        <PhoneIcon fontSize="medium">
                         </PhoneIcon>
                       </a>
-                    </IconButton>
-                    <IconButton>
-                      <a className="carousel-icon-link" target={"_blank"} href={`https://www.yelp.com/search?find_desc=${item.business_name}`}>
-                        <ReviewsIcon fontSize="large">
+                    </IconButton> */}
+                      <IconButton>
+                        <a className="carousel-icon-link" target={"_blank"} href={`https://www.yelp.com/search?find_desc=${item.business_name}`}>
+                          <ReviewsIcon fontSize="medium">
 
-                        </ReviewsIcon>
-                      </a>
-                    </IconButton>
+                          </ReviewsIcon>
+                        </a>
+                      </IconButton>
+                    </Stack>
                   </CardActions>
                 </Grid>
               </Grid>

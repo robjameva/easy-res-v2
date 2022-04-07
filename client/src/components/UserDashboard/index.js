@@ -74,7 +74,7 @@ export default function UserDashboard({ userFormToggle }) {
         variables: { id: reservationID },
       });
 
-      history.push(`/user-dashboard`);
+      history.push(`/`);
 
     } catch (err) {
       console.error(err);
