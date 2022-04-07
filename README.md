@@ -59,7 +59,7 @@
 
 * If you have further questions, feel free to email the Easy Res V2 Team at these addresses & we will get back to you as soon as we can: 
     * Nick Perel's Email: nickperel@live.com
-    * Sean Gillespie's Email: seene3@gmail.com
-    * Robert Evanik's Email: 
-    * Chris McCormack's Email: 
-    * Nick Defex's Email: 
+    * Sean Gillespie's Email: Seanpgillespie3@gmail.com
+    * Robert Evanik's Email: rob.evanik@gmail.com
+    * Chris McCormack's Email: chrismack135@gmail.com
+    * Nick Defex's Email: Ndefected15@gmail.com
