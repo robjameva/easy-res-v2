@@ -14,10 +14,12 @@ import { QUERY_RESERVATION_BY_USER, GET_USER_INFO } from '../../utils/queries';
 import { EDIT_USER, DELETE_RESERVATION } from '../../utils/mutations'
 import auth from '../../utils/auth';
 import { format_business_hour } from '../../utils/helpers'
+import { useHistory } from 'react-router-dom';
 
 
 
 export default function UserDashboard({ userFormToggle }) {
+  const history = useHistory();
   const user = auth.getProfile().data._id;
   const [userFormData, setUserFormData] = useState({});
   const [editUser, { error: editUserError }] = useMutation(EDIT_USER);
@@ -41,7 +43,7 @@ export default function UserDashboard({ userFormToggle }) {
 
 
   function handleEditRes(restaurantId, reservationId) {
-    window.location.assign(`/restaurant/${restaurantId}/${reservationId}`);
+    history.push(`/restaurant/${restaurantId}/${reservationId}`);
   }
 
   const handleInputChange = (event) => {
@@ -56,7 +58,8 @@ export default function UserDashboard({ userFormToggle }) {
       const response = await editUser({
         variables: { input: { ...userFormData, _id: user } },
       });
-      window.location.assign('/user-dashboard')
+
+      history.push(`/user-dashboard`);
 
     } catch (err) {
       console.error(err);
@@ -71,7 +74,7 @@ export default function UserDashboard({ userFormToggle }) {
         variables: { id: reservationID },
       });
 
-      window.location.assign('/user-dashboard')
+      history.push(`/user-dashboard`);
 
     } catch (err) {
       console.error(err);

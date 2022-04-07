@@ -17,16 +17,17 @@ import { GET_RESTAURANT_BY_ID, GET_ALL_RESTAURANTS } from '../../utils/queries'
 import { MAKE_RESERVATION } from '../../utils/mutations'
 import unformat_business_hours from '../../utils/helpers'
 import auth from '../../utils/auth';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack'
 
 const theme = createTheme();
 
 export default function SingleView() {
+  const history = useHistory();
 
   useEffect(() => {
-    if (!auth.loggedIn()) window.location.assign('/login');
+    if (!auth.loggedIn()) history.push(`/login`);
   });
 
   const [expanded, setExpanded] = React.useState(false);
@@ -70,7 +71,8 @@ export default function SingleView() {
         }
       });
 
-      if (res) window.location.assign('/user-dashboard');
+      if (res) history.push(`/user-dashboard`);
+
 
     } catch (e) {
       console.error(e);

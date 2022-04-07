@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/client"
 import { CREATE_RESTAURANT } from '../../utils/mutations';
 import auth from '../../utils/auth'
@@ -16,10 +16,13 @@ import auth from '../../utils/auth'
 const theme = createTheme();
 
 export default function AddRestaurant() {
+	const history = useHistory();
+
 	useEffect(() => {
 		const isOwner = localStorage.getItem("isOwner");
-		if (!isOwner) window.location.assign('/owner');
+		if (!isOwner) history.push(`/owner`);
 	});
+
 
 	const user = auth.getProfile().data._id;
 
@@ -53,7 +56,8 @@ export default function AddRestaurant() {
 				variables: { input: { ...userFormData, owner: user, business_image: randomImage } },
 			});
 
-			if (data) window.location.assign('/owner-dashboard');
+			if (data) history.push(`/owner-dashboard`);
+
 		} catch (err) {
 			console.error(err);
 		}
