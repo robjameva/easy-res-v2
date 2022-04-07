@@ -20,7 +20,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from '../../assets/images/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Auth from '../../utils/auth';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AddIcon from '@mui/icons-material/Add';
@@ -129,6 +129,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
   const [searchTerm, setSearchTerm] = useState('')
   const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
+  const history = useHistory();
 
   const restaurantData = data?.getAllRestaurants || [];
   let allNames = [];
@@ -151,7 +152,8 @@ export default function SearchAppBar() {
   function handleSearch(value) {
     const matchRestaurant = restaurantData.filter(restaurant => restaurant.business_name == value)
     const resId = matchRestaurant[0]._id
-    window.location.assign(`/restaurant/${resId}`)
+
+    history.push(`/restaurant/${resId}`);
   }
 
 
