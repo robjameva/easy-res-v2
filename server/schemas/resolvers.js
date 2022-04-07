@@ -180,6 +180,11 @@ const resolvers = {
 
             return restaurant;
         },
+        deleteAllUsers: async () => {
+            const user = await User.deleteMany({})
+
+            return user;
+        },
         deleteRestaurant: async (parent, { _id }) => {
             const restaurant = await Restaurant.findOneAndDelete({ _id })
 

@@ -99,8 +99,6 @@ export default function UserDashboard({ userFormToggle }) {
     return <h1>Loading</h1>;
   }
 
-  // console.log(dbReservationData);
-
   return (
     <>
       <br />
@@ -110,53 +108,55 @@ export default function UserDashboard({ userFormToggle }) {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        {dbReservationData.map((reservation, index) => (
-          <Grid key={index} item xs={12} padding >
-            <Grid item xs={8} padding>
-              <Card sx={{ width: '60vw', maxHeight: '40vh' }}>
-                <CardMedia
-                  component="img"
-                  image={require(`../../assets/testImg/${reservation.restaurant.business_image}`)}
-                  alt={reservation.restaurant.business_name}
-                />
-              </Card>
+        {dbReservationData.length ?
+          dbReservationData.map((reservation, index) => (
+            <Grid key={index} item xs={12} padding >
+              <Grid item xs={8} padding>
+                <Card sx={{ width: '60vw', maxHeight: '40vh' }}>
+                  <CardMedia
+                    component="img"
+                    image={require(`../../assets/testImg/${reservation.restaurant.business_image}`)}
+                    alt={reservation.restaurant.business_name}
+                  />
+                </Card>
+              </Grid>
+              <Grid item xs={8}>
+                <Card sx={{ width: '60vw', maxHeight: '30vh' }}>
+                  <CardContent sx={{ textAlign: 'center' }}>
+                    <Typography variant="h4" component="div">
+                      Your Reservation at {reservation.restaurant.business_name}
+                    </Typography>
+                    <Typography variant="h6">
+                      Time: {format_business_hour(reservation.time_slot)}
+                    </Typography>
+                    <Typography variant="h6">
+                      Party: {reservation.party_size} people
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="call">
+                      <PhoneIcon />
+                    </IconButton>
+
+                    <Button onClick={() => handleEditRes(reservation.restaurant._id, reservation._id)} variant="contained" sx={{ mt: 3, mb: 2 }}>
+                      Edit
+                    </Button>
+
+                    <Button onClick={() => handleDeleteRes(reservation._id)} variant="contained" color="error" sx={{ mt: 3, mb: 2 }}>
+                      Cancel
+                    </Button>
+
+                  </CardActions>
+                </Card>
+              </Grid>
+              <br />
+              <br />
             </Grid>
-            <Grid item xs={8}>
-              <Card sx={{ width: '60vw', maxHeight: '30vh' }}>
-                <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography variant="h4" component="div">
-                    Your Reservation at {reservation.restaurant.business_name}
-                  </Typography>
-                  <Typography variant="h6">
-                    Time: {format_business_hour(reservation.time_slot)}
-                  </Typography>
-                  <Typography variant="h6">
-                    Party: {reservation.party_size} people
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  <IconButton aria-label="call">
-                    <PhoneIcon />
-                  </IconButton>
-
-                  <Button onClick={() => handleEditRes(reservation.restaurant._id, reservation._id)} variant="contained" sx={{ mt: 3, mb: 2 }}>
-                    Edit
-                  </Button>
-
-                  <Button onClick={() => handleDeleteRes(reservation._id)} variant="contained" color="error" sx={{ mt: 3, mb: 2 }}>
-                    Cancel
-                  </Button>
-
-                </CardActions>
-              </Card>
-            </Grid>
-            <br />
-            <br />
-          </Grid>
-        ))}
+          )) :
+          <h1>No Reservations!</h1>}
 
         {userFormToggle && <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square >
           <Box

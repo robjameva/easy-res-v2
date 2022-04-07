@@ -21,8 +21,7 @@ export default function OwnerSign() {
     last_name: "",
     phone_number: "",
     email: "",
-    password: "",
-    business_image: ""
+    password: ""
   });
 
   const [createUser, { error }] = useMutation(CREATE_USER);
@@ -35,6 +34,7 @@ export default function OwnerSign() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    console.log({ ...ownerFormData, isOwner: true })
     try {
       const { data } = await createUser({
         variables: { input: { ...ownerFormData, isOwner: true } },
