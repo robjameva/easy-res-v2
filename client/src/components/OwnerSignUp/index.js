@@ -174,7 +174,7 @@ export default function OwnerSign() {
                 </Button>
                 <Grid container>
                   <Grid item xs></Grid>
-                  <Link to="/login" variant="body2">
+                  <Link className='link' to="/login" variant="body2">
                     {"Already have an account?"}
                   </Link>
                 </Grid>

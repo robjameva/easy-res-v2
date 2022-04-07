@@ -61,7 +61,7 @@ export default function CarouselHome() {
       >
         {items.map((item ,i) => {
           return (
-            <Link to={`/restaurant/${item._id}`} key={i}>
+            <Link className='link' to={`/restaurant/${item._id}`} key={i}>
             <Card sx={{ height: '100%' }}>
               <CardHeader
                 avatar={

@@ -1,27 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
-import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import GroupsIcon from '@mui/icons-material/Groups';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Typography from '@mui/material/Typography';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RESERVATION_BY_USER } from '../../utils/queries';
 import { EDIT_USER, DELETE_RESERVATION } from '../../utils/mutations'
@@ -38,8 +28,6 @@ export default function UserDashboard() {
   const [deleteRes, { error: deleteResError }] = useMutation(DELETE_RESERVATION);
 
   let [dbReservationData, setDbReservationData] = useState([]);
-
-  let [userFormToggle, setUserFormToggle] = useState(false);
 
   const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_USER, {
     variables: { userId: user },
@@ -89,10 +77,6 @@ export default function UserDashboard() {
     }
 
   };
-
-  function toggleUserForm() {
-    setUserFormToggle(!userFormToggle);
-  }
 
   if (!dbReservationData.length) {
     return <Typography variant="h3" sx={{ textAlign: "center" }}>No Reservations</Typography>
