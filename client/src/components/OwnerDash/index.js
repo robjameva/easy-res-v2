@@ -17,6 +17,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_RESERVATION_BY_OWNER, GET_RESTAURANTS_BY_OWNER } from '../../utils/queries'
 import auth from '../../utils/auth'
 import { format_business_hour } from '../../utils/helpers'
+import { useHistory } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,9 +40,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function OwnerDash(props) {
+  const history = useHistory();
   useEffect(() => {
     const isOwner = localStorage.getItem("isOwner");
-    if (!isOwner) window.location.assign('/owner');
+    if (!isOwner) history.push(`/owner`);
+
   });
   const user = auth.getProfile().data._id;
 

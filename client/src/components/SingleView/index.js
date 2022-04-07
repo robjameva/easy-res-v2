@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
@@ -17,17 +17,14 @@ import { GET_RESTAURANT_BY_ID, GET_ALL_RESTAURANTS } from '../../utils/queries'
 import { MAKE_RESERVATION } from '../../utils/mutations'
 import unformat_business_hours from '../../utils/helpers'
 import auth from '../../utils/auth';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack'
 
 const theme = createTheme();
 
 export default function SingleView() {
-
-  useEffect(() => {
-    if (!auth.loggedIn()) window.location.assign('/login');
-  });
+  const history = useHistory();
 
   const [expanded, setExpanded] = React.useState(false);
   const { restaurantId } = useParams();
@@ -70,7 +67,8 @@ export default function SingleView() {
         }
       });
 
-      if (res) window.location.assign('/user-dashboard');
+      if (res) history.push(`/user-dashboard`);
+
 
     } catch (e) {
       console.error(e);
