@@ -18,7 +18,7 @@
 
 ## Link to Deployed Application
 
-* https://easy-res.herokuapp.com/
+* https://easy-res-v2.herokuapp.com/
 
 ## Technologies Used
 
