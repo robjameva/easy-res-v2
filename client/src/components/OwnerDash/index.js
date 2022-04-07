@@ -61,13 +61,13 @@ console.log(reservationData)
   return (
     <Box>
       <div className='singleBanner'>
-        <h1>View all your reservations in one place!</h1>
+        <h1>View All Your Reservations in One Place!</h1>
       </div>
-      <Grid container style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginTop: '3%' }}>
+      <Grid container style={{ display: 'flex', justifyContent: 'space-around', alignItems: '', marginTop: '5%' }}>
         <Grid item xs={12} sm={4}>
           {restaurantData.map(restaurant => {
             return (
-              <Card key={restaurant._id} style={{ height: '100%' }}>
+              <Card key={restaurant._id} style={{ height: '45%', marginBottom: "5%" }}>
                 <CardMedia
                   component="img"
                   height="180"
@@ -84,7 +84,7 @@ console.log(reservationData)
           })}
         </Grid>
         {reservationData.length >0 ? (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} style={{ marginBottom: "20%" }}>
           <TableContainer component={Paper}>
             <Table aria-label="customized table">
               <TableHead>

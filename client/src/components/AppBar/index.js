@@ -214,16 +214,7 @@ export default function SearchAppBar() {
             sx={{ width: 300, mx: 3 }}
             renderInput={(params) => <TextField {...params}  
             placeholder="Search…" 
-            // inputProps={{ 'aria-label': 'search' }}
             style={{ color: '#21325e', height: "41.5px" }} 
-            // variant="standard"
-            // InputProps={{
-            //   startAdornment: (
-            //     <InputAdornment position="start">
-            //       <SearchIcon />
-            //     </InputAdornment>
-            //   ),
-            // }}  
 			/>}
            
           />         
