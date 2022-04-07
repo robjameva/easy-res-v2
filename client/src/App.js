@@ -57,6 +57,10 @@ export default function App() {
 
 						<Route exact path="/sign-up" component={SignUp} />
 
+						<Route exact path="/owner" component={OwnerSign} />
+
+						<Route exact path="/owner/add-restaurant" component={AddRestaurant} />
+
 						{isLoggedIn ? <Route exact path="/restaurant/:restaurantId" component={SingleView} />
 							: <Redirect to="/login" />}
 
@@ -69,9 +73,6 @@ export default function App() {
 						{isLoggedIn ? <Route exact path="/user-dashboard" render={(props) => <UserDashboard {...props} userFormToggle={userFormToggle} />} />
 							: <Redirect to="/login" />}
 
-						<Route exact path="/owner" component={OwnerSign} />
-
-						<Route exact path="/owner/add-restaurant" component={AddRestaurant} />
 
 						<Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
 
