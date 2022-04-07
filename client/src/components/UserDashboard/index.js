@@ -21,16 +21,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Typography from '@mui/material/Typography';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RESERVATION_BY_USER, GET_USER_INFO } from '../../utils/queries';
 import { EDIT_USER, DELETE_RESERVATION } from '../../utils/mutations'
 import auth from '../../utils/auth';
 import { format_business_hour } from '../../utils/helpers'
 
-// const theme = createTheme();
 
-export default function UserDashboard({userFormToggle}) {
+
+export default function UserDashboard({ userFormToggle }) {
   const user = auth.getProfile().data._id;
   const [userFormData, setUserFormData] = useState({});
   const [editUser, { error: editUserError }] = useMutation(EDIT_USER);
@@ -106,11 +105,11 @@ export default function UserDashboard({userFormToggle}) {
     <>
       <br />
       <Grid container sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
         {dbReservationData.map((reservation, index) => (
           <Grid key={index} item xs={12} padding >
             <Grid item xs={8} padding>
@@ -159,7 +158,7 @@ export default function UserDashboard({userFormToggle}) {
           </Grid>
         ))}
 
-        {userFormToggle && <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square > 
+        {userFormToggle && <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square >
           <Box
             sx={{
               my: 8,

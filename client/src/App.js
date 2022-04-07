@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignUp from './components/SignUp';
@@ -40,7 +40,7 @@ const client = new ApolloClient({
 
 export default function App() {
 	let [userFormToggle, setUserFormToggle] = useState(false);
-	
+
 
 	return (
 		<ApolloProvider client={client}>
@@ -54,13 +54,13 @@ export default function App() {
 						<Route exact path="/restaurant/:restaurantId" component={SingleView} />
 						<Route exact path="/restaurant/:restaurantId/:reservationId" component={EditRes} />
 						<Route exact path="/owner-dashboard" component={OwnerDash} />
-						<Route exact path="/user-dashboard" render={(props) => <UserDashboard {...props} userFormToggle={userFormToggle}/>} />
+						<Route exact path="/user-dashboard" render={(props) => <UserDashboard {...props} userFormToggle={userFormToggle} />} />
 						<Route exact path="/owner" component={OwnerSign} />
 						<Route exact path="/owner/add-restaurant" component={AddRestaurant} />
-
+						<Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
 					</Switch>
 				</div>
-				<Footer setUserFormToggle={setUserFormToggle} userFormToggle={userFormToggle}/>
+				<Footer setUserFormToggle={setUserFormToggle} userFormToggle={userFormToggle} />
 			</Router>
 		</ApolloProvider>
 	);

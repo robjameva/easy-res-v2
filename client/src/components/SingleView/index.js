@@ -29,11 +29,14 @@ import ShareIcon from '@mui/icons-material/Share';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack'
 
-
-
 const theme = createTheme();
 
 export default function SingleView() {
+
+  useEffect(() => {
+    if (!auth.loggedIn()) window.location.assign('/login');
+  });
+
   const [expanded, setExpanded] = React.useState(false);
   const { restaurantId } = useParams();
   const [timeSlot, setTimeSlot] = React.useState('');
