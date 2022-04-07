@@ -30,7 +30,14 @@ function Copyright() {
   );
 }
 
-export default function Footer() {
+export default function Footer({setUserFormToggle, userFormToggle}) {
+  function toggleUserForm() {
+    setUserFormToggle(!userFormToggle);
+    
+  }
+
+  
+
   return (
     <React.Fragment>
     <CssBaseline />
@@ -42,7 +49,7 @@ export default function Footer() {
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Grid item xs={6} md={3}>
           <Link className='link' to={"/user-dashboard"} style={{ textDecoration: 'none'}}>
-            <IconButton aria-label="delete" size="large">
+            <IconButton onClick={toggleUserForm} aria-label="delete" size="large">
               <SettingsIcon />
               <Typography sx={{px: 1}} varient="h6">Edit User</Typography>
             </IconButton>
