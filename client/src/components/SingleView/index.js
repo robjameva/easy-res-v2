@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton'; import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import image1 from '../../assets/testImg/1.jpg';
 import image from '../../assets/images/logoHalf.png'
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
@@ -20,12 +15,9 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID, GET_ALL_RESTAURANTS } from '../../utils/queries'
 import { MAKE_RESERVATION } from '../../utils/mutations'
-import { requirePropFactory } from "@mui/material";
 import unformat_business_hours from '../../utils/helpers'
 import auth from '../../utils/auth';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import ShareIcon from '@mui/icons-material/Share';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack'
 
@@ -108,16 +100,16 @@ export default function SingleView() {
           >
             <img className='singleImage' src={require(`../../assets/testImg/${restaurantData.restaurant.business_image}`)}></img>
             <div className='bottomBanner'>
-              <Grid container>
-                <Grid item xs={6}>
-                  <h3>Not what you were looking for? Try {randRest.business_name}! </h3>
+              <Grid container style={{ marginTop: "60px" }}>
+                <Grid item xs={6} style={{ display: "flex" }}>
+                  <h3>Not What You Had in Mind? Maybe Try {randRest.business_name}! </h3>
                 </Grid>
                 <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Stack style={{ display: 'flex', alignItems: 'center', padding: '3%' }}>
                     <img className='singleLogo' src={image}></img>
                     <Link className='link' to={`/restaurant/${randRest._id}`}>
                       <Button style={{ backgroundColor: 'white', fontWeight: 'bold', color: 'black', marginTop: '25%' }} variant="contained" startIcon={<RestaurantIcon />}>
-                        Try It Out
+                        Try It Out!
                       </Button>
                     </Link>
                   </Stack>
@@ -125,7 +117,7 @@ export default function SingleView() {
               </Grid>
             </div>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
+          <Grid className='singleView' item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
             <Box
               sx={{
                 my: 8,
@@ -135,15 +127,17 @@ export default function SingleView() {
                 alignItems: 'center',
               }}
             >
-              <Box component="form" noValidate sx={{ mt: 1 }}>
-                <Typography variant='h2'>
-                  {restaurantData.restaurant.business_name}
-                </Typography>
-                <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
-                <Grid item xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3%' }}>
-                  <Grid item xs={12} >
+              <Box component="form" noValidate sx={{ mt: 1 }} style={{ display: "flex", flexWrap: "wrap", marginTop: "20%" }}>
+                <Stack>
+                  <Typography variant='h2'>
+                    {restaurantData.restaurant.business_name}
+                  </Typography>
+                  <Typography sx={{ my: 2 }} variant='h4'>{restaurantData.restaurant.business_website}</Typography>
+                  <Typography sx={{ my: 2 }} variant='h6'>{restaurantData.restaurant.business_address}</Typography>
+                  <Typography sx={{ my: 2 }} variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
+                </Stack>
+                <Grid item xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10%' }}>
+                  <Grid item xs={12}>
                     <InputLabel>Time</InputLabel>
                     <Select
                       sx={{ width: '100%' }}
@@ -154,7 +148,7 @@ export default function SingleView() {
                       {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
                     </Select>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} style={{}}>
                     <InputLabel>Party Size</InputLabel>
                     <Select
                       sx={{ width: '100%' }}

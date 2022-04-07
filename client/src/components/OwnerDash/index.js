@@ -18,9 +18,6 @@ import { QUERY_RESERVATION_BY_OWNER, GET_RESTAURANTS_BY_OWNER } from '../../util
 import auth from '../../utils/auth'
 import { format_business_hour } from '../../utils/helpers'
 
-
-const image = require('../../assets/testImg/5.jpg')
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: '#21325e',
@@ -65,13 +62,13 @@ export default function OwnerDash(props) {
   return (
     <Box>
       <div className='singleBanner'>
-        <h1>View all your reservations in one place!</h1>
+        <h1>View All Your Reservations in One Place!</h1>
       </div>
-      <Grid container style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginTop: '3%' }}>
+      <Grid container style={{ display: 'flex', justifyContent: 'space-around', alignItems: '', marginTop: '5%' }}>
         <Grid item xs={12} sm={4}>
           {restaurantData.map(restaurant => {
             return (
-              <Card key={restaurant._id} style={{ height: '100%' }}>
+              <Card className='ownerCard' key={restaurant._id} style={{ height: '45%', marginBottom: "5%" }}>
                 <CardMedia
                   component="img"
                   height="180"
@@ -88,7 +85,7 @@ export default function OwnerDash(props) {
           })}
         </Grid>
         {reservationData.length > 0 ? (
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} style={{ marginBottom: "20%" }}>
             <TableContainer component={Paper}>
               <Table aria-label="customized table">
                 <TableHead>

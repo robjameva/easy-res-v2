@@ -13,8 +13,6 @@ import { useMutation } from "@apollo/client"
 import { CREATE_RESTAURANT } from '../../utils/mutations';
 import auth from '../../utils/auth'
 
-
-
 const theme = createTheme();
 
 export default function AddRestaurant() {
@@ -41,9 +39,18 @@ export default function AddRestaurant() {
 		userFormData.business_hours_open = parseInt(userFormData.business_hours_open)
 		userFormData.business_hours_close = parseInt(userFormData.business_hours_close)
 
+		const images = ['pexels-marcus-herzberg-1058277.jpg', 'pexels-photo-67468.webp',
+			'pexels-photo-239975.jpg', 'pexels-photo-260922.jpg', 'pexels-photo-262978.webp',
+			'pexels-photo-315755.jpg', 'pexels-photo-382297.jpg', 'pexels-photo-541216.jpg',
+			'pexels-photo-580613.webp', 'pexels-photo-687824.webp', 'pexels-photo-914388.jpg',
+			'pexels-photo-1126728.webp', 'pexels-photo-1267320.jpg', 'pexels-photo-1581384.jpg',
+			'pexels-photo-1833349.jpg', 'pexels-photo-7624446.jpg']
+
+		const randomImage = images[Math.floor(Math.random() * images.length)]
+
 		try {
 			const { data } = await createRestaurant({
-				variables: { input: { ...userFormData, owner: user, business_image: '1.jpg' } },
+				variables: { input: { ...userFormData, owner: user, business_image: randomImage } },
 			});
 
 			if (data) window.location.assign('/owner-dashboard');
