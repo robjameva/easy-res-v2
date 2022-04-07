@@ -37,39 +37,53 @@ import InputAdornment from '@mui/material/InputAdornment';
 const listItems = [
   {
     listIcon: <Home />,
-    listText: "Home",
-    link: '/'
+    listText: 'Home',
+    link: '/',
+    loggedIn: 'true',
+    loggedOut: 'true',
   },
   {
     listIcon: <DashboardIcon />,
-    listText: "Dashboard",
-    link: '/user-dashboard'
+    listText: 'Dashboard',
+    link: '/user-dashboard',
+    loggedIn: 'true',
+    loggedOut: 'true',
   },
   {
     listIcon: <RestaurantIcon />,
-    listText: "Owned Restaurants",
-    link: '/owner-dashboard'
+    listText: 'Owned Restaurants',
+    link: '/owner-dashboard',
+    loggedIn: 'true',
+    loggedOut: 'true',
   },
   {
     listIcon: <FoodBankIcon />,
-    listText: "Add New Restaurant",
-    link: '/owner/add-restaurant'
-  },
-  {
-    listIcon: <FoodBankIcon />,
-    listText: "SV",
-    link: '/restaurant/:restaurantId'
+    listText: 'Add New Restaurant',
+    link: '/owner/add-restaurant',
+    loggedIn: 'true',
+    loggedOut: 'true',
   },
   {
     listIcon: <PersonIcon />,
-    listText: "Login",
-    link: '/login'
+    listText: 'Login',
+    link: '/login',
+    loggedIn: 'false',
+    loggedOut: 'true',
   },
   {
     listIcon: <AddIcon />,
-    listText: "Sign Up",
-    link: '/sign-up'
-  }
+    listText: 'Sign Up',
+    link: '/sign-up',
+    loggedIn: 'false',
+    loggedOut: 'true',
+  },
+  {
+    listIcon: <AddIcon />,
+    listText: 'Log Out',
+    link: '/',
+    loggedIn: 'true',
+    loggedOut: 'false',
+  },
 ];
 
 const Search = styled('div')(({ theme }) => ({
@@ -124,7 +138,6 @@ export default function SearchAppBar() {
   restaurantData.forEach((item, i) => {
     allNames.push(item.business_name);
   });
-  console.log(allNames)
 
   const [open, setOpen] = useState(false);
 
@@ -132,7 +145,7 @@ export default function SearchAppBar() {
     setOpen(!open);
   };
 
-  const logout = event => {
+  const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
@@ -142,7 +155,8 @@ export default function SearchAppBar() {
     const resId = matchRestaurant[0]._id
     window.location.assign(`/restaurant/${resId}`)
   }
-  console.log(restaurantData)
+
+
 
   const SideList = () => (
     <Box sx={{
@@ -152,25 +166,62 @@ export default function SearchAppBar() {
     }} component="div">
       <Divider />
       <List>
-        {listItems.map((listItem, index) => (
-          <Link className='link' key={index} to={listItem.link}>
-            <ListItem onClick={toggleSlider} style={{ color: 'white' }} button >
-              <ListItemIcon style={{ color: 'white' }}>
-                {listItem.listIcon}
-              </ListItemIcon>
-              <ListItemText primary={listItem.listText} />
-            </ListItem>
-          </Link>
-        ))}
-        <Link className='link' to='#'
-          onClick={() => window.location = 'mailto:easyResFakeEmail@notRealEmail.org'}>
-          <ListItem onClick={toggleSlider} style={{ color: 'white' }}>
-            <ListItemIcon style={{ color: 'white' }}>
-              <EmailIcon />
-            </ListItemIcon>
-            <ListItemText primary='Contact' />
-          </ListItem>
-        </Link>
+
+        {Auth.loggedIn() ?
+          (<>
+            {listItems.filter(loginList => loginList.loggedIn === 'true').map((listItem, index) => (
+              <Link className='link' key={index} to={listItem.link}>
+                <ListItem onClick={toggleSlider} style={{ color: 'white' }} button >
+                  <ListItemIcon style={{ color: 'white' }}>
+                    {listItem.listIcon}
+                  </ListItemIcon>
+                  <ListItemText primary={listItem.listText} />
+                </ListItem>
+              </Link>
+            ))}
+            <Link className='link' to='#'
+              onClick={() => window.location = 'mailto:easyResFakeEmail@notRealEmail.org'}>
+              <ListItem onClick={toggleSlider} style={{ color: 'white' }}>
+                <ListItemIcon style={{ color: 'white' }}>
+                  <EmailIcon />
+                </ListItemIcon>
+                <ListItemText primary='Contact' />
+              </ListItem>
+            </Link>
+          </>)
+          : (
+            <>
+              {listItems
+                .filter((loginList) => loginList.loggedOut === 'true')
+                .map((listItem, index) => (
+                  <Link key={index} to={listItem.link}>
+                    <ListItem
+                      onClick={toggleSlider}
+                      style={{ color: 'white' }}
+                      button
+                    >
+                      <ListItemIcon style={{ color: 'white' }}>
+                        {listItem.listIcon}
+                      </ListItemIcon>
+                      <ListItemText primary={listItem.listText} />
+                    </ListItem>
+                  </Link>
+                ))}
+              <Link
+                to="#"
+                onClick={() =>
+                  (window.location = 'mailto:easyResFakeEmail@notRealEmail.org')
+                }
+              >
+                <ListItem onClick={toggleSlider} style={{ color: 'white' }}>
+                  <ListItemIcon style={{ color: 'white' }}>
+                    <EmailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Contact" />
+                </ListItem>
+              </Link>
+            </>
+          )}
       </List>
     </Box>
   );
@@ -245,5 +296,5 @@ export default function SearchAppBar() {
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  )
 }
