@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -18,6 +18,11 @@ import auth from '../../utils/auth'
 const theme = createTheme();
 
 export default function AddRestaurant() {
+	useEffect(() => {
+		const isOwner = localStorage.getItem("isOwner");
+		if (!isOwner) window.location.assign('/owner');
+	});
+
 	const user = auth.getProfile().data._id;
 
 	const [userFormData, setUserFormData] = useState({});

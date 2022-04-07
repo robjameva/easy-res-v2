@@ -47,21 +47,21 @@ const listItems = [
     listText: 'Dashboard',
     link: '/user-dashboard',
     loggedIn: 'true',
-    loggedOut: 'true',
+    loggedOut: 'false',
   },
   {
     listIcon: <RestaurantIcon />,
     listText: 'Owned Restaurants',
     link: '/owner-dashboard',
     loggedIn: 'true',
-    loggedOut: 'true',
+    loggedOut: 'false',
   },
   {
     listIcon: <FoodBankIcon />,
     listText: 'Add New Restaurant',
     link: '/owner/add-restaurant',
     loggedIn: 'true',
-    loggedOut: 'true',
+    loggedOut: 'false',
   },
   {
     listIcon: <PersonIcon />,
@@ -81,7 +81,7 @@ const listItems = [
     listIcon: <AddIcon />,
     listText: 'Log Out',
     link: '/',
-    loggedIn: 'true',
+    loggedIn: 'false',
     loggedOut: 'false',
   },
 ];

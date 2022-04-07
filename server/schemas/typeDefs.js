@@ -111,8 +111,9 @@ const typeDefs = gql`
 		updateUser(input: UserUpdateInput): User
 		deleteUser(_id: ID!): User
 		deleteReservation(_id: ID!): Reservation
-		deleteAllReservations: [Reservation]
-		deleteAllRestaurants: [Restaurant]
+		deleteAllReservations: Reservation
+		deleteAllRestaurants: Restaurant
+		deleteAllUsers: User
 		deleteRestaurant(_id: ID!): Restaurant
 	}	
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -42,6 +42,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function OwnerDash(props) {
+  useEffect(() => {
+    const isOwner = localStorage.getItem("isOwner");
+    if (!isOwner) window.location.assign('/owner');
+  });
   const user = auth.getProfile().data._id;
 
   const { loading, error, data } = useQuery(QUERY_RESERVATION_BY_OWNER,
@@ -56,7 +60,7 @@ export default function OwnerDash(props) {
 
   if (loading.length || l1.length) <h1>Loading</h1>
 
-console.log(reservationData)
+  console.log(reservationData)
 
   return (
     <Box>
@@ -83,39 +87,39 @@ console.log(reservationData)
             )
           })}
         </Grid>
-        {reservationData.length >0 ? (
-        <Grid item xs={12} sm={6}>
-          <TableContainer component={Paper}>
-            <Table aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>First Name</StyledTableCell>
-                  <StyledTableCell>Last Name</StyledTableCell>
-                  <StyledTableCell>Time</StyledTableCell>
-                  <StyledTableCell>Group Size</StyledTableCell>
-                  <StyledTableCell>Restaurant</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {reservationData.map((reservation, i) => (
-                  <StyledTableRow key={i}>
-                    <StyledTableCell component="th" scope="reservation">
-                      {reservation.user.first_name}
-                    </StyledTableCell>
-                    <StyledTableCell>{reservation.user.last_name}</StyledTableCell>
-                    <StyledTableCell>{format_business_hour(reservation.time_slot)}</StyledTableCell>
-                    <StyledTableCell>{reservation.party_size}</StyledTableCell>
-                    <StyledTableCell>{reservation.restaurant.business_name}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
+        {reservationData.length > 0 ? (
+          <Grid item xs={12} sm={6}>
+            <TableContainer component={Paper}>
+              <Table aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>First Name</StyledTableCell>
+                    <StyledTableCell>Last Name</StyledTableCell>
+                    <StyledTableCell>Time</StyledTableCell>
+                    <StyledTableCell>Group Size</StyledTableCell>
+                    <StyledTableCell>Restaurant</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {reservationData.map((reservation, i) => (
+                    <StyledTableRow key={i}>
+                      <StyledTableCell component="th" scope="reservation">
+                        {reservation.user.first_name}
+                      </StyledTableCell>
+                      <StyledTableCell>{reservation.user.last_name}</StyledTableCell>
+                      <StyledTableCell>{format_business_hour(reservation.time_slot)}</StyledTableCell>
+                      <StyledTableCell>{reservation.party_size}</StyledTableCell>
+                      <StyledTableCell>{reservation.restaurant.business_name}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
         )
-      : 
-      <h1>There are Currently No Reservations for your Restaurant!</h1>
-      }
+          :
+          <h1>There are Currently No Reservations for your Restaurant!</h1>
+        }
       </Grid>
     </Box>
   );
