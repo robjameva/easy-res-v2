@@ -133,23 +133,18 @@ export default function UserDashboard({ userFormToggle }) {
                       Party: {reservation.party_size} people
                     </Typography>
                   </CardContent>
-                  <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="call">
-                      <PhoneIcon />
-                    </IconButton>
+                  <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
+                    <CardActions disableSpacing>
+                      <Button style={{ width: "91.2px" }} onClick={() => handleEditRes(reservation.restaurant._id, reservation._id)} variant="outlined" sx={{ mt: 3, mb: 2, mx: 0.5 }}>
+                        Edit
+                      </Button>
 
-                    <Button onClick={() => handleEditRes(reservation.restaurant._id, reservation._id)} variant="contained" sx={{ mt: 3, mb: 2 }}>
-                      Edit
-                    </Button>
+                      <Button style={{ width: "91.2px" }} onClick={() => handleDeleteRes(reservation._id)} variant="outlined" color="error" sx={{ mt: 3, mb: 2, mx: 0.5 }} >
+                        Cancel
+                      </Button>
 
-                    <Button onClick={() => handleDeleteRes(reservation._id)} variant="contained" color="error" sx={{ mt: 3, mb: 2 }}>
-                      Cancel
-                    </Button>
-
-                  </CardActions>
+                    </CardActions>
+                  </Grid>
                 </Card>
               </Grid>
               <br />

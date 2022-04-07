@@ -108,16 +108,16 @@ export default function SingleView() {
           >
             <img className='singleImage' src={require(`../../assets/testImg/${restaurantData.restaurant.business_image}`)}></img>
             <div className='bottomBanner'>
-              <Grid container>
-                <Grid item xs={6}>
-                  <h3>Not what you were looking for? Try {randRest.business_name}! </h3>
+              <Grid container style={{ marginTop: "60px" }}>
+                <Grid item xs={6} style={{ display: "flex" }}>
+                  <h3>Not What You Had in Mind? Maybe Try {randRest.business_name}! </h3>
                 </Grid>
                 <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Stack style={{ display: 'flex', alignItems: 'center', padding: '3%' }}>
                     <img className='singleLogo' src={image}></img>
                     <Link className='link' to={`/restaurant/${randRest._id}`}>
                       <Button style={{ backgroundColor: 'white', fontWeight: 'bold', color: 'black', marginTop: '25%' }} variant="contained" startIcon={<RestaurantIcon />}>
-                        Try It Out
+                        Try It Out!
                       </Button>
                     </Link>
                   </Stack>
@@ -135,15 +135,17 @@ export default function SingleView() {
                 alignItems: 'center',
               }}
             >
-              <Box component="form" noValidate sx={{ mt: 1 }}>
+              <Box component="form" noValidate sx={{ mt: 1 }} style={{ display: "flex", flexWrap: "wrap", marginTop: "20%" }}>
+                <Stack>
                 <Typography variant='h2'>
                   {restaurantData.restaurant.business_name}
-                </Typography>
-                <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
-                <Grid item xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3%' }}>
-                  <Grid item xs={12} >
+                  </Typography>
+                  <Typography sx={{ my: 2 }} variant='h4'>{restaurantData.restaurant.business_website}</Typography>
+                  <Typography sx={{ my: 2 }} variant='h6'>{restaurantData.restaurant.business_address}</Typography>
+                  <Typography sx={{ my: 2 }} variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
+                </Stack>
+                <Grid item xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10%' }}>
+                  <Grid item xs={12}>
                     <InputLabel>Time</InputLabel>
                     <Select
                       sx={{ width: '100%' }}
@@ -154,7 +156,7 @@ export default function SingleView() {
                       {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
                     </Select>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} style={{  }}>
                     <InputLabel>Party Size</InputLabel>
                     <Select
                       sx={{ width: '100%' }}

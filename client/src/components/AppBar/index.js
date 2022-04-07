@@ -75,7 +75,7 @@ const listItems = [
     listText: 'Sign Up',
     link: '/sign-up',
     loggedIn: 'false',
-    loggedOut: 'true',
+    loggedOut: 'true'
   },
   {
     listIcon: <AddIcon />,
@@ -274,25 +274,15 @@ export default function SearchAppBar() {
           <Autocomplete
             disablePortal
             id="combo-box-demo"
+            onBlur={(event, value) => setSearchTerm(event.target.value)}
             options={allNames}
             sx={{ width: 300, mx: 3 }}
             renderInput={(params) => <TextField {...params}
-              onBlur={(event, value) => setSearchTerm(event.target.value)}
-              // placeholder="Search…" 
-              // inputProps={{ 'aria-label': 'search' }}
-              style={{ color: '#21325e' }}
-            // variant="standard"
-            // InputProps={{
-            //   startAdornment: (
-            //     <InputAdornment position="start">
-            //       <SearchIcon />
-            //     </InputAdornment>
-            //   ),
-            // }}  
+              placeholder="Search…"
+              style={{ color: '#21325e', height: "41.5px" }}
             />}
 
           />
-
         </Toolbar>
       </AppBar>
     </Box>
