@@ -93,9 +93,18 @@
 	font-size: 25px !important;
 }
 
-/* .MuiCardHeader-root {
-	background-color: darkgrey;
+.MuiOutlinedInput-root {
+	height: 36px;
+	margin-top: 2.3px;
+}
+
+/* .MuiAutocomplete-input {
+	margin: 0px 4px 7.5px 6px;
 } */
+
+.MuiOutlinedInput-root .MuiAutocomplete-input {
+    padding: 0px 4px 7.5px 6px !important;
+}
 
 @media screen and (max-width: 1300px) {
   .bottomBanner {
