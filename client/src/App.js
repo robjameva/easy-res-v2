@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Home from '../src/components/Home';
@@ -12,6 +12,7 @@ import OwnerSign from './components/OwnerSignUp';
 import OwnerDash from './components/OwnerDash';
 import AddRestaurant from "./components/AddRestaurant"
 import EditRes from './components/EditRes';
+import auth from './utils/auth'
 import {
 	ApolloProvider,
 	ApolloClient,
@@ -41,6 +42,8 @@ const client = new ApolloClient({
 export default function App() {
 	let [userFormToggle, setUserFormToggle] = useState(false);
 
+	const isLoggedIn = auth.loggedIn();
+	console.log(isLoggedIn)
 
 	return (
 		<ApolloProvider client={client}>
@@ -49,15 +52,29 @@ export default function App() {
 				<div className="container">
 					<Switch>
 						<Route exact path="/" component={Home} />
+
 						<Route exact path="/login" component={Login} />
+
 						<Route exact path="/sign-up" component={SignUp} />
-						<Route exact path="/restaurant/:restaurantId" component={SingleView} />
-						<Route exact path="/restaurant/:restaurantId/:reservationId" component={EditRes} />
-						<Route exact path="/owner-dashboard" component={OwnerDash} />
-						<Route exact path="/user-dashboard" render={(props) => <UserDashboard {...props} userFormToggle={userFormToggle} />} />
+
+						{isLoggedIn ? <Route exact path="/restaurant/:restaurantId" component={SingleView} />
+							: <Redirect to="/login" />}
+
+						{isLoggedIn ? <Route exact path="/restaurant/:restaurantId/:reservationId" component={EditRes} />
+							: <Redirect to="/login" />}
+
+						{isLoggedIn ? <Route exact path="/owner-dashboard" component={OwnerDash} />
+							: <Redirect to="/login" />}
+
+						{isLoggedIn ? <Route exact path="/user-dashboard" render={(props) => <UserDashboard {...props} userFormToggle={userFormToggle} />} />
+							: <Redirect to="/login" />}
+
 						<Route exact path="/owner" component={OwnerSign} />
+
 						<Route exact path="/owner/add-restaurant" component={AddRestaurant} />
+
 						<Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+
 					</Switch>
 				</div>
 				<Footer setUserFormToggle={setUserFormToggle} userFormToggle={userFormToggle} />

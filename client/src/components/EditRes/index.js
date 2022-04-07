@@ -15,11 +15,13 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
 import { EDIT_RESERVATION } from '../../utils/mutations'
 import unformat_business_hours from '../../utils/helpers'
+import { useHistory } from 'react-router-dom';
 
 
 const theme = createTheme();
 
 export default function EditRes() {
+  const history = useHistory();
   const { restaurantId } = useParams();
   const { reservationId } = useParams();
   const [timeSlot, setTimeSlot] = React.useState('');
@@ -56,7 +58,7 @@ export default function EditRes() {
         }
       });
 
-      window.location.assign('/user-dashboard');
+      history.push(`/user-dashboard`);
 
     } catch (e) {
       console.error(e);
