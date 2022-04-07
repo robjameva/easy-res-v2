@@ -22,6 +22,8 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import ReactDOM from "react-dom";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { display, height } from "@mui/system";
+import { Stack } from "@mui/material";
 
 const handleOnDragStart = e => e.preventDefault();
 
@@ -63,8 +65,11 @@ console.log(items)
       >
         {items.map((item ,i) => {
           return (
-            <Card sx={{ height: '100%' }}>
-              <CardHeader
+            <Card sx={{ height: '100%', padding: "1px" }}>
+              <CardHeader 
+              style={{
+                backgroundColor: '#F0F0F0'
+              }}
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                     {item.business_name[0]}
@@ -80,37 +85,57 @@ console.log(items)
                 alt="Image"
                 />
                 </Link>
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  {item.business_address}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {item.business_website}
-                </Typography>
+                <Grid container
+                  style={ {height: "100px",  backgroundColor: '#F0F0F0' }}
+                >
+                  <Grid item xs={8} style={{ display: "flex", justifyContent: 'flex-start', alignItems: "space-around" }}>
+              <CardContent 
+                style={{
+                  backgroundColor: '#F0F0F0',
+                }}
+              >
+                <Stack>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.business_address}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.business_website}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.business_phone}
+                  </Typography>
+                </Stack>
               </CardContent>
-              <CardActions disableSpacing>
+              </Grid>
+              <Grid item xs={4} style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+              <CardActions disableSpacing
+                style={{
+                  backgroundColor: '#F0F0F0',
+                }}
+              >
                 <IconButton aria-label="add to favorites">
                   <a className="carousel-icon-link" target={"_blank"} href={`https://google.com/maps/place/${item.business_address}`}>
-                    <PinDropIcon>
-
+                    <PinDropIcon fontSize="large">
+                        
                     </PinDropIcon>
                   </a>
                 </IconButton>
                 <IconButton aria-label="call">
                 <a className="carousel-icon-link" target={"_blank"} href={`tel:+${item.business_phone}`}>
-                  <PhoneIcon fontSize="small">
+                  <PhoneIcon fontSize="large">
                   </PhoneIcon>
                 </a>
                 </IconButton>
                 <IconButton>
                   <a className="carousel-icon-link" target={"_blank"} href={`https://www.yelp.com/search?find_desc=${item.business_name}`}>
-                  <ReviewsIcon fontSize="small">
+                  <ReviewsIcon fontSize="large">
 
                   </ReviewsIcon>
                   </a>
                 </IconButton>
               </CardActions>
-
+              </Grid>
+              </Grid>
             </Card>
           )
         })

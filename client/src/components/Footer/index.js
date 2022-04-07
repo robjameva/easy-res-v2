@@ -35,7 +35,7 @@ export default function Footer() {
     <React.Fragment>
     <CssBaseline />
     <AppBar position="fixed" 
-    style={{backgroundColor: '#c5c7c5'}}
+    style={{backgroundColor: '#F0F0F0'}}
     sx={{ top: 'auto', bottom: 0 }}>
     <Toolbar>
     <Grid container xs={12}

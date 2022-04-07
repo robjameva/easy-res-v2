@@ -28,8 +28,12 @@
 }
 
 .hero h1 {
-	margin-top: 8%;
+	margin-top: 12%;
 	font-size: 100%;
+}
+
+.hero-wrapper {
+	background-color: #f0f0f02e;
 }
 
 .singleBanner {
@@ -76,16 +80,22 @@
 }
 
 .carousel-cards {
-  margin-top: 4%; 
+  margin-top: 7%; 
 }
 
 .carousel-icon-link {
 	color: #f44336;
+	display: flex;
+	justify-content: center;
 }
 
 .MuiCardHeader-title {
 	font-size: 25px !important;
 }
+
+/* .MuiCardHeader-root {
+	background-color: darkgrey;
+} */
 
 @media screen and (max-width: 1300px) {
   .bottomBanner {
