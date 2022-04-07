@@ -1,20 +1,26 @@
 
 
 import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import SettingsIcon from '@mui/icons-material/Settings';
+import AppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
 
 function Copyright() {
   return (
     <>
 
-      <Typography variant="body2" color="text.secondary">
+      <Typography className='copyright' 
+      variant="body2" 
+      color="text.secondary"
+      sx={{px: 1}}
+      style={{fontWeight: 'bold', textAlign: 'right'}}>
         {'Copyright © '}
-        <Link color="inherit" to={"/"}>
+        <Link className='link' color="inherit" to={"/"}>
           Easy Res
         </Link>{' '}
         {new Date().getFullYear()}
@@ -24,25 +30,37 @@ function Copyright() {
   );
 }
 
-export default function Footer() {
-  return (
-    <Box
-      component="footer"
-      //fixed
-      sx={{
-        py: 2,
-        px: 2,
-      }}
-      style={{ backgroundColor: 'grey', position: "fixed", bottom: "0", width: "100%", margin: '-10px' }}
-    >
+export default function Footer({setUserFormToggle, userFormToggle}) {
+  function toggleUserForm() {
+    setUserFormToggle(!userFormToggle);
+    
+  }
 
-      <Container width="fullWidth"
-        style={{ display: 'flex', justifyContent: 'center' }}>
-        <Copyright />
-        <Link to={"/user-dashboard"} style={{ textDecoration: 'none', marginLeft: "30px" }}>
-          <Button size="medium" variant="contained" style={{ color: '#FFFFFF' }}>Edit User</Button>
-        </Link>
-      </Container>
-    </Box>
+  
+
+  return (
+    <React.Fragment>
+    <CssBaseline />
+    <AppBar position="fixed" 
+    style={{backgroundColor: '#c5c7c5'}}
+    sx={{ top: 'auto', bottom: 0 }}>
+    <Toolbar>
+    <Grid container xs={12}
+        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Grid item xs={6} md={3}>
+          <Link className='link' to={"/user-dashboard"} style={{ textDecoration: 'none'}}>
+            <IconButton onClick={toggleUserForm} aria-label="delete" size="large">
+              <SettingsIcon />
+              <Typography sx={{px: 1}} varient="h6">Edit User</Typography>
+            </IconButton>
+          </Link>
+          </Grid>
+          <Grid item xs={6} md={3}>
+          <Copyright />
+          </Grid>
+      </Grid>
+    </Toolbar>
+  </AppBar>
+</React.Fragment>
   );
 }

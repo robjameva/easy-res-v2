@@ -1,3 +1,7 @@
+* {
+	font-family: 'Sofia Pro', sans-serif;
+}
+
 .logo {
 	height: 50px;
 	width: 200px;
@@ -52,17 +56,23 @@
   box-shadow: 0px 0px 5px 5px rgba(92, 93, 94, .3);
 }
 
+.link {
+	text-decoration: none;
+}
+
 .bottomBanner {
-  width: 100%;
+  width: 75%;
   height: 40%;
-  background-color: rgb(255, 38, 38);
+  background-color: rgb(232, 232, 232);
+  border-radius: 10px;
   box-shadow: 0px 0px 5px 5px rgba(92, 93, 94, .3);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 34px;
   padding-left: 3%;
   padding-right: 3%;
   font-weight: bolder;
-  margin-bottom: 0;
+  margin-bottom: 15%;
+  margin-top: 2%;
 }
 
 .singleLogo {
@@ -77,6 +87,7 @@
 @media screen and (max-width: 1300px) {
   .bottomBanner {
     font-size: 28px;
+	width: 90%;
   }
 
   .singleLogo {
@@ -88,11 +99,10 @@
 	height: 60%;
 	width: 90%;
 	margin-top: 2%;
-	box-shadow: 0px 0px 10px 10px rgba(92, 93, 94, 0.3);
 	border-radius: 20px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 730px) {
 	.logo {
 		display: none;
 	}
@@ -123,6 +133,9 @@
   .singleLogo {
     width: 60px;
     height: 60px
+  }
+  .copyright {
+	font-size: 3px;
   }
 }
 

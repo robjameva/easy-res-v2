@@ -29,11 +29,14 @@ import ShareIcon from '@mui/icons-material/Share';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack'
 
-
-
 const theme = createTheme();
 
 export default function SingleView() {
+
+  useEffect(() => {
+    if (!auth.loggedIn()) window.location.assign('/login');
+  });
+
   const [expanded, setExpanded] = React.useState(false);
   const { restaurantId } = useParams();
   const [timeSlot, setTimeSlot] = React.useState('');
@@ -48,10 +51,6 @@ export default function SingleView() {
   const allRest = data1?.getAllRestaurants || [];
 
   const randRest = allRest[Math.floor(Math.random() * allRest.length)];
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const restaurantData = data?.getRestaurant || [];
 
@@ -116,7 +115,7 @@ export default function SingleView() {
                 <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Stack style={{ display: 'flex', alignItems: 'center', padding: '3%' }}>
                     <img className='singleLogo' src={image}></img>
-                    <Link to={`/restaurant/${randRest._id}`}>
+                    <Link className='link' to={`/restaurant/${randRest._id}`}>
                       <Button style={{ backgroundColor: 'white', fontWeight: 'bold', color: 'black', marginTop: '25%' }} variant="contained" startIcon={<RestaurantIcon />}>
                         Try It Out
                       </Button>

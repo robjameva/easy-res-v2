@@ -178,11 +178,11 @@ export default function SignUpSide() {
 								<Grid container>
 									<Grid item xs></Grid>
 									<Grid item>
-										<Link to="/login" variant="body2">
+										<Link className='link' to="/login" variant="body2">
 											{'Already have an account?'}
 										</Link>
 										<br></br>
-										<Link to="/owner" variant="body2">
+										<Link className='link' to="/owner" variant="body2">
 											{'Use Easy Res at your restaurant!'}
 										</Link>
 									</Grid>
