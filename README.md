@@ -14,7 +14,7 @@
 
 ## Screenshot of Application
 
-![screenshot](https://www.dropbox.com/s/alxkji158kpw8qh/Easy-Res-V2.png?raw=1)
+![screenshot](https://www.dropbox.com/s/dq3sovc3l7ly97v/Easy-Res-V2.png?raw=1)
 
 ## Link to Deployed Application
 
