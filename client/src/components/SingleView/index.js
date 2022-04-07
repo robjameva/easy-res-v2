@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton'; import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import image1 from '../../assets/testImg/1.jpg';
 import image from '../../assets/images/logoHalf.png'
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
@@ -20,12 +15,9 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID, GET_ALL_RESTAURANTS } from '../../utils/queries'
 import { MAKE_RESERVATION } from '../../utils/mutations'
-import { requirePropFactory } from "@mui/material";
 import unformat_business_hours from '../../utils/helpers'
 import auth from '../../utils/auth';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import ShareIcon from '@mui/icons-material/Share';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack'
 
@@ -125,7 +117,7 @@ export default function SingleView() {
               </Grid>
             </div>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
+          <Grid className='singleView' item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
             <Box
               sx={{
                 my: 8,
@@ -137,8 +129,8 @@ export default function SingleView() {
             >
               <Box component="form" noValidate sx={{ mt: 1 }} style={{ display: "flex", flexWrap: "wrap", marginTop: "20%" }}>
                 <Stack>
-                <Typography variant='h2'>
-                  {restaurantData.restaurant.business_name}
+                  <Typography variant='h2'>
+                    {restaurantData.restaurant.business_name}
                   </Typography>
                   <Typography sx={{ my: 2 }} variant='h4'>{restaurantData.restaurant.business_website}</Typography>
                   <Typography sx={{ my: 2 }} variant='h6'>{restaurantData.restaurant.business_address}</Typography>
@@ -156,7 +148,7 @@ export default function SingleView() {
                       {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
                     </Select>
                   </Grid>
-                  <Grid item xs={12} style={{  }}>
+                  <Grid item xs={12} style={{}}>
                     <InputLabel>Party Size</InputLabel>
                     <Select
                       sx={{ width: '100%' }}

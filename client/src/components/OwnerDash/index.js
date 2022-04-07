@@ -18,9 +18,6 @@ import { QUERY_RESERVATION_BY_OWNER, GET_RESTAURANTS_BY_OWNER } from '../../util
 import auth from '../../utils/auth'
 import { format_business_hour } from '../../utils/helpers'
 
-
-const image = require('../../assets/testImg/5.jpg')
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: '#21325e',
@@ -71,7 +68,7 @@ export default function OwnerDash(props) {
         <Grid item xs={12} sm={4}>
           {restaurantData.map(restaurant => {
             return (
-              <Card key={restaurant._id} style={{ height: '45%', marginBottom: "5%" }}>
+              <Card className='ownerCard' key={restaurant._id} style={{ height: '45%', marginBottom: "5%" }}>
                 <CardMedia
                   component="img"
                   height="180"

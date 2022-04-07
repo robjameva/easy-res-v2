@@ -87,7 +87,7 @@
 }
 
 .carousel-cards {
-  margin-top: 7%; 
+  margin-top: 5%; 
 }
 
 .carousel-icon-link {
@@ -100,18 +100,6 @@
 	font-size: 25px !important;
 }
 
-.MuiOutlinedInput-root {
-	height: 36px;
-	margin-top: 2.3px;
-}
-
-/* .MuiAutocomplete-input {
-	margin: 0px 4px 7.5px 6px;
-} */
-
-.MuiOutlinedInput-root .MuiAutocomplete-input {
-    padding: 0px 4px 7.5px 6px !important;
-}
 
 @media screen and (max-width: 1300px) {
   .bottomBanner {
@@ -131,7 +119,14 @@
 	border-radius: 20px;
 }
 
-@media screen and (max-width: 730px) {
+@media screen and (max-width: 1010px) {
+  
+	.welcome{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 825px) {
 	.logo {
 		display: none;
 	}
@@ -152,6 +147,14 @@
     display: unset;
     height: 80px;
     width:300px;
+  }
+
+  .singleView{
+	  margin-bottom: 30% !important;
+  }
+
+  .ownerCard{
+	  display: none;
   }
 
   .bottomBanner {

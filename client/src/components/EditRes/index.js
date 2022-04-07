@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import image1 from '../../assets/testImg/1.jpg';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -16,8 +15,6 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from '../../utils/queries'
 import { EDIT_RESERVATION } from '../../utils/mutations'
 import unformat_business_hours from '../../utils/helpers'
-
-
 
 
 const theme = createTheme();
@@ -87,7 +84,7 @@ export default function EditRes() {
             md={6}
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
           >
-            <img className='singleImage' src={image1}></img>
+            <img className='singleImage' src={require(`../../assets/testImg/${restaurantData.restaurant.business_image}`)}></img>
           </Grid>
           <Grid item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
             <Box

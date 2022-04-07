@@ -14,11 +14,11 @@ function Copyright() {
   return (
     <>
 
-      <Typography className='copyright' 
-      variant="body2" 
-      color="text.secondary"
-      sx={{px: 1}}
-      style={{fontWeight: 'bold', textAlign: 'right'}}>
+      <Typography className='copyright'
+        variant="body2"
+        color="text.secondary"
+        sx={{ px: 1 }}
+        style={{ fontWeight: 'bold', textAlign: 'right' }}>
         {'Copyright © '}
         <Link className='link' color="inherit" to={"/"}>
           Easy Res
@@ -30,37 +30,35 @@ function Copyright() {
   );
 }
 
-export default function Footer({setUserFormToggle, userFormToggle}) {
+export default function Footer({ setUserFormToggle, userFormToggle }) {
   function toggleUserForm() {
     setUserFormToggle(!userFormToggle);
-    
-  }
 
-  
+  }
 
   return (
     <React.Fragment>
-    <CssBaseline />
-    <AppBar position="fixed" 
-    style={{backgroundColor: '#F0F0F0'}}
-    sx={{ top: 'auto', bottom: 0 }}>
-    <Toolbar>
-    <Grid container xs={12}
-        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Grid item xs={6} md={3}>
-          <Link className='link' to={"/user-dashboard"} style={{ textDecoration: 'none'}}>
-            <IconButton onClick={toggleUserForm} aria-label="delete" size="large">
-              <SettingsIcon />
-              <Typography sx={{px: 1}} varient="h6">Edit User</Typography>
-            </IconButton>
-          </Link>
+      <CssBaseline />
+      <AppBar position="fixed"
+        style={{ backgroundColor: '#F0F0F0' }}
+        sx={{ top: 'auto', bottom: 0 }}>
+        <Toolbar>
+          <Grid container
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Grid item xs={6} md={3}>
+              <Link className='link' to={"/user-dashboard"} style={{ textDecoration: 'none' }}>
+                <IconButton onClick={toggleUserForm} aria-label="delete" size="large">
+                  <SettingsIcon />
+                  <Typography sx={{ px: 1 }} varient="h6">Edit User</Typography>
+                </IconButton>
+              </Link>
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Copyright />
+            </Grid>
           </Grid>
-          <Grid item xs={6} md={3}>
-          <Copyright />
-          </Grid>
-      </Grid>
-    </Toolbar>
-  </AppBar>
-</React.Fragment>
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   );
 }

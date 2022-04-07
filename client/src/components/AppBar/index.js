@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -30,9 +29,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { GET_ALL_RESTAURANTS } from '../../utils/queries'
 import { useQuery } from "@apollo/client";
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
+import auth from '../../utils/auth'
+
 
 const listItems = [
   {
@@ -250,34 +248,34 @@ export default function SearchAppBar() {
             <Link className='link' to='/'>
               <img className='logo' src={logo} alt="logo" />
             </Link>
-            {/* Easy Res */}
           </Typography>
           <Drawer open={open} anchor="left" onClose={toggleSlider}>
             {SideList()}
           </Drawer>
           <Stack direction="row" spacing={2}>
+            {auth.loggedIn() ?
+              <Typography className='welcome' style={{ color: '#21325e', lineHeight: '1' }} variant='h4' >Hello {auth.getProfile().data.first_name}</Typography>
+              :
+              <Typography className='welcome' style={{ color: '#21325e', lineHeight: '1' }} variant='h4' >Welcome!</Typography>}
+
             {Auth.loggedIn() ? (
-              <>
-                <a href="/" onClick={logout}>
-                  <Button className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Logout</Button>
-                </a>
-              </>
+              <a href="/" className='link' onClick={logout}>
+                <Button className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Logout</Button>
+              </a>
             ) : (
-              <>
-                <Link className='link' to="/login" style={{ textDecoration: 'none' }}>
-                  <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Login</Button>
-                </Link>
-              </>
+              <Link className='link' to="/login" style={{ textDecoration: 'none' }}>
+                <Button size="medium" className='signBtn' variant="outlined" style={{ color: '#21325e', marginRight: '10px' }}>Login</Button>
+              </Link>
             )}
           </Stack>
-          <Button onClick={() => handleSearch(searchTerm)} size="medium" className='signBtn' variant="outlined" style={{ color: '#21325e' }}>Search</Button>
+          <Button onClick={() => handleSearch(searchTerm)} size="medium" className='signBtn' variant="outlined" style={{ color: '#21325e', marginLeft: '10px' }}>Search</Button>
           <Autocomplete
             disablePortal
             id="combo-box-demo"
             onBlur={(event, value) => setSearchTerm(event.target.value)}
             options={allNames}
             sx={{ width: 300, mx: 3 }}
-            renderInput={(params) => <TextField {...params}
+            renderInput={(params) => <TextField variant='standard' {...params}
               placeholder="Search…"
               style={{ color: '#21325e', height: "41.5px" }}
             />}
