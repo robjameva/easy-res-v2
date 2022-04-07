@@ -14,7 +14,7 @@
 
 ## Screenshot of Application
 
-![screenshot](https://www.dropbox.com/s/ejjnf6t0y0opvvb/Easy-Res-V2.png?raw=1)
+![screenshot](https://www.dropbox.com/s/alxkji158kpw8qh/Easy-Res-V2.png?raw=1)
 
 ## Link to Deployed Application
 
@@ -51,10 +51,10 @@
 ### Further Questions?
 
 * Link to the Easy Res V2 Team's GitHub Accounts: 
-    * Robert Evanik's GitHub: https://github.com/robjameva <br>
+    * Robert Evanik's GitHub: https://github.com/robjameva 
     * Nick Perel's GitHub: https://github.com/nickperel
-    * Chris Mccormack's GitHub: https://github.com/CmcCormack92 <br>
-    * Sean Gillespie's GitHub: https://github.com/seene3 <br>
+    * Chris Mccormack's GitHub: https://github.com/CmcCormack92 
+    * Sean Gillespie's GitHub: https://github.com/seene3 
     * Nick Defex's GitHub: https://github.com/Ndefected15
 
 * If you have further questions, feel free to email the Easy Res V2 Team at these addresses & we will get back to you as soon as we can: 
