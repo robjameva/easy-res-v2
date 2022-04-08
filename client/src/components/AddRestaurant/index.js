@@ -57,7 +57,7 @@ export default function AddRestaurant() {
 			});
 
 			if (data) {
-				history.push(`/owner-dashboard`);
+				history.push(`/`);
 				window.location.reload();
 			}
 

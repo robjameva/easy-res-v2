@@ -56,7 +56,7 @@ export default function EditRes() {
         }
       });
 
-      history.push(`/user-dashboard`);
+      history.push(`/`);
       window.location.reload();
 
     } catch (e) {

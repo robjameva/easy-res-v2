@@ -59,7 +59,7 @@ export default function UserDashboard({ userFormToggle }) {
         variables: { input: { ...userFormData, _id: user } },
       });
 
-      history.push(`/user-dashboard`);
+      history.push(`/`);
       window.location.reload();
 
     } catch (err) {
