@@ -28,9 +28,10 @@ export default function CarouselHome() {
 
   const items = restaurantData;
 
-  if (loading.length) <h1>Loading</h1>
+  if (loading.length) {
+    return <h1>Loading</h1>
+  }
 
-  console.log(items)
   return (
     <div className="carousel-cards">
       <AliceCarousel

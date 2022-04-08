@@ -34,7 +34,6 @@ export default function OwnerSign() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log({ ...ownerFormData, isOwner: true })
     try {
       const { data } = await createUser({
         variables: { input: { ...ownerFormData, isOwner: true } },

@@ -58,9 +58,9 @@ export default function OwnerDash(props) {
 
   const restaurantData = d1?.getRestaurantsByOwner || [];
 
-  if (loading.length || l1.length) <h1>Loading</h1>
-
-  console.log(reservationData)
+  if (loading.length || l1.length) {
+    return <h1>Loading</h1>
+  }
 
   return (
     <Box>

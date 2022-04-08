@@ -90,7 +90,6 @@ export default function UserDashboard({ userFormToggle }) {
     return <h1>Loading</h1>;
   }
 
-  console.log(dbReservationData)
   return (
     <>
       <br />

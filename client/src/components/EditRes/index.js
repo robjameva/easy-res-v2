@@ -33,8 +33,6 @@ export default function EditRes() {
   });
 
   const restaurantData = data?.getRestaurant || [];
-  console.log(restaurantData)
-
 
   const handleTimeChange = (event) => {
     setTimeSlot(event.target.value);
