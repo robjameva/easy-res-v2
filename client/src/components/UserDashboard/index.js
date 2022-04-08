@@ -60,6 +60,7 @@ export default function UserDashboard({ userFormToggle }) {
       });
 
       history.push(`/user-dashboard`);
+      window.location.reload();
 
     } catch (err) {
       console.error(err);

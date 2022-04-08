@@ -57,15 +57,13 @@ export default function EditRes() {
       });
 
       history.push(`/user-dashboard`);
+      window.location.reload();
 
     } catch (e) {
       console.error(e);
     }
   }
 
-  if (loading) {
-    return <h1>Loading</h1>
-  }
 
   return (
     <>

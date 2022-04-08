@@ -56,7 +56,10 @@ export default function AddRestaurant() {
 				variables: { input: { ...userFormData, owner: user, business_image: randomImage } },
 			});
 
-			if (data) history.push(`/owner-dashboard`);
+			if (data) {
+				history.push(`/owner-dashboard`);
+				window.location.reload();
+			}
 
 		} catch (err) {
 			console.error(err);
