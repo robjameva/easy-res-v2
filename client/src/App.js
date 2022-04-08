@@ -43,7 +43,6 @@ export default function App() {
 	let [userFormToggle, setUserFormToggle] = useState(false);
 
 	const isLoggedIn = auth.loggedIn();
-	console.log(isLoggedIn)
 
 	return (
 		<ApolloProvider client={client}>

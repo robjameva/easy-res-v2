@@ -58,69 +58,69 @@ export default function OwnerDash(props) {
 
   const restaurantData = d1?.getRestaurantsByOwner || [];
 
-  if (loading.length || l1.length) {
-    return <h1>Loading</h1>
-  }
 
   return (
-    <Box>
-      <div className='singleBanner'>
-        <h1>View All Your Reservations in One Place!</h1>
-      </div>
-      <Grid container style={{ display: 'flex', justifyContent: 'space-around', alignItems: '', marginTop: '5%' }}>
-        <Grid item xs={12} sm={4}>
-          {restaurantData.map(restaurant => {
-            return (
-              <Card className='ownerCard' key={restaurant._id} style={{ height: '250px', marginBottom: "5%" }}>
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={require(`../../assets/testImg/${restaurant.business_image}`)}
-                  alt={restaurant.business_name}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {restaurant.business_name}
-                  </Typography>
-                </CardContent>
-              </Card>
+    <>
+      {loading || l1 ? <h1>Loading</h1> :
+        <Box>
+          <div className='singleBanner'>
+            <h1>View All Your Reservations in One Place!</h1>
+          </div>
+          <Grid container style={{ display: 'flex', justifyContent: 'space-around', alignItems: '', marginTop: '5%' }}>
+            <Grid item xs={12} sm={4}>
+              {restaurantData.map(restaurant => {
+                return (
+                  <Card className='ownerCard' key={restaurant._id} style={{ height: '250px', marginBottom: "5%" }}>
+                    <CardMedia
+                      component="img"
+                      height="180"
+                      image={require(`../../assets/testImg/${restaurant.business_image}`)}
+                      alt={restaurant.business_name}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {restaurant.business_name}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </Grid>
+            {reservationData.length > 0 ? (
+              <Grid item xs={12} sm={6} style={{ marginBottom: "20%" }}>
+                <TableContainer component={Paper}>
+                  <Table aria-label="customized table">
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell>First Name</StyledTableCell>
+                        <StyledTableCell>Last Name</StyledTableCell>
+                        <StyledTableCell>Time</StyledTableCell>
+                        <StyledTableCell>Group Size</StyledTableCell>
+                        <StyledTableCell>Restaurant</StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {reservationData.map((reservation, i) => (
+                        <StyledTableRow key={i}>
+                          <StyledTableCell component="th" scope="reservation">
+                            {reservation.user.first_name}
+                          </StyledTableCell>
+                          <StyledTableCell>{reservation.user.last_name}</StyledTableCell>
+                          <StyledTableCell>{format_business_hour(reservation.time_slot)}</StyledTableCell>
+                          <StyledTableCell>{reservation.party_size}</StyledTableCell>
+                          <StyledTableCell>{reservation.restaurant.business_name}</StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
             )
-          })}
-        </Grid>
-        {reservationData.length > 0 ? (
-          <Grid item xs={12} sm={6} style={{ marginBottom: "20%" }}>
-            <TableContainer component={Paper}>
-              <Table aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>First Name</StyledTableCell>
-                    <StyledTableCell>Last Name</StyledTableCell>
-                    <StyledTableCell>Time</StyledTableCell>
-                    <StyledTableCell>Group Size</StyledTableCell>
-                    <StyledTableCell>Restaurant</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {reservationData.map((reservation, i) => (
-                    <StyledTableRow key={i}>
-                      <StyledTableCell component="th" scope="reservation">
-                        {reservation.user.first_name}
-                      </StyledTableCell>
-                      <StyledTableCell>{reservation.user.last_name}</StyledTableCell>
-                      <StyledTableCell>{format_business_hour(reservation.time_slot)}</StyledTableCell>
-                      <StyledTableCell>{reservation.party_size}</StyledTableCell>
-                      <StyledTableCell>{reservation.restaurant.business_name}</StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+              :
+              <h1>There are Currently No Reservations for your Restaurant!</h1>
+            }
           </Grid>
-        )
-          :
-          <h1>There are Currently No Reservations for your Restaurant!</h1>
-        }
-      </Grid>
-    </Box>
+        </Box>}
+    </>
   );
 }

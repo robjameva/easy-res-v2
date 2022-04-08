@@ -69,89 +69,90 @@ export default function EditRes() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Grid item xs={12} sm={12}>
-          <div className='singleBanner'>
-            <h1>Making Reservations Easy!</h1>
-          </div>
-        </Grid>
-        <Grid container component="main" sx={{ height: '85vh' }}>
-          <CssBaseline />
-          <Grid
-            item
-            xs={false}
-            sm={12}
-            md={6}
-            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
-          >
-            <img className='singleImage' src={require(`../../assets/testImg/${restaurantData.restaurant.business_image}`)}></img>
+      {loading ? <h1>Loading</h1> :
+        <ThemeProvider theme={theme}>
+          <Grid item xs={12} sm={12}>
+            <div className='singleBanner'>
+              <h1>Making Reservations Easy!</h1>
+            </div>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
-            <Box
-              sx={{
-                my: 8,
-                mx: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
+          <Grid container component="main" sx={{ height: '85vh' }}>
+            <CssBaseline />
+            <Grid
+              item
+              xs={false}
+              sm={12}
+              md={6}
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
             >
-              <Box component="form" noValidate sx={{ mt: 1 }}>
-                <Typography variant='h2'>
-                  {restaurantData.restaurant.business_name}
-                </Typography>
-                <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
-                <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
-                <Grid item xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3%' }}>
-                  <Grid item xs={12} >
-                    <InputLabel>Time</InputLabel>
-                    <Select
-                      sx={{ width: '100%' }}
-                      value={timeSlot}
-                      label="timeSlot"
-                      onChange={handleTimeChange}
-                    >
-                      {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
-                    </Select>
+              <img className='singleImage' src={require(`../../assets/testImg/${restaurantData.restaurant.business_image}`)}></img>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} component={Paper} elevation={6} square>
+              <Box
+                sx={{
+                  my: 8,
+                  mx: 4,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <Box component="form" noValidate sx={{ mt: 1 }}>
+                  <Typography variant='h2'>
+                    {restaurantData.restaurant.business_name}
+                  </Typography>
+                  <Typography variant='h4'>{restaurantData.restaurant.business_website}</Typography>
+                  <Typography variant='h6'>{restaurantData.restaurant.business_address}</Typography>
+                  <Typography variant='h6'>{restaurantData.restaurant.business_phone}</Typography>
+                  <Grid item xs={12} style={{ marginTop: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3%' }}>
+                    <Grid item xs={12} >
+                      <InputLabel>Time</InputLabel>
+                      <Select
+                        sx={{ width: '100%' }}
+                        value={timeSlot}
+                        label="timeSlot"
+                        onChange={handleTimeChange}
+                      >
+                        {restaurantData.hours.map(hour => <MenuItem key={hour} value={hour}>{hour}</MenuItem>)}
+                      </Select>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <InputLabel>Party Size</InputLabel>
+                      <Select
+                        sx={{ width: '100%' }}
+                        value={partySize}
+                        label="partySize"
+                        onChange={handlePartyChange}
+                      >
+                        <MenuItem value={1}>{1}</MenuItem>
+                        <MenuItem value={2}>{2}</MenuItem>
+                        <MenuItem value={3}>{3}</MenuItem>
+                        <MenuItem value={4}>{4}</MenuItem>
+                        <MenuItem value={5}>{5}</MenuItem>
+                        <MenuItem value={6}>{6}</MenuItem>
+                        <MenuItem value={7}>{7}</MenuItem>
+                        <MenuItem value={8}>{8}</MenuItem>
+                      </Select>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    <InputLabel>Party Size</InputLabel>
-                    <Select
-                      sx={{ width: '100%' }}
-                      value={partySize}
-                      label="partySize"
-                      onChange={handlePartyChange}
-                    >
-                      <MenuItem value={1}>{1}</MenuItem>
-                      <MenuItem value={2}>{2}</MenuItem>
-                      <MenuItem value={3}>{3}</MenuItem>
-                      <MenuItem value={4}>{4}</MenuItem>
-                      <MenuItem value={5}>{5}</MenuItem>
-                      <MenuItem value={6}>{6}</MenuItem>
-                      <MenuItem value={7}>{7}</MenuItem>
-                      <MenuItem value={8}>{8}</MenuItem>
-                    </Select>
+                  <Grid container style={{ marginTop: '10%' }}>
+                    <Grid item >
+                      {timeSlot && partySize
+                        ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
+                          Reserve
+                        </Button>
+                        :
+                        <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
+                          Reserve
+                        </Button>
+                      }
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container style={{ marginTop: '10%' }}>
-                  <Grid item >
-                    {timeSlot && partySize
-                      ? <Button onClick={handleReservation} variant="contained" endIcon={<FoodBankIcon />}>
-                        Reserve
-                      </Button>
-                      :
-                      <Button disabled variant="contained" endIcon={<FoodBankIcon />}>
-                        Reserve
-                      </Button>
-                    }
-                  </Grid>
-                </Grid>
+                </Box>
               </Box>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </ThemeProvider>
+        </ThemeProvider>}
     </>
   );
 }
